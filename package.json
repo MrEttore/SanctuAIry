@@ -1,0 +1,40 @@
+{
+  "name": "sanctuairy",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Ettore Marangon",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx --watch --env-file .env.development src/server.ts",
+    "build": "tsc",
+    "start": "node --env-file .env.production dist/src/server.js",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint ."
+  },
+  "imports": {
+    "#*": "./src/*"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "morgan": "^1.10.0",
+    "ollama": "^0.5.14"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@tsconfig/node-lts": "^22.0.1",
+    "@tsconfig/node22": "^22.0.0",
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^5.0.0",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.13.5",
+    "eslint": "^9.21.0",
+    "eslint-plugin-perfectionist": "^4.9.0",
+    "prettier": "^3.5.2",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.25.0"
+  }
+}
