@@ -11,6 +11,11 @@ export default tseslint.config(
     rules: {
       'perfectionist/sort-imports': 'off',
       'perfectionist/sort-objects': 'off',
+      'perfectionist/sort-object-types': 'off',
+      'perfectionist/sort-interfaces': 'off',
+      'perfectionist/sort-modules': 'off',
+      'perfectionist/sort-union-types': 'off',
+      'perfectionist/sort-named-imports': 'off',
     },
     ignores: ['**/*.js'],
   },
@@ -19,6 +24,7 @@ export default tseslint.config(
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
+        allowDefaultProject: true,
       },
     },
   },

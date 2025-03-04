@@ -1,5 +1,5 @@
 {
-  "name": "sanctuairy",
+  "name": "llm-manager",
   "version": "1.0.0",
   "description": "",
   "license": "ISC",
@@ -9,12 +9,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx --watch --env-file .env.development src/server.ts",
     "build": "tsc",
-    "start": "node --env-file .env.production dist/src/server.js",
+    "start": "node dist/server.js",
     "type-check": "tsc --noEmit",
     "lint": "eslint ."
-  },
-  "imports": {
-    "#*": "./src/*"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
