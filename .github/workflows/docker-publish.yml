@@ -1,4 +1,4 @@
-name: Build and Push Docker Compose Image
+name: Build and Push Docker Compose Images
 
 on:
   push:
@@ -22,10 +22,15 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and tag Docker Compose images
-        run: |
-          docker compose build
-          docker tag sanctuairy_app ${{ secrets.DOCKER_USERNAME }}/projects:sanctuairy-latest
+      - name: Build Docker Compose images
+        run: docker compose build
 
-      - name: Push Docker images to Docker Hub
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/projects:sanctuairy-latest
+      - name: Tag and Push llm-manager
+        run: |
+          docker tag llm-manager ${{ secrets.DOCKER_USERNAME }}/llm-manager:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/llm-manager:latest
+
+      - name: Tag and Push llm-core
+        run: |
+          docker tag llm-core ${{ secrets.DOCKER_USERNAME }}/llm-core:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/llm-core:latest
