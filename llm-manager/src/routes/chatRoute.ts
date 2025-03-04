@@ -6,4 +6,4 @@ export const chatRouter = express.Router();
 // Link controllers to the router.
 
 chatRouter.route('/stream').post(chatStream);
-chatRouter.route('/noStream').post(chatNoStream);
+chatRouter.route('/no-stream').post(chatNoStream);
