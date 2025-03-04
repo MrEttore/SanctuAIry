@@ -4,7 +4,7 @@ import { ollama } from '../ollama.js';
 import { TypedRequestBody } from '../types/requestTypes.js';
 import { TypedResponse } from '../types/responseTypes.js';
 
-// Model controllers
+// Controllers:
 
 export const getLocalModels = async (req: Request, res: TypedResponse<ListResponse>) => {
   try {
