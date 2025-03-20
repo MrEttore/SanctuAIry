@@ -1,0 +1,25 @@
+@use "../../../styles/variables" as *;
+
+.navigation-menu-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 500;
+
+  background-color: $primary-color-700;
+
+  &.active {
+    background-color: $primary-color-500;
+  }
+
+  &:hover {
+    background-color: $primary-color-500;
+  }
+
+  .type {
+    margin-left: 0.8rem;
+  }
+}
