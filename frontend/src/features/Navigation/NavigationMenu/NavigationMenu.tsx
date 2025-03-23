@@ -1,10 +1,10 @@
-import { Settings, SearchCheck } from "lucide-react";
-import { NavigationMenuItem } from "../NavigationMenuItem/NavigationMenuItem";
-import "./NavigationMenu.scss";
+import { Settings, SearchCheck } from 'lucide-react';
+import { NavigationMenuItem } from '../NavigationMenuItem/NavigationMenuItem';
+import './NavigationMenu.scss';
 
 const elements = [
-  { icon: <SearchCheck />, text: "Attestation", active: false },
-  { icon: <Settings />, text: "Settings", active: false },
+  { icon: <SearchCheck />, text: 'Attestation', active: false },
+  { icon: <Settings />, text: 'Settings', active: false },
 ];
 
 export function NavigationMenu() {

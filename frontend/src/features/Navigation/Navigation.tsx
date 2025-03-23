@@ -1,7 +1,7 @@
-import { Logo } from "../../ui";
-import { UserSection } from "./UserSection/UserSection";
-import { NavigationMenu } from "./NavigationMenu/NavigationMenu";
-import "./Navigation.scss";
+import { Logo } from '../../ui';
+import { UserSection } from './UserSection/UserSection';
+import { NavigationMenu } from './NavigationMenu/NavigationMenu';
+import './Navigation.scss';
 
 export function Navigation() {
   return (

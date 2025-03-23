@@ -1,5 +1,5 @@
-import { MoreVertical } from "lucide-react";
-import "./UserSection.scss";
+import { MoreVertical } from 'lucide-react';
+import './UserSection.scss';
 
 export function UserSection() {
   return (

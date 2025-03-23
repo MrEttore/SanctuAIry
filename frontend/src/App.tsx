@@ -1,10 +1,9 @@
-import { Navigation } from "./features/Navigation/Navigation";
-import { Chat } from "./features/Chat/Chat";
-import "./styles/index.scss";
+import { Navigation } from './features/Navigation/Navigation';
+import { Chat } from './features/Chat/Chat';
 
 export function App() {
   return (
-    <div className="app">
+    <div className="flex h-full w-full">
       <Navigation />
       <Chat />
     </div>
