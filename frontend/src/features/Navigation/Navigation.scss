@@ -1,9 +1,0 @@
-@use '../../styles/variables' as *;
-
-.navigation {
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-
-  background-color: $primary-color-900;
-}

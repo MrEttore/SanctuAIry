@@ -3,7 +3,7 @@ import { Chat } from './features/Chat/Chat';
 
 export function App() {
   return (
-    <div className="flex h-full w-full">
+    <div className="font-quicksand flex h-full w-full">
       <Navigation />
       <Chat />
     </div>

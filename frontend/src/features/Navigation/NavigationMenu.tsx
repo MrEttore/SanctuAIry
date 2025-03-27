@@ -1,6 +1,5 @@
 import { Settings, SearchCheck } from 'lucide-react';
-import { NavigationMenuItem } from '../NavigationMenuItem/NavigationMenuItem';
-import './NavigationMenu.scss';
+import { NavigationMenuItem } from './NavigationMenuItem';
 
 const elements = [
   { icon: <SearchCheck />, text: 'Attestation', active: false },
@@ -9,8 +8,8 @@ const elements = [
 
 export function NavigationMenu() {
   return (
-    <nav className="navigation-menu">
-      <ul className="navigation-menu-items">
+    <nav className="flex h-full flex-col px-4 py-4">
+      <ul className="flex flex-1 flex-col justify-end gap-4">
         {elements.map((element) => (
           <NavigationMenuItem
             key={element.text}

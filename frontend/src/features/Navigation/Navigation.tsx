@@ -1,11 +1,10 @@
 import { Logo } from '../../ui';
-import { UserSection } from './UserSection/UserSection';
-import { NavigationMenu } from './NavigationMenu/NavigationMenu';
-import './Navigation.scss';
+import { UserSection } from './UserSection';
+import { NavigationMenu } from './NavigationMenu';
 
 export function Navigation() {
   return (
-    <aside className="navigation">
+    <aside className="flex shrink-0 flex-col bg-teal-950">
       <Logo />
       <NavigationMenu />
       <UserSection />

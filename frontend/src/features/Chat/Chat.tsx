@@ -1,3 +1,3 @@
 export function Chat() {
-  return <div className="bg-primary-700 flex-1"></div>;
+  return <div className="flex-1 bg-lime-100"></div>;
 }
