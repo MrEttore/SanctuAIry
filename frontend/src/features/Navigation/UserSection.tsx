@@ -14,7 +14,14 @@ export function UserSection() {
           <span className="text-2xl font-bold uppercase">John Doe</span>
           <span className="text-lg font-medium">john.doe@gmail.com</span>
         </div>
-        <MoreVertical size={30} />
+        <button
+          className="cursor-pointer rounded-full p-2 transition-all duration-300 hover:bg-teal-900"
+          onClick={() => {
+            console.log('Click!');
+          }}
+        >
+          <MoreVertical size={30} />
+        </button>
       </div>
     </div>
   );
