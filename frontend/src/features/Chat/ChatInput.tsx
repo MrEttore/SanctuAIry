@@ -12,7 +12,7 @@ export default function ChatInput() {
         onSubmit={handleSubmit}
       >
         <textarea
-          className="flex-1 resize-none overflow-scroll p-4 text-teal-50 placeholder:text-base focus:outline-none"
+          className="scrollbar scrollbar-thumb-[#ffdcc6]/50 scrollbar-track-teal-900 flex-1 resize-none overflow-scroll overflow-x-hidden overflow-y-auto p-4 text-teal-50 placeholder:text-base focus:outline-none"
           rows={1}
           placeholder="Ask me something ..."
         />
