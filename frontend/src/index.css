@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-quicksand: 'Quicksand', sans-serif;
+
+  /* Palette 1 */
+  /* --color-primary-500: #673ab7;
+  --color-primary-600: #5e35b1;
+  --color-primary-700: #512da8;
+  --color-primary-900: #311b92;
+
+  --color-secondary-50: #f3fae6;
+  --color-secondary-100: #e1f0c1;
+  --color-secondary-200: #cee899;
+  --color-secondary-300: #bbde71;
+  --color-secondary-400: #aed753;
+  --color-secondary-500: #a2d035;
+  --color-secondary-600: #98bf2e;
+  --color-secondary-700: #8aa924;
+  --color-secondary-800: #7c921b;
+  --color-secondary-900: #656c09; */
+
+  /* Palette 2 */
+  /* ... */
+}
