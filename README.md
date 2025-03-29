@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./design/Logo-Teal-50.svg" width="300"/>
+</p>
+
 # SanctuAIry
 
 **SanctuAIry** is a privacy-first, AI-powered mental health companion. It leverages large language models (LLMs) to simulate therapeutic conversations while prioritizing user confidentiality and data security.
