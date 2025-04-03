@@ -1,4 +1,4 @@
-import { LlmSelector } from '../Llm/LlmSelector';
+import { LlmSelector } from '../Llm/LLMSelector';
 import { models } from '../../dev-data/models';
 
 export default function ChatHeader() {
