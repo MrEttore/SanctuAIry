@@ -1,6 +1,5 @@
 import { ChevronUp, ChevronDown, Info } from 'lucide-react';
 import { useState } from 'react';
-import { Model } from '../../types/LLM';
 
 type Props = {
   options: Model[];
