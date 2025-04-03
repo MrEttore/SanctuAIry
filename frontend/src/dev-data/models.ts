@@ -1,4 +1,4 @@
-import { Model } from '../types/LLM';
+import { Model } from '../types/llm';
 
 export const models: Model[] = [
   {
