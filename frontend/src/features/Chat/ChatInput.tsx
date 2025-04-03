@@ -8,7 +8,7 @@ export default function ChatInput() {
   return (
     <div className="px-4">
       <form
-        className="mx-auto my-4 flex max-w-5xl items-center rounded-3xl bg-teal-900 px-1 py-4 shadow-md shadow-teal-900/50 transition-all duration-300 focus-within:-translate-y-1 focus-within:bg-teal-950"
+        className="mx-auto my-4 flex max-w-5xl items-center rounded-3xl bg-teal-900 px-1 py-4 shadow-md shadow-teal-900/50 transition-all duration-300 focus-within:-translate-y-1"
         onSubmit={handleSubmit}
       >
         <textarea
