@@ -1,10 +1,10 @@
-import { LLMSelector } from '../LLM/LLMSelector';
+import { LlmSelector } from '../Llm/LlmSelector';
 import { models } from '../../dev-data/models';
 
 export default function ChatHeader() {
   return (
     <header className="flex bg-teal-900 p-3">
-      <LLMSelector options={models} />
+      <LlmSelector options={models} />
     </header>
   );
 }
