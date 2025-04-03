@@ -1,11 +1,12 @@
 import { ChevronUp, ChevronDown, Info } from 'lucide-react';
 import { useState } from 'react';
+import { Model } from '../../types/llm';
 
 type Props = {
   options: Model[];
 };
 
-export function LLMSelector({ options }: Props) {
+export function LlmSelector({ options }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [model, setModel] = useState(options[0].name);
 
