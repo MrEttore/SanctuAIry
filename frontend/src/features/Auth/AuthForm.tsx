@@ -81,7 +81,7 @@ export function AuthForm({ loginAsGuest }: Props) {
                 )}
 
                 {error && (
-                    <p className="flex items-center gap-2 rounded-xl border-2 border-orange-400 bg-orange-300 p-2 text-center text-sm text-orange-950">
+                    <p className="animate-fade-in flex items-center gap-2 rounded-xl border-2 border-orange-400 bg-orange-300 p-2 text-center text-sm text-orange-950">
                         <TriangleAlert />
                         {error}
                     </p>
