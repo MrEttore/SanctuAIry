@@ -6,7 +6,7 @@ type Props = {
     setValue: (value: string) => void;
 };
 
-export function InputAuth({
+export function AuthInput({
     label,
     placeholder,
     type,
