@@ -1,8 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 // import { useQuery } from '@tanstack/react-query';
 
-import { Auth } from './pages/Auth';
-import { Main } from './pages/Main';
+import { AppLayout, Chat, User, Auth } from './pages';
 
 export function App() {
     return (

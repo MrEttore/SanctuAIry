@@ -1,7 +1,7 @@
 import { SendHorizontal } from 'lucide-react';
 import { useState } from 'react';
 
-export default function ChatInput() {
+export function ChatInput() {
     const [input, setInput] = useState('');
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
