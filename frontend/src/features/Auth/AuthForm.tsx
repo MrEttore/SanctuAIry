@@ -43,7 +43,7 @@ export function AuthForm({ loginAsGuest }: Props) {
         };
 
         dispatch(setUser(guestUser));
-        navigate('/chat');
+        navigate('/app');
     }
 
     return (
