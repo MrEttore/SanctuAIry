@@ -8,7 +8,12 @@ export function App() {
         <div className="font-quicksand flex h-full w-full">
             <Routes>
                 <Route path="/login" element={<Auth />} />
-                <Route path="/chat" element={<Main />} />
+
+                {/* TODO: Add <ProtectedRoute/> */}
+                <Route path="/app" element={<AppLayout />}>
+                    <Route path="chat" element={<Chat />} />
+                    <Route path="user" element={<User />} />
+                </Route>
             </Routes>
         </div>
     );
