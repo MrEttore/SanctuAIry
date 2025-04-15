@@ -1,6 +1,6 @@
 import { Logo } from '../../ui';
 import { NavigationMenu } from './NavigationMenu';
-import { UserSummary } from '../User/UserSummary';
+import { UserSummary } from '../User';
 
 export function Navigation() {
     return (
