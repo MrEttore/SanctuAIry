@@ -16,7 +16,7 @@ export function LlmSelector({ options }: Props) {
     };
 
     return (
-        <div className="relative inline-block text-left">
+        <div className="relative inline-block self-center text-left">
             <button
                 className="inline-flex cursor-pointer items-center justify-center space-x-2 rounded-xl px-4 py-2 text-2xl text-teal-50 transition-all duration-300 hover:bg-teal-800 hover:font-medium"
                 onClick={() => setIsOpen(!isOpen)}
@@ -26,7 +26,7 @@ export function LlmSelector({ options }: Props) {
             </button>
 
             {isOpen && (
-                <div className="absolute z-10 mt-4 w-96 overflow-hidden rounded-xl bg-teal-900 py-2 shadow-md">
+                <div className="absolute z-10 mt-6 w-96 overflow-hidden rounded-xl bg-teal-900 py-2 shadow-md">
                     <ul className="text-teal-50">
                         {options.map((option) => (
                             <li>
