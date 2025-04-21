@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 // import { useQuery } from '@tanstack/react-query';
 
-import { AppLayout, Chat, User, Auth } from './pages';
+import { AppLayout, Chat, User, Auth, Attestation } from './pages';
 
 export function App() {
     return (
@@ -13,6 +13,7 @@ export function App() {
                 <Route path="/app" element={<AppLayout />}>
                     <Route path="chat" element={<Chat />} />
                     <Route path="user" element={<User />} />
+                    <Route path="attestation" element={<Attestation />} />
                 </Route>
             </Routes>
         </div>
