@@ -5,7 +5,6 @@ import {
     LoaderCircle,
     CircleX,
 } from 'lucide-react';
-import 'react-loading-skeleton/dist/skeleton.css';
 import { useState } from 'react';
 import { Model } from '../../types/llm';
 import { useQuery } from '@tanstack/react-query';
