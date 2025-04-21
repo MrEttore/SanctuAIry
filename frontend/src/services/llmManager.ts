@@ -3,6 +3,7 @@ const LLM_MANAGER_URL = import.meta.env.VITE_LLM_MANAGER_URL;
 // TODO: Refactor using Axios.
 // TODO: Add error handling.
 
+// Gets the available models from the llm-core
 export async function getModels() {
     try {
         const response = await fetch(`${LLM_MANAGER_URL}/api/v1/models`);

@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { ShieldCheck, ShieldX } from 'lucide-react';
 import { useSelector } from 'react-redux';
-import { getLlm } from '../../redux/slices/llmSlice';
+import { getModel } from '../../redux/slices/llmSlice';
 
 export function AttestationSummary() {
-    const llm = useSelector(getLlm);
+    const llm = useSelector(getModel);
     const [isTrusted, setIsTrusted] = useState<boolean>(true);
 
     return (
