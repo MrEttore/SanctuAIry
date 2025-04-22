@@ -1,5 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
-// import { useQuery } from '@tanstack/react-query';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { AppLayout, Chat, User, Auth, Attestation } from './pages';
 
@@ -7,6 +6,7 @@ export function App() {
     return (
         <div className="font-quicksand flex h-full w-full">
             <Routes>
+                <Route path="/" element={<Navigate to="/login" replace />} />
                 <Route path="/login" element={<Auth />} />
 
                 {/* TODO: Add <ProtectedRoute/> */}
