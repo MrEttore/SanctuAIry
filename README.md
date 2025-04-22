@@ -78,7 +78,7 @@ SanctuAIry is a **work in progress**. The app is under constant iteration with n
 
 To start all services locally using Docker Compose, follow these steps:
 
-1. **Prerequisites**: Ensure Docker (>=20.10) and Docker Compose (v2+) are installed on your machine.
+1. **Prerequisites**: Ensure Docker and Docker Compose are installed on your machine.
 2. **Environment**: Copy the example environment file and update the URLs if necessary:
     ```bash
     cp .env.example .env
@@ -90,7 +90,9 @@ To start all services locally using Docker Compose, follow these steps:
     # OLLAMA_MAX_LOADED_MODELS=2
     ```
 3. **Build & Start**: From the project root, run:
-   ´docker-compose up --build´
+   ```bash
+   docker-compose up
+   ```
 
 ---
 
