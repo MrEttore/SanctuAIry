@@ -2,7 +2,7 @@ import { ChatHeader, ChatMessages, ChatInput } from '../features/Chat';
 
 export function Chat() {
     return (
-        <main className="flex w-full flex-col bg-teal-50">
+        <main className="flex flex-1 flex-col bg-gradient-to-r from-teal-950 from-2% to-slate-800 to-95%">
             <ChatHeader />
             <ChatMessages />
             <ChatInput />

@@ -10,7 +10,7 @@ export function AttestationSummary() {
     return (
         <div className="mx-3">
             <div
-                className={`space-y-4 rounded-2xl border-2 bg-slate-100 p-2 shadow-md ${isTrusted ? 'border-teal-900/50' : 'border-red-800/50'} `}
+                className={`space-y-4 rounded-2xl border-2 bg-slate-200 p-2 shadow-md ${isTrusted ? 'border-teal-900/50' : 'border-red-800/50'} `}
             >
                 <div className="flex justify-between">
                     <div

@@ -7,7 +7,7 @@ export function UserSummary() {
     const { username, email } = useSelector((state: RootState) => state.user);
 
     return (
-        <div className="flex border-t-3 border-teal-50 p-4">
+        <div className="m-2 flex rounded-3xl bg-teal-900/40 p-4">
             <ProfilePicture />
             <div className="flex flex-1 items-center justify-between text-teal-50">
                 <div className="flex flex-col gap-2">
