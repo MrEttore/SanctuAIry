@@ -21,19 +21,24 @@ The app aims to provide an empathetic, intelligent, and responsive AI therapist 
 SanctuAIry is built with a modular architecture, composed of the following key components:
 
 ### Frontend
+
 A clean and responsive user interface built with **React**, enabling users to interact with their AI therapist in a seamless way.
 
 ### LLM Manager
+
 A backend service layer that:
-- Routes user input to the appropriate LLM instance
-- Manages session context and conversation flow
-- Handles model selection, loading, and creation
+
+-   Routes user input to the appropriate LLM instance
+-   Manages session context and conversation flow
+-   Handles model selection, loading, and creation
 
 ### LLM Core
+
 The brain of the application, where the actual LLM runs:
-- Currently utilizes **Meta’s LLama 3.2**
-- Runs in a secured environment to ensure data isolation and confidentiality
-- Designed for performance, context awareness, and therapeutic alignment
+
+-   Currently utilizes **Meta’s LLama 3.2**
+-   Runs in a secured environment to ensure data isolation and confidentiality
+-   Designed for performance, context awareness, and therapeutic alignment
 
 ---
 
@@ -41,11 +46,11 @@ The brain of the application, where the actual LLM runs:
 
 SanctuAIry is committed to privacy by design:
 
-- All processing is planned to occur in **confidential virtual machines** with hardware-backed security guarantees
-- End-to-end encryption for data in transit, in use, and at rest
-- Further planed privancy features:
-  - GDPR compliance
-  - User-defined data retention and deletion policies
+-   All processing is planned to occur in **confidential virtual machines** with hardware-backed security guarantees
+-   End-to-end encryption for data in transit, in use, and at rest
+-   Further planed privancy features:
+    -   GDPR compliance
+    -   User-defined data retention and deletion policies
 
 ---
 
@@ -54,17 +59,38 @@ SanctuAIry is committed to privacy by design:
 SanctuAIry is a **work in progress**. The app is under constant iteration with new features and improvements being added weekly.
 
 ### Current Focus:
-- Improving UI/UX flow and emotional design
-- Fine-tuning models for therapy-specific language
-- Security hardening and compliance readiness
+
+-   Improving UI/UX flow and emotional design
+-   Fine-tuning models for therapy-specific language
+-   Security hardening and compliance readiness
 
 ---
 
 ## 📦 Tech Stack
 
-- **Frontend**: React and TailwindCSS
-- **LLM Manager**: Node.js and Express
-- **LLM Core**: Ollama, using Meta's LLama 3.2
+-   **Frontend**: React and TailwindCSS
+-   **LLM Manager**: Node.js and Express
+-   **LLM Core**: Ollama, using Meta's LLama 3.2
+
+---
+
+## 🚀 Running Locally with Docker Compose
+
+To start all services locally using Docker Compose, follow these steps:
+
+1. **Prerequisites**: Ensure Docker (>=20.10) and Docker Compose (v2+) are installed on your machine.
+2. **Environment**: Copy the example environment file and update the URLs if necessary:
+    ```bash
+    cp .env.example .env
+    # .env:
+    # VITE_LLM_MANAGER_URL=http://llm-manager:3000
+    # LLM_CORE_URL=http://llm-core:11434
+    # NODE_ENV=development
+    # PORT=3000
+    # OLLAMA_MAX_LOADED_MODELS=2
+    ```
+3. **Build & Start**: From the project root, run:
+   ´docker-compose up --build´
 
 ---
 
@@ -80,5 +106,5 @@ See the [`LICENSE`](./LICENSE) file (when available) for future updates.
 
 ## 🙏 Acknowledgements
 
-- Meta AI for the open-source LLama models
-- The open-source community for tools and inspiration ❤️
+-   Meta AI for the open-source LLama models
+-   The open-source community for tools and inspiration ❤️
