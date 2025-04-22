@@ -11,7 +11,7 @@ export function ChatInput() {
     return (
         <div className="px-4">
             <form
-                className="mx-auto my-4 flex max-w-5xl items-center rounded-3xl bg-teal-900 px-1 py-4 shadow-md shadow-teal-900/50 transition-all duration-300 focus-within:-translate-y-1"
+                className="mx-auto my-4 flex max-w-5xl items-center rounded-3xl bg-teal-900/40 px-1 py-4 transition-all duration-300 focus-within:-translate-y-1"
                 onSubmit={handleSubmit}
             >
                 <textarea
@@ -23,7 +23,7 @@ export function ChatInput() {
                         setInput(e.target.value);
                     }}
                 />
-                <button className="focus-within:scrollbar-track-teal-900 mr-4 cursor-pointer rounded-full p-3 text-teal-50 transition-all duration-300 hover:bg-teal-700 focus:ring-2 focus:outline-none">
+                <button className="focus-within:scrollbar-track-teal-900 mr-4 cursor-pointer rounded-full p-3 text-teal-50 transition-all duration-300 hover:bg-teal-900 focus:ring-2 focus:outline-none">
                     <SendHorizontal size={25} />
                 </button>
             </form>

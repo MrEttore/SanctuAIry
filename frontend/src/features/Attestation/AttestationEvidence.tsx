@@ -4,7 +4,7 @@ import { attestationEvidence } from '../../dev-data/attestation-evidence';
 export function AttestationEvidence() {
     return (
         <div className="mx-3">
-            <div className="flex max-h-[500px] flex-col rounded-2xl border-2 border-teal-900/50 bg-slate-100 p-2 shadow-md">
+            <div className="flex max-h-[500px] flex-col rounded-2xl border-2 border-teal-900/50 bg-slate-200 p-2 shadow-md">
                 <div className="flex items-center justify-between">
                     <p className="py-1 text-2xl font-semibold text-teal-950">
                         Evidence

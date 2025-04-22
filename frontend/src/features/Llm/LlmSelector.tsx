@@ -38,7 +38,7 @@ export function LlmSelector() {
 
     if (isError)
         return (
-            <span className="flex items-center self-center rounded-md bg-red-700 px-4 py-2 text-teal-50">
+            <span className="flex items-center self-center rounded-xl bg-red-700/60 px-4 py-2 text-teal-50">
                 <CircleX className="mr-2" />
                 Error loading available models
             </span>
@@ -56,6 +56,11 @@ export function LlmSelector() {
 
             {isOpen && (
                 <div className="absolute z-10 mt-6 w-96 overflow-hidden rounded-xl bg-teal-900 py-2 shadow-md">
+                    {!models.length && (
+                        <p className="px-4 py-2 text-teal-50">
+                            No models available
+                        </p>
+                    )}
                     <ul className="text-teal-50">
                         {models.map((model) => (
                             <li key={model.name}>
