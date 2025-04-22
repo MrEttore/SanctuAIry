@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { AppLayout, Chat, User, Auth, Attestation } from './pages';
+import { AppLayout, Chat, User, Auth, Attestation, Overview } from './pages';
 
 export function App() {
     return (
@@ -11,6 +11,7 @@ export function App() {
 
                 {/* TODO: Add <ProtectedRoute/> */}
                 <Route path="/app" element={<AppLayout />}>
+                    <Route index element={<Overview />} />
                     <Route path="chat" element={<Chat />} />
                     <Route path="user" element={<User />} />
                     <Route path="attestation" element={<Attestation />} />
