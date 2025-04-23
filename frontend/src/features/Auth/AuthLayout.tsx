@@ -7,7 +7,7 @@ type Props = {
 
 export function AuthLayout({ title, children }: Props) {
     return (
-        <div className="flex w-full flex-col bg-linear-to-bl from-teal-900 to-green-800">
+        <div className="flex w-full flex-col bg-linear-to-tr from-teal-950 from-50% to-slate-700">
             <div className="flex h-1/4 items-center justify-center">
                 <Logo />
             </div>
