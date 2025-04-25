@@ -1,5 +1,6 @@
 export * from './AttestationHeader';
 export * from './AttestationSummary';
+export * from './AttestationTimeline';
 export * from './AttestationEvidence';
-export * from './VerificationLog';
 export * from './ImageVerification';
+export * from './IssueChallengeForm';
