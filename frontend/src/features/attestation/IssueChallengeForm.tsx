@@ -19,8 +19,8 @@ type Props = {
 export function IssueChallengeForm({ onClose }: Props) {
     const dispatch: AppDispatch = useDispatch();
     const { isPending, mutate } = useMutation({
-        mutationFn: getQuote,
         mutationKey: ['sendChallenge'],
+        mutationFn: getQuote,
         onSuccess: (response) => {
             const { data: quote } = response.data;
 

@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userSlice from './slices/userSlice';
-import llmSlice from './slices/llmSlice';
+import chatSlice from './slices/chatSlice';
 import attestatationSlice from './slices/attestationSlice';
 
 export const store = configureStore({
     reducer: {
         user: userSlice,
-        llm: llmSlice,
+        chat: chatSlice,
         attestation: attestatationSlice,
     },
 });

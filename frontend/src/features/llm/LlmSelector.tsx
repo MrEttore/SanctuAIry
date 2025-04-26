@@ -10,11 +10,11 @@ import { Model } from '../../types/llm';
 import { useQuery } from '@tanstack/react-query';
 import { getModels } from '../../services/llmManager';
 import { useDispatch, useSelector } from 'react-redux';
-import { getModel, selectModel } from '../../redux/slices/llmSlice';
+import { getModel, selectModel } from '../../redux/slices/chatSlice';
 
 export function LlmSelector() {
     const [isOpen, setIsOpen] = useState(false);
-    const { name } = useSelector(getModel);
+    const model = useSelector(getModel);
     const dispatch = useDispatch();
     const { isPending, isError, data } = useQuery({
         queryKey: ['llm-models'],
@@ -47,11 +47,13 @@ export function LlmSelector() {
     return (
         <div className="relative inline-block self-center text-left">
             <button
-                className="inline-flex cursor-pointer items-center justify-center space-x-2 rounded-xl bg-teal-800 px-4 py-2 text-2xl text-teal-50 transition-all duration-300 hover:bg-teal-700"
+                className="inline-flex cursor-pointer items-center justify-center space-x-2 rounded-xl bg-teal-800 px-4 py-2 text-teal-50 transition-all duration-300 hover:bg-teal-700"
                 onClick={() => setIsOpen(!isOpen)}
             >
                 {isOpen ? <ChevronDown /> : <ChevronUp />}
-                <span>{name}</span>
+                <span className="text-xl">
+                    {model?.name ?? 'Select a model to start'}
+                </span>
             </button>
 
             {isOpen && (
