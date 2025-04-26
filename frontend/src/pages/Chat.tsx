@@ -1,4 +1,4 @@
-import { ChatHeader, ChatMessages, ChatInput } from '../features/Chat';
+import { ChatHeader, ChatMessages, ChatInput } from '../features/chat';
 
 export function Chat() {
     return (
