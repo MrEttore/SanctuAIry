@@ -4,7 +4,7 @@ import {
     AttestationSummary,
     AttestationTimeline,
     ImageVerification,
-} from '../features/Attestation';
+} from '../features/attestation';
 
 export function Attestation() {
     return (
