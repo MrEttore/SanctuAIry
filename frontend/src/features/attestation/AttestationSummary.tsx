@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { ShieldCheck, ShieldX, ShieldQuestion, RefreshCw } from 'lucide-react';
 import { useSelector } from 'react-redux';
-import { getModel } from '../../redux/slices/llmSlice';
+import { getModel } from '../../redux/slices/chatSlice';
 import { TrustStatus } from '../../types/attestation';
 
 export function AttestationSummary() {
-    const llm = useSelector(getModel);
+    const model = useSelector(getModel);
     const [trustStatus, setTrustStatus] = useState<TrustStatus>(
         TrustStatus.UNKNOWN,
     );
@@ -47,10 +47,8 @@ export function AttestationSummary() {
                         <p className="font-semibold">LLM model used:</p>
                     </div>
                     <div className="flex gap-4">
-                        <p>{llm.name}</p>
-                        <span>
-                            (sha256:5b1c97e01e3bf873b71a9abaf10d6cfe3df26937791e84657e231b10f83ca03b)
-                        </span>
+                        <p>{model?.name}</p>
+                        <span>(sha256:5b1c97e01...)</span>
                     </div>
                     <div>
                         <p className="font-semibold">TEE provider: </p>

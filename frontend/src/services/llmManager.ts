@@ -16,7 +16,15 @@ export async function getModels() {
     }
 }
 
-export async function sendPromptNoStream(prompt: string) {
+type sendPromptNoStreamPayload = {
+    prompt: string;
+    model: string;
+};
+
+export async function sendPromptNoStream({
+    prompt,
+    model,
+}: sendPromptNoStreamPayload) {
     try {
         const response = await fetch(
             `${LLM_MANAGER_URL}/api/v1/chat/no-stream`,
@@ -26,7 +34,7 @@ export async function sendPromptNoStream(prompt: string) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    model: 'sanctuairy-model:latest',
+                    model,
                     messages: [
                         {
                             role: 'user',
