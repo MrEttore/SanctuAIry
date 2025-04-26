@@ -1,10 +1,20 @@
-import { Circle, CircleCheck, CircleX, Handshake } from 'lucide-react';
+import {
+    Circle,
+    CircleCheck,
+    CircleX,
+    CircleHelp,
+    Handshake,
+} from 'lucide-react';
 import { IssueChallengeForm } from './IssueChallengeForm';
 import { useState } from 'react';
 import { Modal } from '../../ui';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 
+/**
+ * This component implements the Transparency Requirements (T1-T3) of the framework.
+ *
+ */
 export function AttestationTimeline() {
     const { issuedChallenge, attestationQuote } = useSelector(
         (state: RootState) => state.attestation,
@@ -23,7 +33,7 @@ export function AttestationTimeline() {
         <>
             <div className="mx-3">
                 <div className="flex flex-col space-y-6 rounded-2xl bg-slate-100 p-4 py-2 shadow-md">
-                    <div className="">
+                    <div className="flex items-end justify-between">
                         <button
                             className="flex h-10 cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-slate-600 px-4 font-medium text-slate-200 transition-colors duration-300 hover:bg-slate-700 hover:shadow-md"
                             onClick={() => {
@@ -32,6 +42,14 @@ export function AttestationTimeline() {
                         >
                             <Handshake size={20} />
                             START ATTESTATION
+                        </button>
+
+                        <button
+                            className="flex cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-slate-600 px-3 py-1 font-medium text-slate-200 transition-colors duration-300 hover:bg-slate-700 hover:shadow-md"
+                            onClick={() => {}} // TODO: Open modal with information about the process.
+                        >
+                            <CircleHelp size={18} />
+                            How it works
                         </button>
 
                         {/* TODO: Attestation not available when no communication with backend. */}
