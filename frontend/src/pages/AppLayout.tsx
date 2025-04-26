@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
-import { Navigation } from '../features/Navigation';
+import { Navigation } from '../features/navigation';
 
 export function AppLayout() {
     return (
