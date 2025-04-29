@@ -27,7 +27,7 @@ export function Modal({ isOpen, onClose, title, children }: Props) {
             aria-modal="true"
             aria-labelledby="modal-title"
         >
-            <div className="relative w-1/3 space-y-10 rounded-xl bg-slate-100 p-3 shadow-2xl">
+            <div className="relative max-w-1/2 min-w-1/3 space-y-10 rounded-xl bg-slate-100 p-3 shadow-2xl">
                 <h2
                     id="modal-title"
                     className="text-xl font-bold text-slate-900 uppercase"

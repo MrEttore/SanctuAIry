@@ -3,7 +3,7 @@ import { ChallengeGenerationMode } from '../../types/attestation';
 import { Wand, TriangleAlert, X, Loader } from 'lucide-react';
 import { generateAttestationChallenge } from '../../utils/attestation';
 import { useMutation } from '@tanstack/react-query';
-import { getQuote } from '../../services/attester';
+import { getTdxQuote } from '../../services/attester';
 import { useDispatch } from 'react-redux';
 import {
     setAttestationQuote,
@@ -20,20 +20,18 @@ export function IssueChallengeForm({ onClose }: Props) {
     const dispatch: AppDispatch = useDispatch();
     const { isPending, mutate } = useMutation({
         mutationKey: ['sendChallenge'],
-        mutationFn: getQuote,
+        mutationFn: getTdxQuote,
+        onMutate: () => {
+            dispatch(updateStep('pending'));
+        },
         onSuccess: (response) => {
-            const { data: quote } = response.data;
+            const { quote } = response.data;
 
-            // Dispatch to Redux
             dispatch(setIssuedChallenge(challenge));
-            dispatch(setAttestationQuote(quote)); // TODO: Bug: quote is not setted in redux state.
+            dispatch(setAttestationQuote(quote));
             dispatch(updateStep('done'));
-
             setChallenge('');
-
             onClose?.();
-
-            console.log(response);
 
             // Optionally invalidate any related queries
             // ...
@@ -41,8 +39,10 @@ export function IssueChallengeForm({ onClose }: Props) {
             // Maybe show a toast
             // toast.success('Challenge issued!');
         },
-        onError: (error) => {
-            console.log(error);
+        onError: () => {
+            dispatch(updateStep('error'));
+            setChallenge('');
+            onClose?.();
         },
     });
 

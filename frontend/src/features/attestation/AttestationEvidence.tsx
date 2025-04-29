@@ -1,10 +1,10 @@
 import { JsonEditor } from 'json-edit-react';
 import { attestationEvidence } from '../../dev-data/attestation-evidence';
 import { useMutation } from '@tanstack/react-query';
-import { getQuote } from '../../services/attester';
+import { getTdxQuote } from '../../services/attester';
 
 export function AttestationEvidence() {
-    const mutation = useMutation({ mutationFn: getQuote });
+    const mutation = useMutation({ mutationFn: getTdxQuote });
 
     return (
         <div className="mx-3">
