@@ -1,6 +1,7 @@
+import { LoaderCircle } from 'lucide-react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { LoaderCircle } from 'lucide-react';
+
 import { RootState } from '../redux/store';
 
 export function ProfilePicture() {

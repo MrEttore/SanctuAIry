@@ -1,6 +1,7 @@
-import { JsonEditor } from 'json-edit-react';
-import { attestationEvidence } from '../../dev-data/attestation-evidence';
 import { useMutation } from '@tanstack/react-query';
+import { JsonEditor } from 'json-edit-react';
+
+import { attestationEvidence } from '../../dev-data/attestation-evidence';
 import { getTdxQuote } from '../../services/attester';
 
 export function AttestationEvidence() {

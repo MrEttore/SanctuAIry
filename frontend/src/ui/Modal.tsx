@@ -1,6 +1,6 @@
+import { X } from 'lucide-react';
 import { ReactNode, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { X } from 'lucide-react';
 
 type Props = {
     isOpen: boolean;

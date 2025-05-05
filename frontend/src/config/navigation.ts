@@ -1,4 +1,5 @@
 import { MessageCircle, SearchCheck, Settings } from 'lucide-react';
+
 import { NavigationItem } from '../types/navigation';
 
 export const navigationItems: NavigationItem[] = [

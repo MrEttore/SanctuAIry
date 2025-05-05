@@ -1,7 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
+import { Chat } from '../../types/chat';
 import { Model } from '../../types/llm';
 import { RootState } from '../store';
-import { Chat } from '../../types/chat';
 
 const initialState: Chat = {
     currentPrompt: null,

@@ -1,12 +1,12 @@
+import { TriangleAlert } from 'lucide-react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { TriangleAlert } from 'lucide-react';
 
-import { AppDispatch } from '../../redux/store';
 import { setUser } from '../../redux/slices/userSlice';
-import { AuthInput } from './AuthInput';
+import { AppDispatch } from '../../redux/store';
 import { User } from '../../types/user';
+import { AuthInput } from './AuthInput';
 
 type Props = {
     loginAsGuest: boolean;
