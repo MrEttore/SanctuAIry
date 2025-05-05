@@ -1,4 +1,5 @@
-import { Circle, CircleCheck, CircleX, CircleDashed } from 'lucide-react';
+import { Circle, CircleCheck, CircleDashed, CircleX } from 'lucide-react';
+
 import { ModalType } from '../../types/ui';
 
 type Props = {

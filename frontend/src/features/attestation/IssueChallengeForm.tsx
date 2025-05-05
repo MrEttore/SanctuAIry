@@ -1,16 +1,17 @@
-import { useState } from 'react';
-import { ChallengeGenerationMode } from '../../types/attestation';
-import { Wand, TriangleAlert, X, Loader } from 'lucide-react';
-import { generateAttestationChallenge } from '../../utils/attestation';
 import { useMutation } from '@tanstack/react-query';
-import { getTdxQuote } from '../../services/attester';
+import { Loader, TriangleAlert, Wand, X } from 'lucide-react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+
 import {
     setAttestationQuote,
     setIssuedChallenge,
     updateStep,
 } from '../../redux/slices/attestationSlice';
 import { AppDispatch } from '../../redux/store';
+import { getTdxQuote } from '../../services/attester';
+import { ChallengeGenerationMode } from '../../types/attestation';
+import { generateAttestationChallenge } from '../../utils/attestation';
 
 type Props = {
     onClose: () => void;

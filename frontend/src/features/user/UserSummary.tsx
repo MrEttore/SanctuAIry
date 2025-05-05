@@ -1,5 +1,6 @@
-import { useSelector } from 'react-redux';
 import { MoreVertical } from 'lucide-react';
+import { useSelector } from 'react-redux';
+
 import { RootState } from '../../redux/store';
 import { ProfilePicture } from '../../ui';
 

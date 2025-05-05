@@ -5,13 +5,14 @@ import {
     CircleHelp,
     Handshake,
 } from 'lucide-react';
-import { IssueChallengeForm } from './IssueChallengeForm';
 import { useState } from 'react';
-import { Modal } from '../../ui';
 import { useSelector } from 'react-redux';
+
 import { RootState } from '../../redux/store';
 import { ModalType } from '../../types/ui';
+import { Modal } from '../../ui';
 import { AttestationStep } from './AttestationStep';
+import { IssueChallengeForm } from './IssueChallengeForm';
 
 /**
  * This component implements the Transparency Requirements (T1-T3) of the framework.

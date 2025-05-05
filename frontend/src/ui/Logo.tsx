@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+
 import logo from '../assets/Logo-Teal-50.svg';
 
 type Props = {

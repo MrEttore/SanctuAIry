@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { AppLayout, Chat, User, Auth, Attestation, Overview } from './pages';
+import { AppLayout, Attestation, Auth, Chat, Overview, User } from './pages';
 
 export function App() {
     return (

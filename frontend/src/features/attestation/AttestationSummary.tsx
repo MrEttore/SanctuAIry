@@ -1,6 +1,7 @@
+import { RefreshCw, ShieldCheck, ShieldQuestion, ShieldX } from 'lucide-react';
 import { useState } from 'react';
-import { ShieldCheck, ShieldX, ShieldQuestion, RefreshCw } from 'lucide-react';
 import { useSelector } from 'react-redux';
+
 import { getModel } from '../../redux/slices/chatSlice';
 import { TrustStatus } from '../../types/attestation';
 

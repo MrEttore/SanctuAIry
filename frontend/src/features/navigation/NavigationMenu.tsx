@@ -1,5 +1,5 @@
-import { NavigationMenuItem } from './NavigationMenuItem';
 import { navigationItems } from '../../config/navigation';
+import { NavigationMenuItem } from './NavigationMenuItem';
 
 export function NavigationMenu() {
     return (

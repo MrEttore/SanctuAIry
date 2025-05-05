@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
-import { SendHorizontal, LoaderCircle } from 'lucide-react';
+import { LoaderCircle, SendHorizontal } from 'lucide-react';
 import { useState } from 'react';
+
 import { sendPromptNoStream } from '../../services/llmManager';
 
 export function ChatInput() {
