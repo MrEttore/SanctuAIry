@@ -5,7 +5,7 @@ const ATTESTER_URL = import.meta.env.VITE_ATTESTER_URL;
 
 export async function getTdxQuote(challenge: string) {
     try {
-        const response = await fetch(`${ATTESTER_URL}/attest/tdx`, {
+        const response = await fetch(`${ATTESTER_URL}/evidence/tdx-quote`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ export async function getTdxQuote(challenge: string) {
 
 export async function getVtpmQuote(challenge: string) {
     try {
-        const response = await fetch(`${ATTESTER_URL}/attest/vtpm`, {
+        const response = await fetch(`${ATTESTER_URL}/evidence/vtpm-quote`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
