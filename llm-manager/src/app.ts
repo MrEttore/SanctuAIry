@@ -3,6 +3,8 @@ import morgan from 'morgan';
 import cors from 'cors';
 import { modelRouter } from './routes/modelRoute.js';
 import { chatRouter } from './routes/chatRoute.js';
+import { AppError } from './utils/AppError.js';
+import { globalErrorHandler } from './middlewares/globalErrorHandler.js';
 
 export const app = express();
 
@@ -20,10 +22,16 @@ app.use(
 );
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('SanctuAIry is running');
+  res.send('Llm manager is running');
 });
 
 // Mount routers
 
 app.use('/api/v1/models', modelRouter);
 app.use('/api/v1/chat', chatRouter);
+
+app.all('*', (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server.`, 404));
+});
+
+app.use(globalErrorHandler);
