@@ -1,27 +1,36 @@
+import { useQuery } from '@tanstack/react-query';
 import {
-    ChevronUp,
     ChevronDown,
+    ChevronUp,
+    CircleX,
     Info,
     LoaderCircle,
-    CircleX,
 } from 'lucide-react';
 import { useState } from 'react';
-import { Model } from '../../types/llm';
-import { useQuery } from '@tanstack/react-query';
-import { getModels } from '../../services/llmManager';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { getModel, selectModel } from '../../redux/slices/chatSlice';
+import { getModels } from '../../services/llmManager';
+import { Model } from '../../types/llm';
 
 export function LlmSelector() {
     const [isOpen, setIsOpen] = useState(false);
+
     const model = useSelector(getModel);
+
     const dispatch = useDispatch();
-    const { isPending, isError, data } = useQuery({
+
+    const {
+        isPending,
+        isError,
+        data: payload,
+        error,
+    } = useQuery({
         queryKey: ['llm-models'],
         queryFn: getModels,
     });
 
-    const models: Model[] = data?.data.models;
+    const models: Model[] = payload?.data.models;
 
     function handleSelectModel(model: Model) {
         dispatch(selectModel(model));
@@ -40,7 +49,7 @@ export function LlmSelector() {
         return (
             <span className="flex items-center self-center rounded-xl bg-red-700/60 px-4 py-2 text-teal-50">
                 <CircleX className="mr-2" />
-                Error loading available models
+                {error.message}
             </span>
         );
 
