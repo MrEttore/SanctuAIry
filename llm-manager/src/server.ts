@@ -2,5 +2,5 @@ import { app } from './app.js';
 const port = process.env.PORT ?? '3000';
 
 app.listen(port, () => {
-  console.log(`SanctuAIry running at http://localhost:${port}.`);
+  console.log(`Llm manager is running on http://localhost:${port}`);
 });

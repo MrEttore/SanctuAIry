@@ -1,115 +1,89 @@
-import { Request } from 'express';
+import { NextFunction, Request } from 'express';
 import { DeleteRequest, GenerateRequest, GenerateResponse, ListResponse, ProgressResponse, PullRequest, StatusResponse } from 'ollama';
 import { ollama } from '../ollama.js';
-import { TypedRequestBody } from '../types/requestTypes.js';
+import { TypedRequest } from '../types/requestTypes.js';
 import { TypedResponse } from '../types/responseTypes.js';
+import { catchAsync } from '../utils/catchAsync.js';
+import { AppError } from '../utils/AppError.js';
 
-// Controllers:
+/**
+ * GET /api/v1/models
+ *
+ * Returns a list of locally‐available models from the llm-core.
+ */
+export const getLocalModels = catchAsync(async (req: TypedRequest<unknown>, res: TypedResponse<ListResponse>) => {
+  const response = await ollama.list();
 
-export const getLocalModels = async (req: Request, res: TypedResponse<ListResponse>) => {
-  try {
-    const response = await ollama.list();
+  res.status(200).json({ status: 'success', data: response });
+});
 
-    res.status(200).json({ status: 'success', data: response });
-  } catch (error: unknown) {
-    let errorMessage = 'An unexpected error occurred';
-    if (error instanceof Error) errorMessage = error.message;
+/**
+ * GET /api/v1/models/running
+ *
+ * Returns a list of running models from the llm-core.
+ */
+export const getRunningModels = catchAsync(async (req: TypedRequest<unknown>, res: TypedResponse<ListResponse>) => {
+  const response = await ollama.ps();
 
-    res.status(500).json({ status: 'error', message: errorMessage });
-  }
-};
+  res.status(200).json({ status: 'success', data: response });
+});
 
-export const getRunningModels = async (req: Request, res: TypedResponse<ListResponse>) => {
-  try {
-    const response = await ollama.ps();
+/**
+ * GET ...
+ *
+ * Returns ...
+ */
+export const pullModel = catchAsync(async (req: TypedRequest<PullRequest>, res: TypedResponse<ProgressResponse>, next: NextFunction) => {
+  const { model, insecure } = req.body;
 
-    res.status(200).json({ status: 'success', data: response });
-  } catch (error: unknown) {
-    let errorMessage = 'An unexpected error occurred';
-    if (error instanceof Error) errorMessage = error.message;
+  if (!model) return next(new AppError('A model is required.', 400));
 
-    res.status(500).json({ status: 'error', message: errorMessage });
-  }
-};
+  const response = await ollama.pull({ model, insecure });
 
-export const pullModel = async (req: TypedRequestBody<PullRequest>, res: TypedResponse<ProgressResponse>) => {
-  try {
-    const { model, insecure } = req.body;
+  res.status(200).json({ status: 'success', data: response });
+});
 
-    if (!model) {
-      res.status(400).json({ status: 'fail', message: 'A model is required.' });
-      return;
-    }
+/**
+ * GET ...
+ *
+ * Returns ...
+ */
+export const loadModel = catchAsync(async (req: TypedRequest<GenerateRequest>, res: TypedResponse<GenerateResponse>, next: NextFunction) => {
+  const { model, prompt = '' } = req.body;
 
-    const response = await ollama.pull({ model, insecure });
+  if (!model) return next(new AppError('A model is required.', 400));
 
-    res.status(200).json({ status: 'success', data: response });
-  } catch (error: unknown) {
-    let errorMessage = 'An unexpected error occurred';
-    if (error instanceof Error) errorMessage = error.message;
+  const response = await ollama.generate({ model, prompt });
 
-    res.status(500).json({ status: 'error', message: errorMessage });
-  }
-};
+  res.status(200).json({ status: 'success', data: response });
+});
 
-export const loadModel = async (req: TypedRequestBody<GenerateRequest>, res: TypedResponse<GenerateResponse>) => {
-  try {
-    const { model, prompt = '' } = req.body;
+/**
+ * GET ...
+ *
+ * Returns ...
+ */
+export const unloadModel = catchAsync(async (req: TypedRequest<GenerateRequest>, res: TypedResponse<GenerateResponse>, next: NextFunction) => {
+  const { model, prompt = '', keep_alive = 0 } = req.body;
 
-    if (!model) {
-      res.status(400).json({ status: 'fail', message: 'A model is required.' });
-      return;
-    }
+  if (!model) return next(new AppError('A model is required.', 400));
 
-    const response = await ollama.generate({ model, prompt });
+  const response = await ollama.generate({ model, prompt, keep_alive });
 
-    res.status(200).json({ status: 'success', data: response });
-  } catch (error: unknown) {
-    let errorMessage = 'An unexpected error occurred';
-    if (error instanceof Error) errorMessage = error.message;
+  res.status(200).json({ status: 'success', data: response });
+});
 
-    res.status(500).json({ status: 'error', message: errorMessage, code: 500 });
-  }
-};
+/**
+ * GET ...
+ *
+ * Returns ...
+ */
+export const deleteModel = catchAsync(async (req: TypedRequest<DeleteRequest>, res: TypedResponse<StatusResponse>, next: NextFunction) => {
+  const { model } = req.body;
 
-export const unloadModel = async (req: TypedRequestBody<GenerateRequest>, res: TypedResponse<GenerateResponse>) => {
-  try {
-    const { model, prompt = '', keep_alive = 0 } = req.body;
+  if (!model) return next(new AppError('A model is required.', 400));
 
-    if (!model) {
-      res.status(400).json({ status: 'fail', message: 'A model is required.' });
-      return;
-    }
+  const response = await ollama.delete({ model });
 
-    const response = await ollama.generate({ model, prompt, keep_alive });
-
-    res.status(200).json({ status: 'success', data: response });
-  } catch (error: unknown) {
-    let errorMessage = 'An unexpected error occurred';
-    if (error instanceof Error) errorMessage = error.message;
-
-    res.status(500).json({ status: 'error', message: errorMessage });
-  }
-};
-
-export const deleteModel = async (req: TypedRequestBody<DeleteRequest>, res: TypedResponse<StatusResponse>) => {
-  try {
-    const { model } = req.body;
-
-    if (!model) {
-      res.status(400).json({ status: 'fail', message: 'A model is required.' });
-      return;
-    }
-
-    const response = await ollama.delete({ model });
-
-    res.status(200).json({ status: 'success', data: response });
-  } catch (error: unknown) {
-    let errorMessage = 'An unexpected error occurred';
-    if (error instanceof Error) errorMessage = error.message;
-
-    res.status(500).json({ status: 'error', message: errorMessage });
-  }
-};
-
-// TODO: createModel (with custom Modelfile)
+  res.status(200).json({ status: 'success', data: response });
+});
