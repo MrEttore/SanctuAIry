@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import { AuthForm, AuthLayout, AuthToggle } from '../features/auth';
+import { AuthForm, AuthLayout, AuthToggle } from '.';
 
-export function Auth() {
+export function AuthPage() {
     const [loginAsGuest, setLoginAsGuest] = useState<boolean>(false);
 
     return (
