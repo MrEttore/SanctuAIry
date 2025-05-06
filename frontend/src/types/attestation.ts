@@ -1,23 +1,36 @@
 export type AttestationState = {
     issuedChallenge: string | null;
-    attestationQuote: object | null;
-    attestationSteps: {
-        issueChallenge: {
-            status: 'idle' | 'pending' | 'done' | 'error';
-        };
-        generateEvidence: {
-            status: 'idle' | 'pending' | 'done' | 'error';
-        };
-        verifyTee: {
-            status: 'idle' | 'pending' | 'done' | 'error';
-        };
-        validateImage: {
-            status: 'idle' | 'pending' | 'done' | 'error';
-        };
-        signResult: {
-            status: 'idle' | 'pending' | 'done' | 'error';
-        };
+    attestationQuote: AttestationQuote | null;
+    attestationSteps: AttestationSteps;
+};
+
+export type AttestationQuote = {
+    [key: string]: unknown;
+};
+
+export type AttestationSteps = {
+    issueChallenge: {
+        status: AttestationStepStatus;
     };
+    generateEvidence: {
+        status: AttestationStepStatus;
+    };
+    verifyTee: {
+        status: AttestationStepStatus;
+    };
+    validateImage: {
+        status: AttestationStepStatus;
+    };
+    signResult: {
+        status: AttestationStepStatus;
+    };
+};
+
+export type AttestationStepStatus = 'idle' | 'pending' | 'done' | 'error';
+
+export type UpdateStepPayload = {
+    step: keyof AttestationSteps;
+    status: 'idle' | 'pending' | 'done' | 'error';
 };
 
 export enum TrustStatus {

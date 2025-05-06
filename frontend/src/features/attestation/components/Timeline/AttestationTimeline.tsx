@@ -1,22 +1,17 @@
-import {
-    Circle,
-    CircleCheck,
-    // CircleX,
-    CircleHelp,
-    Handshake,
-} from 'lucide-react';
+import { CircleHelp, Handshake } from 'lucide-react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { RootState } from '../../../../redux/store';
 import { ModalType } from '../../../../types/ui';
 import { Modal } from '../../../../ui';
+import { getAttestationSteps } from '../../attestationSlice';
+import { GeneratedChallenge, TeeEvidence } from '../Evidence';
 import { IssueChallengeForm } from '../Forms/IssueChallengeForm';
 import { AttestationStep } from './AttestationStep';
 
 /**
- * This component implements the Transparency Requirements (T1-T3) of the framework.
- *
+ * Implements the Transparency Requirements (T1-T3) of the framework.
  */
 export function AttestationTimeline() {
     const { issuedChallenge, attestationQuote } = useSelector(
@@ -30,7 +25,7 @@ export function AttestationTimeline() {
         verifyTee,
         validateImage,
         signResult,
-    } = useSelector((state: RootState) => state.attestation.attestationSteps);
+    } = useSelector(getAttestationSteps);
 
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -70,144 +65,78 @@ export function AttestationTimeline() {
                         {/* TODO: Attestation not available when no communication with backend. */}
                     </div>
 
-                    {/* TIMELINE */}
+                    {/* STEPS */}
                     <div>
                         <div className="flex w-full space-x-2">
-                            {/* TODO: Add reusable step component. */}
-
-                            {/* STEP 1: Issue Challenge */}
+                            {/* 1: Issue Challenge */}
                             <AttestationStep
                                 name="Issue Challenge"
                                 status={issueChallenge.status}
-                                artifact={issuedChallenge ? true : false}
-                                action={handleSelectModal}
-                                actionType={ModalType.VIEW_CHALLENGE}
+                                artifact={issuedChallenge ? 'challenge' : ''}
+                                action={() =>
+                                    handleSelectModal(ModalType.VIEW_CHALLENGE)
+                                }
                             />
 
-                            {/* STEP 2: Generate Evidence */}
+                            {/* 2: Generate Evidence */}
                             <AttestationStep
                                 name="Generate Evidence"
                                 status={generateEvidence.status}
-                                artifact={attestationQuote ? true : false}
-                                action={handleSelectModal}
-                                actionType={ModalType.VIEW_EVIDENCE}
+                                artifact={attestationQuote ? 'evidence' : ''}
+                                action={() =>
+                                    handleSelectModal(ModalType.VIEW_EVIDENCE)
+                                }
                             />
 
-                            {/* STEP 3: Verify TEE */}
-                            <div className="flex-1 space-y-3 rounded-xl bg-slate-200/80 px-3 py-2">
-                                <div className="flex items-center gap-2 text-xl font-medium text-teal-950">
-                                    {verifyTee.status === 'idle' && (
-                                        <Circle className="text-slate-700" />
-                                    )}
-                                    {/* Add pending, error? */}
-                                    {verifyTee.status === 'done' && (
-                                        <CircleCheck className="text-green-700" />
-                                    )}
-                                    <p>Verify TEE</p>
-                                </div>
-                                {true && (
-                                    <button
-                                        className="mx-auto flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-slate-600 px-4 text-sm font-medium text-slate-200 transition-colors duration-300 hover:bg-slate-700 hover:shadow-md"
-                                        type="button"
-                                        onClick={() =>
-                                            handleSelectModal(
-                                                ModalType.VIEW_VERIFICATION_RESULT,
-                                            )
-                                        }
-                                    >
-                                        VIEW VERIFICATION RESULT
-                                    </button>
-                                )}
-                            </div>
+                            {/* 3: Verify TEE */}
+                            <AttestationStep
+                                name="Verify TEE"
+                                status={verifyTee.status}
+                                // artifact={... ? 'evidence' : ''}
+                                action={() =>
+                                    handleSelectModal(
+                                        ModalType.VIEW_VERIFICATION_RESULT,
+                                    )
+                                }
+                            />
 
-                            {/* STEP 4: Validate Image */}
-                            <div className="flex-1 space-y-3 rounded-xl bg-slate-200/80 px-3 py-2">
-                                <div className="flex items-center gap-2 text-xl font-medium text-teal-950">
-                                    {validateImage.status === 'idle' && (
-                                        <Circle className="text-slate-700" />
-                                    )}
-                                    {/* Add pending, error? */}
-                                    {validateImage.status === 'done' && (
-                                        <CircleCheck className="text-green-700" />
-                                    )}
-                                    <p>Validate Image</p>
-                                </div>
-                                {true && (
-                                    <button
-                                        className="mx-auto flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-slate-600 px-4 text-sm font-medium text-slate-200 transition-colors duration-300 hover:bg-slate-700 hover:shadow-md"
-                                        type="button"
-                                        onClick={() =>
-                                            handleSelectModal(
-                                                ModalType.VIEW_IMAGE_SOURCE,
-                                            )
-                                        }
-                                    >
-                                        VIEW IMAGE SOURCE
-                                    </button>
-                                )}
-                            </div>
+                            {/* 4: Validate Image */}
+                            <AttestationStep
+                                name="Validate Image"
+                                status={validateImage.status}
+                                // artifact={... ? 'evidence' : ''}
+                                action={() =>
+                                    handleSelectModal(
+                                        ModalType.VIEW_IMAGE_SOURCE,
+                                    )
+                                }
+                            />
 
-                            {/* STEP 5: Sign Result */}
-                            <div className="flex-1 space-y-3 rounded-xl bg-slate-200/80 px-3 py-2">
-                                <div className="flex items-center gap-2 text-xl font-medium text-teal-950">
-                                    {signResult.status === 'idle' && (
-                                        <Circle className="text-slate-700" />
-                                    )}
-                                    {/* Add pending, error? */}
-                                    {signResult.status === 'done' && (
-                                        <CircleCheck className="text-green-700" />
-                                    )}
-                                    <p>Sign Result</p>
-                                </div>
-                                {true && (
-                                    <button
-                                        className="mx-auto flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-slate-600 px-4 text-sm font-medium text-slate-200 transition-colors duration-300 hover:bg-slate-700 hover:shadow-md"
-                                        type="button"
-                                        onClick={() =>
-                                            handleSelectModal(
-                                                ModalType.VIEW_SIGNED_RESULT,
-                                            )
-                                        }
-                                    >
-                                        VIEW SIGNED RESULT
-                                    </button>
-                                )}
-                            </div>
+                            {/* 5: Sign Result */}
+                            <AttestationStep
+                                name="Sign Result"
+                                status={signResult.status}
+                                // artifact={... ? 'evidence' : ''}
+                                action={() =>
+                                    handleSelectModal(
+                                        ModalType.VIEW_SIGNED_RESULT,
+                                    )
+                                }
+                            />
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Render Modal */}
-            <Modal
-                title="Generate Challenge"
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-            >
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
                 {modalType === ModalType.START_ATTESTATION && (
                     <IssueChallengeForm onClose={() => setIsModalOpen(false)} />
                 )}
                 {modalType === ModalType.VIEW_CHALLENGE && (
-                    <div className="space-y-8">
-                        <p className="text-lg font-light italic">
-                            Your challenge has just been securely dispatched to
-                            the confidential VM. It will use this challenge to
-                            generate a fresh attestation quote and kick off the
-                            remote attestation process. Once the quote is ready,
-                            you’ll be able to verify the integrity of the
-                            workload and continue to the next step.
-                        </p>
-                        <div>
-                            <h2 className="mb-2 text-xl">
-                                Generated Challenge:
-                            </h2>
-                            <p className="w-fit rounded-lg bg-green-500/50 px-4 py-2 font-medium">
-                                {issuedChallenge}
-                            </p>
-                        </div>
-                    </div>
+                    <GeneratedChallenge issuedChallenge={issuedChallenge} />
                 )}
-                {modalType === ModalType.VIEW_EVIDENCE && <p>Evidence</p>}
+                {modalType === ModalType.VIEW_EVIDENCE && <TeeEvidence />}
                 {modalType === ModalType.VIEW_VERIFICATION_RESULT && (
                     <p>Verification result</p>
                 )}

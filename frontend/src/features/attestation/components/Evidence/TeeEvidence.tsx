@@ -1,45 +1,41 @@
-import { useMutation } from '@tanstack/react-query';
-import { JsonEditor } from 'json-edit-react';
+import { JsonEditor, githubLightTheme } from 'json-edit-react';
+import { useSelector } from 'react-redux';
 
-import { attestationEvidence } from '../../../../dev-data/attestation-evidence';
-import { getTdxQuote } from '../../attestationAPI';
+import { dummyAttestationEvidence } from '../../../../dev-data/attestation-evidence';
+import { getAttestationQuote } from '../../attestationSlice';
 
 export function TeeEvidence() {
-    const mutation = useMutation({ mutationFn: getTdxQuote });
+    const attestationQuote = useSelector(getAttestationQuote);
 
     return (
-        <div className="mx-3">
-            <div className="flex max-h-[500px] flex-col space-y-2 rounded-2xl bg-slate-100 p-2 shadow-md">
+        <div className="text-slate-800">
+            <div className="flex flex-col max-h-[70vh] space-y-4">
                 <div className="flex items-center justify-between">
                     <p className="py-1 text-2xl font-semibold text-teal-950">
-                        Evidence
+                        Generated TEE Evidence
                     </p>
+                </div>
 
-                    {/* TEST GET QUOTE */}
-                    <button
-                        className="h-10 cursor-pointer rounded-xl bg-slate-600 px-4 font-medium text-slate-200 shadow-md transition-colors duration-300 hover:bg-slate-700 hover:shadow-xl"
-                        onClick={() => {
-                            mutation.mutate('P6HC1uS4qfAsfg06G2+Aaw==');
-                        }}
-                    >
-                        Get Quote!
-                    </button>
+                {/* EVIDENCE */}
+                <div className="flex-1 overflow-y-auto">
+                    <JsonEditor
+                        data={attestationQuote || dummyAttestationEvidence}
+                        viewOnly
+                        maxWidth={'100%'}
+                        theme={githubLightTheme}
+                    />
+                </div>
 
+                {/* DOWNLOAD */}
+                <div className="flex justify-end">
                     <button
-                        className="h-10 cursor-pointer rounded-xl bg-slate-600 px-4 font-medium text-slate-200 shadow-md transition-colors duration-300 hover:bg-slate-700 hover:shadow-xl"
+                        className="flex h-10 cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-slate-600 px-4 font-medium text-slate-200 transition-colors duration-300 hover:bg-slate-700 hover:shadow-md"
                         onClick={() => {
                             console.log('Download'); // TODO: Add download logic.
                         }}
                     >
                         DOWNLOAD
                     </button>
-                </div>
-                <div className="flex-1 overflow-auto">
-                    <JsonEditor
-                        data={mutation?.data?.data ?? attestationEvidence}
-                        viewOnly
-                        maxWidth={'100%'}
-                    />
                 </div>
             </div>
         </div>
