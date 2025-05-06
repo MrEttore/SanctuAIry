@@ -1,6 +1,6 @@
 const ATTESTER_URL = import.meta.env.VITE_ATTESTER_URL;
 
-// TODO: Refactor using Axios.
+// TODO: Refactor using Axios. Also, in order to add timeouts.
 // TODO: Add error handling.
 
 /**
@@ -10,22 +10,23 @@ const ATTESTER_URL = import.meta.env.VITE_ATTESTER_URL;
  * @returns a valid TDX attestation quote.
  */
 export async function getTdxQuote(challenge: string) {
-    try {
-        const response = await fetch(`${ATTESTER_URL}/evidence/tdx-quote`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                challenge,
-            }),
-        });
-        const data = await response.json();
+    const response = await fetch(`${ATTESTER_URL}/evidence/tdx-quote`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            challenge,
+        }),
+    });
+    const payload = await response.json();
 
-        return data;
-    } catch (error) {
-        console.error(error);
+    if (!response.ok) {
+        const message = `Error retrieving the quote.`;
+        throw new Error(message);
     }
+
+    return payload;
 }
 
 export async function getVtpmQuote(challenge: string) {

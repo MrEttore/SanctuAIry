@@ -1,6 +1,6 @@
 const LLM_MANAGER_URL = import.meta.env.VITE_LLM_MANAGER_URL;
 
-// TODO: Refactor using Axios.
+// TODO: Refactor using Axios (Also catches network errors, e.g., connection refused when llm-manager is down).
 
 /**
  * Gets the available models from the llm-core service.

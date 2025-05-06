@@ -5,11 +5,10 @@ import ReactDOM from 'react-dom';
 type Props = {
     isOpen: boolean;
     onClose: () => void;
-    title: string;
     children: ReactNode;
 };
 
-export function Modal({ isOpen, onClose, title, children }: Props) {
+export function Modal({ isOpen, onClose, children }: Props) {
     useEffect(() => {
         if (!isOpen) return;
         document.body.style.overflow = 'hidden';
@@ -27,13 +26,7 @@ export function Modal({ isOpen, onClose, title, children }: Props) {
             aria-modal="true"
             aria-labelledby="modal-title"
         >
-            <div className="relative max-w-1/2 min-w-1/3 space-y-10 rounded-xl bg-slate-100 p-3 shadow-2xl">
-                <h2
-                    id="modal-title"
-                    className="text-xl font-bold text-slate-900 uppercase"
-                >
-                    {title}
-                </h2>
+            <div className="relative max-w-[60%] min-w-1/3 space-y-10 rounded-xl bg-slate-100 p-3 shadow-2xl">
                 <button
                     className="absolute top-2 right-2 cursor-pointer rounded-lg bg-red-400 p-1 text-red-100 transition-colors duration-300 hover:bg-red-500 hover:text-red-800"
                     onClick={onClose}

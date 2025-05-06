@@ -4,7 +4,10 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { AppDispatch } from '../../../../redux/store';
-import { ChallengeGenerationMode } from '../../../../types/attestation';
+import {
+    AttestationQuote,
+    ChallengeGenerationMode,
+} from '../../../../types/attestation';
 import { generateAttestationChallenge } from '../../../../utils/attestation';
 import { getTdxQuote } from '../../attestationAPI';
 import {
@@ -19,18 +22,23 @@ type Props = {
 
 export function IssueChallengeForm({ onClose }: Props) {
     const dispatch: AppDispatch = useDispatch();
+
     const { isPending, mutate } = useMutation({
         mutationKey: ['sendChallenge'],
         mutationFn: getTdxQuote,
         onMutate: () => {
-            dispatch(updateStep('pending'));
+            dispatch(updateStep({ step: 'issueChallenge', status: 'pending' }));
+            dispatch(
+                updateStep({ step: 'generateEvidence', status: 'pending' }),
+            );
         },
-        onSuccess: (response) => {
-            const { quote } = response.data;
+        onSuccess: (payload) => {
+            const quote: AttestationQuote = payload.data.quote;
 
             dispatch(setIssuedChallenge(challenge));
             dispatch(setAttestationQuote(quote));
-            dispatch(updateStep('done'));
+            dispatch(updateStep({ step: 'issueChallenge', status: 'done' }));
+            dispatch(updateStep({ step: 'generateEvidence', status: 'done' }));
             setChallenge('');
             onClose?.();
 
@@ -41,7 +49,8 @@ export function IssueChallengeForm({ onClose }: Props) {
             // toast.success('Challenge issued!');
         },
         onError: () => {
-            dispatch(updateStep('error'));
+            dispatch(updateStep({ step: 'issueChallenge', status: 'error' }));
+            dispatch(updateStep({ step: 'generateEvidence', status: 'error' }));
             setChallenge('');
             onClose?.();
         },
@@ -71,6 +80,12 @@ export function IssueChallengeForm({ onClose }: Props) {
 
     return (
         <div className="space-y-6">
+            <h2
+                id="modal-title"
+                className="text-xl font-bold text-slate-900 uppercase"
+            >
+                Generate Challenge
+            </h2>
             <div className="">
                 {/* GENERATION MODE SELECTORS */}
                 <div className="mx-auto flex w-1/2 items-center justify-center overflow-hidden rounded-xl bg-slate-100">

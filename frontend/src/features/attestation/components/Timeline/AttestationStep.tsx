@@ -1,13 +1,10 @@
 import { Circle, CircleCheck, CircleDashed, CircleX } from 'lucide-react';
 
-import { ModalType } from '../../types/ui';
-
 type Props = {
     name: string;
     status: 'idle' | 'pending' | 'done' | 'error';
-    artifact: boolean;
-    action: (modalType: ModalType) => void;
-    actionType: ModalType;
+    artifact?: string;
+    action: () => void;
 };
 
 export function AttestationStep({
@@ -15,7 +12,7 @@ export function AttestationStep({
     status,
     artifact,
     action,
-    actionType,
+    // actionType,
 }: Props) {
     return (
         <div
@@ -38,10 +35,9 @@ export function AttestationStep({
                 <button
                     className="mx-auto flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-slate-500/60 px-4 text-sm font-medium text-slate-700 transition-colors duration-300 hover:bg-slate-500/80 hover:shadow-xs"
                     type="button"
-                    onClick={() => action(actionType)}
+                    onClick={() => action()}
                 >
-                    {/* TODO: Update to natural language */}
-                    {actionType}
+                    {`View ${artifact}`}
                 </button>
             )}
         </div>
