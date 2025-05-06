@@ -3,15 +3,15 @@ import { Loader, TriangleAlert, Wand, X } from 'lucide-react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { AppDispatch } from '../../../../redux/store';
+import { ChallengeGenerationMode } from '../../../../types/attestation';
+import { generateAttestationChallenge } from '../../../../utils/attestation';
+import { getTdxQuote } from '../../attestationAPI';
 import {
     setAttestationQuote,
     setIssuedChallenge,
     updateStep,
-} from '../../redux/slices/attestationSlice';
-import { AppDispatch } from '../../redux/store';
-import { getTdxQuote } from '../../services/attester';
-import { ChallengeGenerationMode } from '../../types/attestation';
-import { generateAttestationChallenge } from '../../utils/attestation';
+} from '../../attestationSlice';
 
 type Props = {
     onClose: () => void;

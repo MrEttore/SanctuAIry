@@ -2,8 +2,8 @@ import { RefreshCw, ShieldCheck, ShieldQuestion, ShieldX } from 'lucide-react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { getModel } from '../../redux/slices/chatSlice';
-import { TrustStatus } from '../../types/attestation';
+import { getModel } from '../../../../redux/slices/chatSlice';
+import { TrustStatus } from '../../../../types/attestation';
 
 export function AttestationSummary() {
     const model = useSelector(getModel);
