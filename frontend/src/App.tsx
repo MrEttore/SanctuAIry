@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { AppLayout, Attestation, Auth, Chat, Overview, User } from './pages';
+import { AttestationPage } from './features/attestation/AttestationPage';
+import { AppLayout, Auth, Chat, Overview, User } from './pages';
 
 export function App() {
     return (
@@ -14,7 +15,7 @@ export function App() {
                     <Route index element={<Overview />} />
                     <Route path="chat" element={<Chat />} />
                     <Route path="user" element={<User />} />
-                    <Route path="attestation" element={<Attestation />} />
+                    <Route path="attestation" element={<AttestationPage />} />
                 </Route>
             </Routes>
         </div>

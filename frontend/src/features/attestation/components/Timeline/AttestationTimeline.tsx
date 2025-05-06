@@ -8,11 +8,11 @@ import {
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { RootState } from '../../redux/store';
-import { ModalType } from '../../types/ui';
-import { Modal } from '../../ui';
+import { RootState } from '../../../../redux/store';
+import { ModalType } from '../../../../types/ui';
+import { Modal } from '../../../../ui';
+import { IssueChallengeForm } from '../Forms/IssueChallengeForm';
 import { AttestationStep } from './AttestationStep';
-import { IssueChallengeForm } from './IssueChallengeForm';
 
 /**
  * This component implements the Transparency Requirements (T1-T3) of the framework.

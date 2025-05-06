@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import attestatationSlice from './slices/attestationSlice';
+import { attestationSlice } from '../features/attestation';
 import chatSlice from './slices/chatSlice';
 import userSlice from './slices/userSlice';
 
@@ -8,7 +8,7 @@ export const store = configureStore({
     reducer: {
         user: userSlice,
         chat: chatSlice,
-        attestation: attestatationSlice,
+        attestation: attestationSlice,
     },
 });
 
