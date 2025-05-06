@@ -1,4 +1,4 @@
-export function Overview() {
+export function OverviewPage() {
     /*
      * TODO: On the overview page the user should get informed about the "confidential claims" made by the * service providers. These claims are then verified with the transparent attestation process.
      *
