@@ -14,7 +14,7 @@ import {
     setIssuedChallenge,
     updateStep,
 } from '../../attestationSlice';
-import { getTdxQuote } from '../services/attestationApi';
+import { getTdxQuote } from '../../services/attestationApi';
 
 type Props = {
     onClose: () => void;
