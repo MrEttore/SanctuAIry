@@ -8,7 +8,7 @@
  *
  * @returns A Base64 string representing 16 random bytes.
  */
-export function generateAttestationChallenge(): string {
+export function generateChallenge(): string {
     const byteLength = 64;
     const randomBytes = crypto.getRandomValues(new Uint8Array(byteLength));
     return bytesToBase64(randomBytes);

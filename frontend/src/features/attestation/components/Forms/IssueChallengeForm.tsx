@@ -8,13 +8,13 @@ import {
     AttestationQuote,
     ChallengeGenerationMode,
 } from '../../../../types/attestation';
-import { generateAttestationChallenge } from '../../../../utils/attestation';
 import {
     setAttestationQuote,
     setIssuedChallenge,
     updateStep,
 } from '../../attestationSlice';
 import { getTdxQuote } from '../../services/attestationApi';
+import { generateChallenge } from '../../utils/generateChallenge';
 
 type Props = {
     onClose: () => void;
@@ -62,7 +62,7 @@ export function IssueChallengeForm({ onClose }: Props) {
     const [formError, setFormError] = useState<string>('');
 
     function handleGenerateChallenge() {
-        const challenge = generateAttestationChallenge();
+        const challenge = generateChallenge();
         setChallenge(challenge);
     }
 
