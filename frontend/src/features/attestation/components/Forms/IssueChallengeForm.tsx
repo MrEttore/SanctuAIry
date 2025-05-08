@@ -9,12 +9,12 @@ import {
     ChallengeGenerationMode,
 } from '../../../../types/attestation';
 import { generateAttestationChallenge } from '../../../../utils/attestation';
-import { getTdxQuote } from '../../attestationAPI';
 import {
     setAttestationQuote,
     setIssuedChallenge,
     updateStep,
 } from '../../attestationSlice';
+import { getTdxQuote } from '../../services/attestationApi';
 
 type Props = {
     onClose: () => void;
