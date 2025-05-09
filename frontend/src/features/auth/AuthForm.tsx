@@ -87,7 +87,7 @@ export function AuthForm({ loginAsGuest }: Props) {
                     </p>
                 )}
 
-                <button className="mt-4 w-1/4 cursor-pointer rounded-xl bg-teal-900 p-4 text-teal-50 shadow-xl transition-all duration-300 hover:bg-teal-800 hover:ring-1 hover:ring-teal-500 focus:ring-2 focus:ring-teal-500 focus:outline-none">
+                <button className="mt-4 w-1/2 md:w-1/3 cursor-pointer rounded-xl bg-teal-900 p-4 text-teal-50 shadow-xl transition-all duration-300 hover:bg-teal-800 hover:ring-1 hover:ring-teal-500 focus:ring-2 focus:ring-teal-500 focus:outline-none">
                     {loginAsGuest ? 'Get started' : 'Login'}
                 </button>
             </form>

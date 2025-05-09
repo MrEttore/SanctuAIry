@@ -14,7 +14,7 @@ export function AuthInput({
     setValue,
 }: Props) {
     return (
-        <div className="flex w-1/2 flex-col items-center gap-2">
+        <div className="flex md:w-1/2 w-10/12 flex-col items-center gap-2">
             <label htmlFor={label} className="text-teal-950">
                 {label.charAt(0).toUpperCase() + label.slice(1)}:
             </label>

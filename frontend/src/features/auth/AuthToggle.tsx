@@ -6,7 +6,7 @@ type Props = {
 export function AuthToggle({ checked, handleChecked }: Props) {
     return (
         <div className="flex items-center justify-center gap-4">
-            <span className="text-lg text-teal-950">Login as guest</span>
+            <span className="md:text-lg text-teal-950">Login as guest</span>
             <label className="relative inline-flex cursor-pointer items-center">
                 <input
                     type="checkbox"
