@@ -13,9 +13,9 @@ export function AuthLayout({ title, children }: Props) {
             </div>
 
             <div className="flex justify-center">
-                <div className="flex w-1/3 flex-col rounded-4xl bg-teal-50 p-4 shadow-2xl">
+                <div className="flex w-10/12 md:w-1/3 flex-col rounded-4xl bg-teal-50 p-4 shadow-2xl">
                     <div className="mb-4">
-                        <p className="my-4 text-center text-4xl font-medium text-teal-950">
+                        <p className="my-4 text-center text-3xl md:text-4xl font-medium text-teal-950">
                             {title}
                         </p>
                     </div>
