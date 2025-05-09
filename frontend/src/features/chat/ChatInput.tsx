@@ -7,13 +7,14 @@ import { sendPromptNoStream } from '../../services/llmManager';
 export function ChatInput() {
     const [prompt, setPrompt] = useState('');
     const model = 'sanctuairy-model:latest';
-    const { isPending, isSuccess, isError, data, error, mutate } = useMutation({
-        mutationKey: ['prompt-no-stream'],
-        mutationFn: sendPromptNoStream,
-        onSuccess: (response) => {
-            console.log(response);
-        },
-    });
+    const { isPending, /* isSuccess, isError, data, error,*/ mutate } =
+        useMutation({
+            mutationKey: ['prompt-no-stream'],
+            mutationFn: sendPromptNoStream,
+            onSuccess: (response) => {
+                console.log(response);
+            },
+        });
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
