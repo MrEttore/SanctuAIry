@@ -2,6 +2,35 @@ export type AttestationState = {
     issuedChallenge: string | null;
     attestationQuote: AttestationQuote | null;
     attestationSteps: AttestationSteps;
+    confidentialInfrastructure: ConfidentialInfrastructure;
+};
+
+export type ConfidentialInfrastructure = {
+    summary: ConfidentialInfrastructureSummary | null;
+    instance: ConfidentialInstance | null;
+};
+
+export type ConfidentialInfrastructureSummary = {
+    provider: string;
+    instanceId: string;
+    name: string;
+    zone: string;
+    machineType: string;
+    status: string;
+    projectId?: string;
+    Subscription?: string;
+};
+
+/*
+ * Complete Instance interface at:
+ * https://cloud.google.com/compute/docs/reference/rest/v1/instances
+ */
+export type ConfidentialInstance = {
+    [key: string]: unknown;
+    confidentialInstanceConfig: {
+        enableConfidentialCompute?: boolean;
+        confidentialInstanceType?: string;
+    };
 };
 
 export type AttestationQuote = {

@@ -22,7 +22,7 @@ export async function getTdxQuote(challenge: string) {
     const payload = await response.json();
 
     if (!response.ok) {
-        const message = `Error retrieving the quote.`;
+        const message = 'Error retrieving the quote.';
         throw new Error(message);
     }
 
@@ -46,4 +46,16 @@ export async function getVtpmQuote(challenge: string) {
     } catch (error) {
         console.error(error);
     }
+}
+
+export async function getInfrastructureSummary() {
+    const response = await fetch(`${ATTESTER_URL}/infrastructure/summary`);
+    const payload = await response.json();
+
+    if (!response.ok) {
+        const message = 'Error retrieving the infrastructure';
+        throw new Error(message);
+    }
+
+    return payload;
 }

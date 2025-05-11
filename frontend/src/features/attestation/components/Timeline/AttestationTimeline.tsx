@@ -14,9 +14,7 @@ import { AttestationStep } from './AttestationStep';
  * Implements the Transparency Requirements (T1-T3) of the framework.
  */
 export function AttestationTimeline() {
-    const { issuedChallenge, attestationQuote } = useSelector(
-        (state: RootState) => state.attestation,
-    );
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [modalType, setModalType] = useState<ModalType | null>(null);
 
     const {
@@ -26,8 +24,9 @@ export function AttestationTimeline() {
         validateImage,
         signResult,
     } = useSelector(getAttestationSteps);
-
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const { issuedChallenge, attestationQuote } = useSelector(
+        (state: RootState) => state.attestation,
+    );
 
     function handleSelectModal(modalType: ModalType) {
         setModalType(modalType);
