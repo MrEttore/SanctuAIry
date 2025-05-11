@@ -4,6 +4,7 @@ import { RootState } from '../../redux/store';
 import {
     AttestationQuote,
     AttestationState,
+    ConfidentialInfrastructure,
     UpdateStepPayload,
 } from '../../types/attestation';
 
@@ -27,6 +28,10 @@ const initialState: AttestationState = {
             status: 'idle',
         },
     },
+    confidentialInfrastructure: {
+        summary: null,
+        instance: null,
+    },
 };
 
 const attestationSlice = createSlice({
@@ -44,6 +49,13 @@ const attestationSlice = createSlice({
             const { step, status } = action.payload;
             state.attestationSteps[step].status = status;
         },
+        setConfidentialInfrastructure(
+            state,
+            action: PayloadAction<ConfidentialInfrastructure>,
+        ) {
+            state.confidentialInfrastructure.summary = action.payload.summary;
+            state.confidentialInfrastructure.instance = action.payload.instance;
+        },
     },
 });
 
@@ -53,7 +65,13 @@ export const getIssuedChallenge = (state: RootState) =>
     state.attestation.issuedChallenge;
 export const getAttestationQuote = (state: RootState) =>
     state.attestation.attestationQuote;
+export const getConfidentialInfrastructure = (state: RootState) =>
+    state.attestation.confidentialInfrastructure;
 
-export const { setIssuedChallenge, setAttestationQuote, updateStep } =
-    attestationSlice.actions;
+export const {
+    setIssuedChallenge,
+    setAttestationQuote,
+    updateStep,
+    setConfidentialInfrastructure,
+} = attestationSlice.actions;
 export default attestationSlice.reducer;
