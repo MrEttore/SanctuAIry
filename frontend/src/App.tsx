@@ -6,6 +6,8 @@ import { ChatPage } from './features/chat';
 import { UserPage } from './features/user';
 import { AppLayout, OverviewPage } from './ui';
 
+// Test comment
+
 export function App() {
     return (
         <div className="font-quicksand flex h-full w-full">
