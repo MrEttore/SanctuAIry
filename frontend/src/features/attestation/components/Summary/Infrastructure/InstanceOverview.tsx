@@ -3,8 +3,8 @@ import { JsonEditor, githubDarkTheme } from 'json-edit-react';
 import { ConfidentialInstance } from '../../../../../types/attestation';
 
 type Props = {
-    instanceData: ConfidentialInstance;
-    instanceName: string;
+    instanceData: ConfidentialInstance | null;
+    instanceName: string | undefined;
 };
 
 export function InstanceOverview({ instanceData, instanceName }: Props) {
@@ -13,18 +13,24 @@ export function InstanceOverview({ instanceData, instanceName }: Props) {
             <div className="flex flex-col max-h-[70vh] space-y-4">
                 <div className="flex items-center justify-between">
                     <p className="py-1 text-2xl font-semibold text-teal-950">
-                        {`Info about "${instanceName}"`}
+                        {`Inspect "${instanceName ?? 'Unknown'}"`}
                     </p>
                 </div>
 
                 {/* EVIDENCE */}
                 <div className="flex-1 overflow-y-auto">
-                    <JsonEditor
-                        data={instanceData}
-                        viewOnly
-                        maxWidth={'100%'}
-                        theme={githubDarkTheme}
-                    />
+                    {instanceData ? (
+                        <JsonEditor
+                            data={instanceData}
+                            viewOnly
+                            maxWidth={'100%'}
+                            theme={githubDarkTheme}
+                        />
+                    ) : (
+                        <p className="font-medium text-xl flex items-center justify-center rounded-xl bg-orange-800/20 px-4 py-2 text-orange-900">
+                            No evidence available
+                        </p>
+                    )}
                 </div>
 
                 {/* DOWNLOAD */}

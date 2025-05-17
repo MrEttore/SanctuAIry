@@ -59,3 +59,15 @@ export async function getInfrastructureSummary() {
 
     return payload;
 }
+
+export async function getWorkloadSummary() {
+    const response = await fetch(`${ATTESTER_URL}/evidence/workload`);
+    const payload = await response.json();
+
+    if (!response.ok) {
+        const message = 'Error retrieving workloads';
+        throw new Error(message);
+    }
+
+    return payload;
+}

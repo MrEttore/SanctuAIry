@@ -7,8 +7,8 @@ import { ModalType } from '../../../../types/ui';
 import { Modal } from '../../../../ui';
 import { getAttestationSteps } from '../../attestationSlice';
 import { GeneratedChallenge, TeeEvidence } from '../Evidence';
-import { IssueChallengeForm } from '../Forms/IssueChallengeForm';
 import { AttestationStep } from './AttestationStep';
+import { IssueChallengeForm } from './IssueChallengeForm';
 
 /**
  * Implements the Transparency Requirements (T1-T3) of the framework.
