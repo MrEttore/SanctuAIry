@@ -6,6 +6,7 @@ import {
     AttestationState,
     ConfidentialInfrastructure,
     UpdateStepPayload,
+    Workload,
 } from '../../types/attestation';
 
 const initialState: AttestationState = {
@@ -32,6 +33,10 @@ const initialState: AttestationState = {
         summary: null,
         instance: null,
     },
+    workload: {
+        containers: [],
+        images: [],
+    },
 };
 
 const attestationSlice = createSlice({
@@ -56,6 +61,10 @@ const attestationSlice = createSlice({
             state.confidentialInfrastructure.summary = action.payload.summary;
             state.confidentialInfrastructure.instance = action.payload.instance;
         },
+        setWorkload(state, action: PayloadAction<Workload>) {
+            state.workload.containers = action.payload.containers;
+            state.workload.images = action.payload.images;
+        },
     },
 });
 
@@ -67,11 +76,13 @@ export const getAttestationQuote = (state: RootState) =>
     state.attestation.attestationQuote;
 export const getConfidentialInfrastructure = (state: RootState) =>
     state.attestation.confidentialInfrastructure;
+export const getWorkload = (state: RootState) => state.attestation.workload;
 
 export const {
     setIssuedChallenge,
     setAttestationQuote,
     updateStep,
     setConfidentialInfrastructure,
+    setWorkload,
 } = attestationSlice.actions;
 export default attestationSlice.reducer;

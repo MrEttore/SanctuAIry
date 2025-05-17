@@ -3,6 +3,7 @@ export type AttestationState = {
     attestationQuote: AttestationQuote | null;
     attestationSteps: AttestationSteps;
     confidentialInfrastructure: ConfidentialInfrastructure;
+    workload: Workload;
 };
 
 export type ConfidentialInfrastructure = {
@@ -31,6 +32,31 @@ export type ConfidentialInstance = {
         enableConfidentialCompute?: boolean;
         confidentialInstanceType?: string;
     };
+    cpuPlatform: string;
+};
+
+export type Workload = {
+    containers: Container[];
+    images: Image[];
+};
+
+export type Container = {
+    id: string;
+    name: string;
+    image: string;
+    imageDigest: string;
+    state: string;
+    startedAt: string;
+    labels?: { [key: string]: string };
+};
+
+export type Image = {
+    id: string;
+    repoTags: string[];
+    repoDigests: string[];
+    created: string;
+    size: number;
+    labels?: { [key: string]: string };
 };
 
 export type AttestationQuote = {
