@@ -5,8 +5,6 @@ type Props = {
 };
 
 export function WorkloadImage({ image }: Props) {
-    const repoTags = image.repoTags.join(' ');
-
     return (
         <div className="text-sm py-2">
             -{' '}
