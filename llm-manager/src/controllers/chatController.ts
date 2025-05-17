@@ -1,11 +1,11 @@
 import { AbortableAsyncIterator, ChatRequest, ChatResponse } from 'ollama';
 import { ollama } from '../ollama.js';
-import { TypedRequestBody } from '../types/requestTypes.js';
+import { TypedRequest } from '../types/requestTypes.js';
 import { TypedResponse } from '../types/responseTypes.js';
 
 // Controllers:
 
-export const chatStream = async (req: TypedRequestBody<ChatRequest>, res: TypedResponse<AbortableAsyncIterator<ChatResponse>>) => {
+export const chatStream = async (req: TypedRequest<ChatRequest>, res: TypedResponse<AbortableAsyncIterator<ChatResponse>>) => {
   const { model, messages } = req.body;
 
   try {
@@ -28,7 +28,7 @@ export const chatStream = async (req: TypedRequestBody<ChatRequest>, res: TypedR
   }
 };
 
-export const chatNoStream = async (req: TypedRequestBody<ChatRequest>, res: TypedResponse<ChatResponse>) => {
+export const chatNoStream = async (req: TypedRequest<ChatRequest>, res: TypedResponse<ChatResponse>) => {
   const { model, messages } = req.body;
 
   try {
