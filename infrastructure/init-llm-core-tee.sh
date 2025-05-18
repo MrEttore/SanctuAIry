@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euxo pipefail
 
-# ─── Install Docker (once) ───────────────────────────────────────
+# ─── Install Docker (once) ─────────────────────────────────────────────────
 if ! command -v docker >/dev/null 2>&1; then
     echo ">>> Installing Docker..."
     apt-get update
@@ -11,7 +11,7 @@ else
     echo ">>> Docker already installed"
 fi
 
-# ─── Install Go (once) ───────────────────────────────────────────
+# ─── Install Go (once) ─────────────────────────────────────────────────────
 if [ ! -d /usr/local/go ]; then
     echo ">>> Installing Go..."
     curl -sSL https://go.dev/dl/go1.21.5.linux-amd64.tar.gz -o /tmp/go.tar.gz
@@ -22,32 +22,36 @@ else
     echo ">>> Go already present"
 fi
 
-# ─── Create a systemd service for llm-core pulling from Docker Hub
+# ─── Write the llm-core systemd unit ──────────────────────────────────────
 cat <<'EOF' >/etc/systemd/system/llm-core.service
 [Unit]
-Description=LLM-Core Container Service
+Description=LLM-Core Container
 After=docker.service
 Requires=docker.service
 
 [Service]
 Type=simple
-
-# Give pulls/runs up to 5 minutes to succeed
 TimeoutStartSec=300
 
-# Pull the latest image on every boot
-ExecStartPre=/usr/bin/docker pull sanctuairy/llm-core:latest
+# 1) Remove any prior llm-core container
+ExecStartPre=/bin/sh -c '/usr/bin/docker rm -f llm-core || true'
 
-# Clean up any old container
-ExecStartPre=/usr/bin/docker rm -f llm-core || true
+# 2) Pull the latest image (full on first boot, delta thereafter)
+ExecStartPre=/bin/sh -c '/usr/bin/docker pull sanctuairy/llm-core:latest'
 
-# Launch the container
-ExecStart=/usr/bin/docker run \
+# 3) Prune out all unused images (old layers)
+ExecStartPre=/bin/sh -c '/usr/bin/docker image prune -f'
+
+# 4) Run a clean container, auto-removed on exit
+ExecStart=/usr/bin/docker run --rm \
   --name llm-core \
   -e OLLAMA_HOST=0.0.0.0 \
   -e PORT=11434 \
   -p 11434:11434 \
   sanctuairy/llm-core:latest
+
+# Ensure no stray container after VM shutdown
+ExecStopPost=/bin/sh -c '/usr/bin/docker rm -f llm-core || true'
 
 Restart=always
 RestartSec=5s
@@ -56,9 +60,9 @@ RestartSec=5s
 WantedBy=multi-user.target
 EOF
 
-# ─── Enable & start the llm-core service ─────────────────────────
+# ─── Enable & start the service ───────────────────────────────────────────
 systemctl daemon-reload
 systemctl enable llm-core.service
-systemctl start llm-core.service
+systemctl restart llm-core.service
 
 echo ">>> init-llm-core-tee.sh completed successfully"
