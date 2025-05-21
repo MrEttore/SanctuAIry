@@ -5,15 +5,15 @@ import { useDispatch } from 'react-redux';
 
 import { AppDispatch } from '../../../../redux/store';
 import {
-    AttestationQuote,
-    ChallengeGenerationMode,
-} from '../../../../types/attestation';
-import {
     setAttestationQuote,
     setIssuedChallenge,
     updateStep,
 } from '../../attestationSlice';
-import { getTdxQuote } from '../../services/attestationApi';
+import { getTdxQuote } from '../../services/evidenceProviderApi';
+import {
+    AttestationQuote,
+    ChallengeGenerationMode,
+} from '../../types/attestation';
 import { generateChallenge } from '../../utils/generateChallenge';
 
 type Props = {

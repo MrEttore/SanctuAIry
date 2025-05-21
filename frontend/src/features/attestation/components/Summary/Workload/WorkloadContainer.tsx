@@ -1,4 +1,4 @@
-import { Container } from '../../../../../types/attestation';
+import { Container } from '../../../types/attestation';
 
 type Props = {
     container: Container;

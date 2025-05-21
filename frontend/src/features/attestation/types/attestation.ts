@@ -9,6 +9,7 @@ export type AttestationState = {
 export type ConfidentialInfrastructure = {
     summary: ConfidentialInfrastructureSummary | null;
     instance: ConfidentialInstance | null;
+    disk: Disk | null;
 };
 
 export type ConfidentialInfrastructureSummary = {
@@ -28,11 +29,21 @@ export type ConfidentialInfrastructureSummary = {
  */
 export type ConfidentialInstance = {
     [key: string]: unknown;
+    name: string;
     confidentialInstanceConfig: {
         enableConfidentialCompute?: boolean;
         confidentialInstanceType?: string;
     };
     cpuPlatform: string;
+};
+
+/*
+ * Complete Disk interface at:
+ * https://cloud.google.com/compute/docs/reference/rest/v1/disks
+ */
+export type Disk = {
+    [key: string]: unknown;
+    name: string;
 };
 
 export type Workload = {

@@ -1,4 +1,4 @@
-import { Image } from '../../../../../types/attestation';
+import { Image } from '../../../types/attestation';
 
 type Props = {
     image: Image;
