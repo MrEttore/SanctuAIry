@@ -1,35 +1,35 @@
 import { JsonEditor, githubDarkTheme } from 'json-edit-react';
 
-import { ConfidentialInstance } from '../../../types/attestation';
+import { Disk } from '../../../types/attestation';
 
 type Props = {
-    instanceData: ConfidentialInstance | null;
-    instanceName: string | undefined;
+    diskData: Disk | null;
+    diskName: string | undefined;
 };
 
-export function InstanceOverview({ instanceData, instanceName }: Props) {
+export function DiskOverview({ diskData, diskName }: Props) {
     return (
-        <div className="text-slate-800">
+        <div>
             <div className="flex flex-col max-h-[70vh] space-y-4">
                 <div className="flex items-center justify-between">
                     <p className="py-1 text-2xl text-teal-900/80">
-                        Instance:
-                        <span className="ml-1 font-semibold text-teal-900">{`${instanceName ?? 'Unknown'}`}</span>
+                        Disk:
+                        <span className="ml-1 font-semibold text-teal-900">{`${diskName ?? 'Unknown'}`}</span>
                     </p>
                 </div>
 
                 {/* EVIDENCE */}
                 <div className="flex-1 overflow-y-auto">
-                    {instanceData ? (
+                    {diskData ? (
                         <JsonEditor
-                            data={instanceData}
+                            data={diskData}
                             viewOnly
                             maxWidth={'100%'}
                             theme={githubDarkTheme}
                         />
                     ) : (
                         <p className="font-medium text-xl flex items-center justify-center rounded-xl bg-orange-800/20 px-4 py-2 text-orange-900">
-                            No instance data available
+                            No disk data available
                         </p>
                     )}
                 </div>

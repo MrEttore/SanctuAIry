@@ -1,7 +1,7 @@
 import { ShieldCheck, ShieldQuestion, ShieldX } from 'lucide-react';
 import { useState } from 'react';
 
-import { TrustStatus } from '../../../../../types/attestation';
+import { TrustStatus } from '../../../types/attestation';
 
 export function TrustStatusBadge() {
     const [trustStatus /*, setTrustStatus*/] = useState<TrustStatus>(

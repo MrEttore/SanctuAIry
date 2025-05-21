@@ -7,13 +7,15 @@ import { AppDispatch } from '../../../../../redux/store';
 import { ModalType } from '../../../../../types/ui';
 import { Modal } from '../../../../../ui';
 import { getWorkload, setWorkload } from '../../../attestationSlice';
-import { getWorkloadSummary } from '../../../services/attestationApi';
+import { getWorkloadSummary } from '../../../services/evidenceProviderApi';
+import { ContainersOverview } from './ContainersOverview';
+import { ImagesOverview } from './ImagesOverview';
 import { WorkloadContainer } from './WorkloadContainer';
 import { WorkloadImage } from './WorkloadImage';
 
 export function WorkloadSummary() {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [modalType /*, setModalType*/] = useState<ModalType | null>(null);
+    const [modalType, setModalType] = useState<ModalType | null>(null);
 
     const dispatch: AppDispatch = useDispatch();
     const { containers, images } = useSelector(getWorkload);
@@ -34,10 +36,10 @@ export function WorkloadSummary() {
         if (isSuccess && payload) dispatch(setWorkload(payload.data));
     }, [isSuccess, payload, dispatch]);
 
-    // function handleSelectModal(modalType: ModalType) {
-    //     setModalType(modalType);
-    //     setIsModalOpen(true);
-    // }
+    function handleSelectModal(modalType: ModalType) {
+        setModalType(modalType);
+        setIsModalOpen(true);
+    }
 
     return (
         <>
@@ -85,10 +87,9 @@ export function WorkloadSummary() {
                                         <button
                                             className="flex items-center gap-1.5 rounded-lg px-1.5 text-sm py-1 font-medium cursor-pointer bg-teal-800/80 text-teal-50 transition-all duration-400 shadow-sm hover:bg-teal-800"
                                             onClick={() =>
-                                                // handleSelectModal(
-                                                //     ModalType.VIEW_VM_IDENTITY,
-                                                // )
-                                                {}
+                                                handleSelectModal(
+                                                    ModalType.VIEW_RUNNING_CONTAINERS,
+                                                )
                                             }
                                         >
                                             Inspect
@@ -116,10 +117,9 @@ export function WorkloadSummary() {
                                         <button
                                             className="flex items-center gap-1.5 rounded-lg px-1.5 text-sm py-1 font-medium cursor-pointer bg-teal-800/80 text-teal-50 transition-all duration-400 shadow-sm hover:bg-teal-800"
                                             onClick={() =>
-                                                // handleSelectModal(
-                                                //     ModalType.VIEW_VM_IDENTITY,
-                                                // )
-                                                {}
+                                                handleSelectModal(
+                                                    ModalType.VIEW_RUNNING_CONTAINERS_IMAGES,
+                                                )
                                             }
                                         >
                                             Inspect
@@ -144,20 +144,12 @@ export function WorkloadSummary() {
                 </div>
             </div>
 
-            {/* TODO: Add inspect modals */}
-            <Modal
-                isOpen={isModalOpen}
-                onClose={() => {
-                    setIsModalOpen(false);
-                }}
-            >
-                {modalType === ModalType.VIEW_VM_IDENTITY && payload && (
-                    // <InstanceOverview
-                    //     instanceData={instance}
-                    //     instanceName={summary?.name}
-                    // />
-                    <p></p>
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                {modalType === ModalType.VIEW_RUNNING_CONTAINERS && payload && (
+                    <ContainersOverview containersData={containers} />
                 )}
+                {modalType === ModalType.VIEW_RUNNING_CONTAINERS_IMAGES &&
+                    payload && <ImagesOverview imagesData={images} />}
             </Modal>
         </>
     );

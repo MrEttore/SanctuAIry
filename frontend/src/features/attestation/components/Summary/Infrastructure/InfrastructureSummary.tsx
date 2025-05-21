@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { ExternalLink, LoaderCircle } from 'lucide-react';
-import { CircleX } from 'lucide-react';
+import { CircleX, HardDrive, LoaderCircle, Server } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -11,16 +10,19 @@ import {
     getConfidentialInfrastructure,
     setConfidentialInfrastructure,
 } from '../../../attestationSlice';
-import { getInfrastructureSummary } from '../../../services/attestationApi';
+import { getInfrastructureSummary } from '../../../services/evidenceProviderApi';
 import { InstanceAttribute } from './InstanceAttribute';
 import { InstanceOverview } from './InstanceOverview';
+import { DiskOverview } from './diskOverview';
 
 export function InfrastructureSummary() {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [modalType, setModalType] = useState<ModalType | null>(null);
 
     const dispatch: AppDispatch = useDispatch();
-    const { summary, instance } = useSelector(getConfidentialInfrastructure);
+    const { summary, instance, disk } = useSelector(
+        getConfidentialInfrastructure,
+    );
 
     const {
         isPending,
@@ -102,7 +104,18 @@ export function InfrastructureSummary() {
                                 ))}
                             </div>
 
-                            <div className="flex justify-end">
+                            <div className="flex justify-end gap-2">
+                                <button
+                                    className="flex items-center gap-1.5 rounded-lg px-1.5 text-base py-1 font-medium cursor-pointer bg-teal-800/80 text-teal-50 transition-all duration-400 shadow-sm hover:bg-teal-800"
+                                    onClick={() =>
+                                        handleSelectModal(
+                                            ModalType.VIEW_VM_DISK,
+                                        )
+                                    }
+                                >
+                                    <HardDrive size={15} />
+                                    Inspect disk
+                                </button>
                                 <button
                                     className="flex items-center gap-1.5 rounded-lg px-1.5 text-base py-1 font-medium cursor-pointer bg-teal-800/80 text-teal-50 transition-all duration-400 shadow-sm hover:bg-teal-800"
                                     onClick={() =>
@@ -111,8 +124,8 @@ export function InfrastructureSummary() {
                                         )
                                     }
                                 >
+                                    <Server size={15} />
                                     Inspect VM
-                                    <ExternalLink size={15} />
                                 </button>
                             </div>
                         </>
@@ -120,17 +133,15 @@ export function InfrastructureSummary() {
                 </div>
             </div>
 
-            <Modal
-                isOpen={isModalOpen}
-                onClose={() => {
-                    setIsModalOpen(false);
-                }}
-            >
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
                 {modalType === ModalType.VIEW_VM_IDENTITY && payload && (
                     <InstanceOverview
                         instanceData={instance}
-                        instanceName={summary?.name}
+                        instanceName={instance?.name}
                     />
+                )}
+                {modalType === ModalType.VIEW_VM_DISK && payload && (
+                    <DiskOverview diskData={disk} diskName={disk?.name} />
                 )}
             </Modal>
         </>

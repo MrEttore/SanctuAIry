@@ -7,7 +7,7 @@ import {
     ConfidentialInfrastructure,
     UpdateStepPayload,
     Workload,
-} from '../../types/attestation';
+} from './types/attestation';
 
 const initialState: AttestationState = {
     issuedChallenge: null,
@@ -32,6 +32,7 @@ const initialState: AttestationState = {
     confidentialInfrastructure: {
         summary: null,
         instance: null,
+        disk: null,
     },
     workload: {
         containers: [],
@@ -60,6 +61,7 @@ const attestationSlice = createSlice({
         ) {
             state.confidentialInfrastructure.summary = action.payload.summary;
             state.confidentialInfrastructure.instance = action.payload.instance;
+            state.confidentialInfrastructure.disk = action.payload.disk;
         },
         setWorkload(state, action: PayloadAction<Workload>) {
             state.workload.containers = action.payload.containers;
