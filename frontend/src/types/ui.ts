@@ -4,8 +4,8 @@ export enum ModalType {
     VIEW_CONFIDENTIAL_TECHNOLOGY = 'confidentialTechnology',
     VIEW_VM_IDENTITY = 'vmIdentity',
     VIEW_VM_DISK = 'vmDisk',
-    VIEW_RUNNING_CONTAINERS = 'runningContainers',
-    VIEW_RUNNING_CONTAINERS_IMAGES = 'runningContainersImages',
+    VIEW_ALL_WORKLOAD_METADATA = 'viewAllWorkloadMetadata',
+    VIEW_CONTAINER = 'viewContainer',
 
     // Attestation Timeline
     START_ATTESTATION = 'startAttestation',
