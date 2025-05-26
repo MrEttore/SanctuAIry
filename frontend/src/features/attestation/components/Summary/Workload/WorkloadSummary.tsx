@@ -67,16 +67,18 @@ export function WorkloadSummary() {
                                     : '---'}
                             </span>
                         </h3>
-                        <button
-                            className="flex items-center gap-1 rounded-lg px-1.5 text-sm py-1 font-medium cursor-pointer bg-teal-800/80 text-teal-50 transition-all duration-400 shadow-sm hover:bg-teal-800"
-                            onClick={() =>
-                                handleSelectModal(
-                                    ModalType.VIEW_ALL_WORKLOAD_METADATA,
-                                )
-                            }
-                        >
-                            View All
-                        </button>
+                        {workload && isSuccess && (
+                            <button
+                                className="flex items-center gap-1 rounded-lg px-1.5 text-sm py-1 font-medium cursor-pointer bg-teal-800/80 text-teal-50 transition-all duration-400 shadow-sm hover:bg-teal-800"
+                                onClick={() =>
+                                    handleSelectModal(
+                                        ModalType.VIEW_ALL_WORKLOAD_METADATA,
+                                    )
+                                }
+                            >
+                                View Workload Metadata
+                            </button>
+                        )}
                     </div>
 
                     {isPending && (
