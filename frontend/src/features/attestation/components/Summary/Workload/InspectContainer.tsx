@@ -1,27 +1,25 @@
 import { JsonEditor, githubDarkTheme } from 'json-edit-react';
 
-import '../../../types/attestation';
-import { Image } from '../../../types/attestation';
+import { Container } from '../../../types/attestation';
 
 type Props = {
-    imagesData: Image[] | null;
+    container: Container | undefined;
 };
 
-export function ImagesOverview({ imagesData }: Props) {
+export function InspectContainer({ container }: Props) {
     return (
-        <div className="text-slate-800">
-            <div className="flex flex-col max-h-[70vh] space-y-4">
-                <div className="flex items-center justify-between">
-                    <p className="py-1 text-2xl text-teal-900">
-                        Running images
+        <div>
+            <div className="flex flex-col max-h-[70vh] space-y-4 text-slate-800">
+                <div className="flex items-center justify-center">
+                    <p className="py-1 text-3xl text-teal-900 font-semibold">
+                        {container?.name}
                     </p>
                 </div>
 
-                {/* EVIDENCE */}
                 <div className="flex-1 overflow-y-auto">
-                    {imagesData ? (
+                    {container ? (
                         <JsonEditor
-                            data={imagesData}
+                            data={container}
                             viewOnly
                             maxWidth={'100%'}
                             theme={githubDarkTheme}

@@ -5,10 +5,10 @@ import { WorkloadSummary } from './Workload/WorkloadSummary';
 
 export function AttestationSummary() {
     return (
-        <div className="mx-3 mt-3 min-h-1/3">
-            <div className="h-full space-y-6 rounded-2xl p-2 shadow-md bg-teal-50">
+        <div className="mx-3 mt-3 h-[40vh]">
+            <div className="space-y-6 rounded-2xl p-2 shadow-md bg-teal-50 h-full min-h-0 overflow-hidden">
                 {/* TODO: Add title to section? */}
-                <div className="grid grid-cols-[1fr_1fr] h-full divide-x-1 divide-teal-800/10">
+                <div className="grid grid-cols-[1fr_1fr] divide-x-1 divide-teal-800/10 h-full">
                     <InfrastructureSummary />
                     <WorkloadSummary />
                     {/* <TrustStatus /> */}
