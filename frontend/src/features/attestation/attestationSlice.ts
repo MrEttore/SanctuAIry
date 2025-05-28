@@ -59,13 +59,10 @@ const attestationSlice = createSlice({
             state,
             action: PayloadAction<ConfidentialInfrastructure>,
         ) {
-            state.confidentialInfrastructure.summary = action.payload.summary;
-            state.confidentialInfrastructure.instance = action.payload.instance;
-            state.confidentialInfrastructure.disk = action.payload.disk;
+            state.confidentialInfrastructure = action.payload;
         },
         setWorkload(state, action: PayloadAction<Workload>) {
-            state.workload.containers = action.payload.containers;
-            state.workload.images = action.payload.images;
+            state.workload = action.payload;
         },
     },
 });
