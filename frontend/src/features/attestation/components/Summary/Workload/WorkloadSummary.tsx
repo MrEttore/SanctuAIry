@@ -54,9 +54,6 @@ export function WorkloadSummary() {
     return (
         <>
             <div className="flex flex-col text-teal-950 pl-1 h-full overflow-hidden min-h-0">
-                <h2 className="lg:text-xl xl:text-2xl mb-6 font-semibold px-2 uppercase">
-                    Workloads
-                </h2>
                 <div className="space-y-3 p-2 rounded-2xl flex flex-col flex-1 overflow-hidden min-h-0">
                     <div className="flex items-center justify-between">
                         <h3 className="xl:text-xl lg:text-lg font-medium">
@@ -76,7 +73,7 @@ export function WorkloadSummary() {
                                     )
                                 }
                             >
-                                View Workload Metadata
+                                View All Workload Metadata
                             </button>
                         )}
                     </div>
