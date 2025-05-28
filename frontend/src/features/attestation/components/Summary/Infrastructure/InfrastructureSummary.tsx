@@ -1,8 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import { CircleX, HardDrive, LoaderCircle, Server } from 'lucide-react';
+import {
+    CircleX,
+    HardDrive,
+    LoaderCircle,
+    RefreshCw,
+    Server,
+} from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { queryClient } from '../../../../../lib/queryClient';
 import { AppDispatch } from '../../../../../redux/store';
 import { ModalType } from '../../../../../types/ui';
 import { Modal } from '../../../../../ui';
@@ -26,6 +33,7 @@ export function InfrastructureSummary() {
 
     const {
         isPending,
+        isFetching,
         isError,
         isSuccess,
         data: payload,
@@ -66,9 +74,24 @@ export function InfrastructureSummary() {
         <>
             <div className="flex flex-col text-teal-950 pr-1">
                 <div className="space-y-3 p-2 rounded-2xl flex h-full flex-col">
-                    <h3 className="xl:text-xl lg:text-lg font-medium">
-                        VM Instance
-                    </h3>
+                    <div className="flex items-center gap-2">
+                        <h3 className="xl:text-xl lg:text-lg font-medium">
+                            VM Instance
+                        </h3>
+                        <button
+                            className="flex items-center gap-1.5 rounded-lg p-1 text-base font-medium cursor-pointer bg-teal-800/80 text-teal-50 transition-all duration-400 shadow-sm hover:bg-teal-800"
+                            onClick={() =>
+                                queryClient.invalidateQueries({
+                                    queryKey: ['confidential-Infrastructure'],
+                                })
+                            }
+                        >
+                            <RefreshCw
+                                size={15}
+                                className={`${isFetching ? 'animate-spin' : ''}`}
+                            />
+                        </button>
+                    </div>
 
                     {isPending && (
                         <div className="flex flex-1 items-center justify-center">
