@@ -1,26 +1,30 @@
 import { JsonEditor, githubDarkTheme } from 'json-edit-react';
+import { ContainerIcon } from 'lucide-react';
 
-import { Workload } from '../../../types/attestation';
+import { Container } from '../../../types/attestation';
 
 type Props = {
-    workload: Workload | null;
+    container: Container | undefined;
 };
 
-export function InspectAllWorkloadMetadata({ workload }: Props) {
+export function ContainerOverview({ container }: Props) {
     return (
-        <div className="text-slate-800">
-            <div className="flex flex-col max-h-[70vh] space-y-4">
-                <div className="flex items-center justify-center">
-                    <p className="py-1 text-3xl text-teal-900 font-semibold">
-                        Workload Metadata
-                    </p>
+        <div>
+            <div className="flex flex-col max-h-[70vh] space-y-4 text-slate-800">
+                <div className="relative w-full flex items-center justify-center py-1">
+                    <span className="absolute left-0 bottom-0 text-xl pl-2 text-teal-900/80 flex items-center gap-1">
+                        <ContainerIcon size={20} />
+                        Container
+                    </span>
+                    <span className="ml-1 text-2xl font-semibold text-teal-900">
+                        {container?.name}
+                    </span>
                 </div>
 
-                {/* EVIDENCE */}
                 <div className="flex-1 overflow-y-auto">
-                    {workload ? (
+                    {container ? (
                         <JsonEditor
-                            data={workload}
+                            data={container}
                             viewOnly
                             maxWidth={'100%'}
                             theme={githubDarkTheme}

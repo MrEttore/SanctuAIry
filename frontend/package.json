@@ -14,6 +14,7 @@
         "@tailwindcss/vite": "^4.0.15",
         "@tanstack/react-query": "^5.72.2",
         "@tanstack/react-query-devtools": "^5.72.2",
+        "change-case": "^5.4.4",
         "json-edit-react": "^1.26.0",
         "lucide-react": "^0.483.0",
         "react": "^19.0.0",

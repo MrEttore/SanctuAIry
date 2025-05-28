@@ -1,25 +1,26 @@
 import { JsonEditor, githubDarkTheme } from 'json-edit-react';
 
-import { Container } from '../../../types/attestation';
+import { Workload } from '../../../types/attestation';
 
 type Props = {
-    container: Container | undefined;
+    workload: Workload | null;
 };
 
-export function InspectContainer({ container }: Props) {
+export function AllWorkloadMetadataOverview({ workload }: Props) {
     return (
-        <div>
-            <div className="flex flex-col max-h-[70vh] space-y-4 text-slate-800">
+        <div className="text-slate-800">
+            <div className="flex flex-col max-h-[70vh] space-y-4">
                 <div className="flex items-center justify-center">
                     <p className="py-1 text-3xl text-teal-900 font-semibold">
-                        {container?.name}
+                        Workload Metadata
                     </p>
                 </div>
 
+                {/* EVIDENCE */}
                 <div className="flex-1 overflow-y-auto">
-                    {container ? (
+                    {workload ? (
                         <JsonEditor
-                            data={container}
+                            data={workload}
                             viewOnly
                             maxWidth={'100%'}
                             theme={githubDarkTheme}
