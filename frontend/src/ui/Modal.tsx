@@ -21,7 +21,7 @@ export function Modal({ isOpen, onClose, children }: Props) {
 
     return ReactDOM.createPortal(
         <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-teal-950/50"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-teal-950/50 backdrop-blur-xs"
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
