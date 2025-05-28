@@ -29,6 +29,7 @@ export function WorkloadSummary() {
         isError,
         isSuccess,
         data: payload,
+        error,
     } = useQuery({
         queryKey: ['workloads'],
         queryFn: getWorkloadSummary,
@@ -111,7 +112,7 @@ export function WorkloadSummary() {
                         <div className="flex flex-1 items-center justify-center">
                             <p className="font-medium text-xl flex items-center justify-center rounded-xl bg-orange-800/20 px-4 py-2 text-orange-900 shadow-xs">
                                 <CircleX size={20} className="mr-1" />
-                                No workloads found
+                                {error.message}
                             </p>
                         </div>
                     )}

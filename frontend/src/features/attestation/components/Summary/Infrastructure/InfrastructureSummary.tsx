@@ -37,10 +37,10 @@ export function InfrastructureSummary() {
         isError,
         isSuccess,
         data: payload,
+        error,
     } = useQuery({
         queryKey: ['confidential-Infrastructure'],
         queryFn: getInfrastructureSummary,
-        retry: 2,
         staleTime: 5 * 1000,
     });
 
@@ -109,7 +109,7 @@ export function InfrastructureSummary() {
                         <div className="flex flex-1 items-center justify-center">
                             <p className="font-medium text-xl flex items-center justify-center rounded-xl bg-orange-800/20 px-4 py-2 text-orange-900 shadow-xs">
                                 <CircleX size={20} className="mr-1" />
-                                No instance found
+                                {error.message}
                             </p>
                         </div>
                     )}
