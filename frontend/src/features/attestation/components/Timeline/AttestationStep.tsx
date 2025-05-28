@@ -1,22 +1,25 @@
 import { Circle, CircleCheck, CircleDashed, CircleX } from 'lucide-react';
 
+import { AttestationQuote, Challenge } from '../../types/attestation';
+
 type Props = {
     name: string;
     status: 'idle' | 'pending' | 'done' | 'error';
-    artifact?: string;
+    artifactName?: string;
+    artifactValue?: Challenge | AttestationQuote | null;
     action: () => void;
 };
 
 export function AttestationStep({
     name,
     status,
-    artifact,
+    artifactName,
+    artifactValue,
     action,
-    // actionType,
 }: Props) {
     return (
         <div
-            className={`flex-1 space-y-3 rounded-xl px-3 py-2 text-xl ${status === 'done' ? 'bg-green-500/20 text-green-700' : ''} ${status === 'error' ? 'bg-red-500/20 text-red-700' : ''} ${status === 'idle' ? 'bg-slate-200/80 text-teal-950' : ''} ${status === 'pending' ? 'bg-yellow-500/50 text-yellow-700' : ''}`}
+            className={`flex-1 space-y-3 rounded-lg px-3 py-2 text-xl ${status === 'done' ? 'bg-green-500/10 font-medium' : ''} ${status === 'error' ? 'bg-red-500/20 text-red-700' : ''} ${status === 'idle' ? 'bg-slate-100 text-teal-950' : ''} ${status === 'pending' ? 'bg-yellow-500/50 text-yellow-700' : ''}`}
         >
             <div className="flex items-center gap-2">
                 {status === 'idle' && <Circle />}
@@ -30,16 +33,14 @@ export function AttestationStep({
                 {status === 'error' && <CircleX />}
                 <p>{name}</p>
             </div>
-
-            {artifact && (
-                <button
-                    className="mx-auto flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-slate-500/60 px-4 text-sm font-medium text-slate-700 transition-colors duration-300 hover:bg-slate-500/80 hover:shadow-xs"
-                    type="button"
-                    onClick={() => action()}
-                >
-                    {`View ${artifact}`}
-                </button>
-            )}
+            <button
+                className={`mx-auto flex h-8 items-center justify-center gap-1.5 rounded-lg px-4 text-sm font-medium transition-colors duration-300 hover:shadow-xs ${!artifactValue ? 'cursor-not-allowed' : 'cursor-pointer'} ${!artifactValue ? 'bg-teal-800/50 text-teal-50' : 'bg-teal-800/80 hover:bg-teal-800 text-teal-50'}`}
+                type="button"
+                onClick={() => action()}
+                disabled={!artifactValue ? true : false}
+            >
+                {`View ${artifactName ?? '??'}`}
+            </button>
         </div>
     );
 }

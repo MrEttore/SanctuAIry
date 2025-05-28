@@ -3,6 +3,11 @@ import { InfrastructureSummary } from './Infrastructure/InfrastructureSummary';
 // import { TrustStatus } from './TrustStatus/TrustStatus';
 import { WorkloadSummary } from './Workload/WorkloadSummary';
 
+/**
+ * Displays attestation results in a structured and user-friendly format.
+ * Includes summaries of confidential infrastructure and workload integrity, fulfilling transparency requirement T2.
+ * Exposes container image metadata, such as hashes and repository origins, fulfilling code integrity requirement CI2.
+ */
 export function AttestationSummary() {
     return (
         <div className="mx-3 mt-3 h-[35vh]">

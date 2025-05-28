@@ -8,6 +8,11 @@ type Props = {
     instanceName: string | undefined;
 };
 
+/**
+ * Provides detailed evidence of the confidential VM instance state.
+ * Exposes runtime claims such as configuration and state data, fulfilling transparency requirement T3.
+ * Supports traceability and reproducibility of the backend codebase, fulfilling verifiability requirement V3.
+ */
 export function InstanceOverview({ instanceData, instanceName }: Props) {
     return (
         <div className="text-slate-800">
