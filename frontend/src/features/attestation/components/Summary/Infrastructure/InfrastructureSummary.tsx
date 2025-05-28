@@ -65,9 +65,6 @@ export function InfrastructureSummary() {
     return (
         <>
             <div className="flex flex-col text-teal-950 pr-1">
-                <h2 className="lg:text-xl xl:text-2xl mb-6 font-semibold px-2 uppercase">
-                    Confidential Infrastructure
-                </h2>
                 <div className="space-y-3 p-2 rounded-2xl flex h-full flex-col">
                     <h3 className="xl:text-xl lg:text-lg font-medium">
                         VM Instance
@@ -95,8 +92,8 @@ export function InfrastructureSummary() {
                     )}
 
                     {isSuccess && (
-                        <div className="flex flex-1 flex-col rounded-lg p-1.5 bg-teal-800/20 shadow-xs">
-                            <div className="grid grid-cols-2 gap-x-2 gap-y-1 2xl:text-sm lg:text-xs flex-1">
+                        <div className="flex flex-1 flex-col rounded-lg p-1.5 bg-teal-800/20 shadow-xs justify-between">
+                            <div className="grid grid-cols-2 gap-2 2xl:text-sm lg:text-xs">
                                 {instanceProperties.map(([key, value]) => (
                                     <InstanceAttribute
                                         key={key}
