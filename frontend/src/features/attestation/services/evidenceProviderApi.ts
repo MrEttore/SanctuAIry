@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const ATTESTER_URL = import.meta.env.VITE_ATTESTER_URL;
 
 // TODO: Refactor using Axios. Also, in order to add timeouts.
@@ -49,25 +51,32 @@ export async function getVtpmQuote(challenge: string) {
 }
 
 export async function getInfrastructureSummary() {
-    const response = await fetch(`${ATTESTER_URL}/infrastructure/summary`);
-    const payload = await response.json();
+    try {
+        const { data: payload } = await axios.get(
+            `${ATTESTER_URL}/infrastructure/summary`,
+            { timeout: 3000 },
+        );
 
-    if (!response.ok) {
-        const message = 'Error retrieving the infrastructure';
-        throw new Error(message);
+        return payload;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error) && error.code === 'ECONNABORTED') {
+            throw new Error('Request timed out – Instance not available');
+        }
+        throw new Error('Error retrieving the infrastructure');
     }
-
-    return payload;
 }
 
 export async function getWorkloadSummary() {
-    const response = await fetch(`${ATTESTER_URL}/evidence/workload`);
-    const payload = await response.json();
-
-    if (!response.ok) {
-        const message = 'Error retrieving workloads';
-        throw new Error(message);
+    try {
+        const { data: payload } = await axios.get(
+            `${ATTESTER_URL}/evidence/workload`,
+            { timeout: 3000 },
+        );
+        return payload;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error) && error.code === 'ECONNABORTED') {
+            throw new Error('Request timed out – Workloads not available');
+        }
+        throw new Error('Error retrieving workloads');
     }
-
-    return payload;
 }
