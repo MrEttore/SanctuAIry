@@ -1,5 +1,6 @@
 export enum ModalType {
     // Backend Summary
+    INFO_CLOUD_INFRASTRUCTURE_OVERVIEW = 'infoCloudInfrastructureOverview',
     VIEW_CLOUD_PLATFORM = 'cloudPlatform',
     VIEW_CONFIDENTIAL_TECHNOLOGY = 'confidentialTechnology',
     VIEW_VM_IDENTITY = 'vmIdentity',
