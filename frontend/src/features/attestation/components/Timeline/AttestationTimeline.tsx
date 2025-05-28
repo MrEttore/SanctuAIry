@@ -67,7 +67,7 @@ export function AttestationTimeline() {
                                 }
                             >
                                 <Handshake size={20} />
-                                START ATTESTATION
+                                Start Attestation
                             </button>
                         </div>
                     </div>
