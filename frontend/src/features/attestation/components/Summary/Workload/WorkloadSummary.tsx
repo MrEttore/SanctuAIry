@@ -8,8 +8,8 @@ import { ModalType } from '../../../../../types/ui';
 import { Modal } from '../../../../../ui';
 import { getWorkload, setWorkload } from '../../../attestationSlice';
 import { getWorkloadSummary } from '../../../services/evidenceProviderApi';
-import { InspectAllWorkloadMetadata } from './InspectAllWorkloadMetadata';
-import { InspectContainer } from './InspectContainer';
+import { AllWorkloadMetadataOverview } from './AllWorkloadMetadataOverview';
+import { ContainerOverview } from './ContainerOverview';
 import { WorkloadContainer } from './WorkloadContainer';
 
 export function WorkloadSummary() {
@@ -54,12 +54,12 @@ export function WorkloadSummary() {
     return (
         <>
             <div className="flex flex-col text-teal-950 pl-1 h-full overflow-hidden min-h-0">
-                <h2 className="text-2xl mb-6 font-semibold px-2 uppercase">
+                <h2 className="lg:text-xl xl:text-2xl mb-6 font-semibold px-2 uppercase">
                     Workloads
                 </h2>
                 <div className="space-y-3 p-2 rounded-2xl flex flex-col flex-1 overflow-hidden min-h-0">
                     <div className="flex items-center justify-between">
-                        <h3 className="text-xl font-medium">
+                        <h3 className="xl:text-xl lg:text-lg font-medium">
                             Running workloads:
                             <span className="ml-2 rounded-lg px-1.5 bg-teal-800/20 shadow-xs font-medium">
                                 {workload.containers.length > 0
@@ -123,10 +123,10 @@ export function WorkloadSummary() {
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                 {modalType === ModalType.VIEW_ALL_WORKLOAD_METADATA &&
                     payload && (
-                        <InspectAllWorkloadMetadata workload={workload} />
+                        <AllWorkloadMetadataOverview workload={workload} />
                     )}
                 {modalType === ModalType.VIEW_CONTAINER && payload && (
-                    <InspectContainer
+                    <ContainerOverview
                         container={workload.containers.find(
                             (container) => container.id === selectedContainer,
                         )}

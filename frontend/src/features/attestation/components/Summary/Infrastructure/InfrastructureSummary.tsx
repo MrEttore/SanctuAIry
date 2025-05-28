@@ -11,9 +11,9 @@ import {
     setConfidentialInfrastructure,
 } from '../../../attestationSlice';
 import { getInfrastructureSummary } from '../../../services/evidenceProviderApi';
+import { DiskOverview } from './DiskOverview';
 import { InstanceAttribute } from './InstanceAttribute';
 import { InstanceOverview } from './InstanceOverview';
-import { DiskOverview } from './diskOverview';
 
 export function InfrastructureSummary() {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -65,11 +65,13 @@ export function InfrastructureSummary() {
     return (
         <>
             <div className="flex flex-col text-teal-950 pr-1">
-                <h2 className="text-2xl mb-6 font-semibold px-2 uppercase">
+                <h2 className="lg:text-xl xl:text-2xl mb-6 font-semibold px-2 uppercase">
                     Confidential Infrastructure
                 </h2>
                 <div className="space-y-3 p-2 rounded-2xl flex h-full flex-col">
-                    <h3 className="text-xl font-medium">VM Instance</h3>
+                    <h3 className="xl:text-xl lg:text-lg font-medium">
+                        VM Instance
+                    </h3>
 
                     {isPending && (
                         <div className="flex flex-1 items-center justify-center">
@@ -93,8 +95,8 @@ export function InfrastructureSummary() {
                     )}
 
                     {isSuccess && (
-                        <>
-                            <div className="grid grid-cols-2 gap-2 text-sm flex-1">
+                        <div className="flex flex-1 flex-col rounded-lg p-1.5 bg-teal-800/20 shadow-xs">
+                            <div className="grid grid-cols-2 gap-x-2 gap-y-1 2xl:text-sm lg:text-xs flex-1">
                                 {instanceProperties.map(([key, value]) => (
                                     <InstanceAttribute
                                         key={key}
@@ -128,7 +130,7 @@ export function InfrastructureSummary() {
                                     Inspect VM
                                 </button>
                             </div>
-                        </>
+                        </div>
                     )}
                 </div>
             </div>

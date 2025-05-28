@@ -28,7 +28,7 @@ export function Modal({ isOpen, onClose, children }: Props) {
         >
             <div className="relative max-w-[60%] min-w-1/3 space-y-10 rounded-xl bg-slate-100 p-3 shadow-2xl font-quicksand">
                 <button
-                    className="absolute top-2 right-2 cursor-pointer rounded-lg bg-red-500/80 p-1 text-red-100 transition-colors duration-300 hover:bg-red-500"
+                    className="absolute top-2 right-2 cursor-pointer rounded-lg bg-red-500/80 p-1 text-red-100 transition-colors duration-300 hover:bg-red-500 z-55"
                     onClick={onClose}
                 >
                     <X size={20} />

@@ -1,4 +1,5 @@
 import { JsonEditor, githubDarkTheme } from 'json-edit-react';
+import { HardDrive } from 'lucide-react';
 
 import { Disk } from '../../../types/attestation';
 
@@ -11,11 +12,12 @@ export function DiskOverview({ diskData, diskName }: Props) {
     return (
         <div>
             <div className="flex flex-col max-h-[70vh] space-y-4">
-                <div className="flex items-center justify-between">
-                    <p className="py-1 text-2xl text-teal-900/80">
-                        Disk:
-                        <span className="ml-1 font-semibold text-teal-900">{`${diskName ?? 'Unknown'}`}</span>
-                    </p>
+                <div className="relative w-full flex items-center justify-center py-1">
+                    <span className="absolute left-0 bottom-0 text-xl pl-2 text-teal-900/80 flex items-center gap-1">
+                        <HardDrive size={20} />
+                        Disk
+                    </span>
+                    <span className="ml-1 text-2xl font-semibold text-teal-900">{`${diskName ?? 'Unknown'}`}</span>
                 </div>
 
                 {/* EVIDENCE */}
