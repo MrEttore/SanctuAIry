@@ -20,7 +20,17 @@ type Props = {
     onClose: () => void;
 };
 
+/**
+ * Implements the cryptographic challenge generation by the Relying Party.
+ * Ensures session specificity and freshness of the attestation process, fulfilling trust minimization requirement TM1.
+ * Guarantees intermediary-agnostic evidence flow, fulfilling trust minimization requirement TM3.
+ */
 export function IssueChallengeForm({ onClose }: Props) {
+    const [challengeGenerationMode, setChallengeGenerationMode] =
+        useState<ChallengeGenerationMode>(ChallengeGenerationMode.AUTOMATIC);
+    const [challenge, setChallenge] = useState<string>('');
+    const [formError, setFormError] = useState<string>('');
+
     const dispatch: AppDispatch = useDispatch();
 
     const { isPending, mutate } = useMutation({
@@ -56,11 +66,6 @@ export function IssueChallengeForm({ onClose }: Props) {
         },
     });
 
-    const [challengeGenerationMode, setChallengeGenerationMode] =
-        useState<ChallengeGenerationMode>(ChallengeGenerationMode.AUTOMATIC);
-    const [challenge, setChallenge] = useState<string>('');
-    const [formError, setFormError] = useState<string>('');
-
     function handleGenerateChallenge() {
         const challenge = generateChallenge();
         setChallenge(challenge);
@@ -79,34 +84,36 @@ export function IssueChallengeForm({ onClose }: Props) {
     }
 
     return (
-        <div className="space-y-6">
-            <h2
-                id="modal-title"
-                className="text-xl font-bold text-slate-900 uppercase"
-            >
+        <div className="space-y-6 text-slate-800">
+            <h2 id="modal-title" className="text-2xl font-semibold">
                 Generate Challenge
             </h2>
-            <div className="">
+            <div>
                 {/* GENERATION MODE SELECTORS */}
                 <div className="mx-auto flex w-1/2 items-center justify-center overflow-hidden rounded-xl bg-slate-100">
                     <button
+                        className={`m-1 flex h-10 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-lg border-2 font-medium transition-colors duration-300 ${
+                            challengeGenerationMode ===
+                            ChallengeGenerationMode.AUTOMATIC
+                                ? 'border-transparent bg-slate-700/80 text-slate-50 hover:bg-slate-700'
+                                : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100'
+                        } `}
                         type="button"
                         onClick={() =>
                             setChallengeGenerationMode(
                                 ChallengeGenerationMode.AUTOMATIC,
                             )
                         }
-                        className={`m-1 flex h-10 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl border-2 font-semibold transition-colors duration-300 ${
+                    >
+                        Automatic
+                    </button>
+                    <button
+                        className={`m-1 flex h-10 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-lg border-2 font-medium transition-colors duration-300 ${
                             challengeGenerationMode ===
-                            ChallengeGenerationMode.AUTOMATIC
-                                ? 'border-slate-600 bg-slate-600 text-slate-50 hover:bg-slate-700'
+                            ChallengeGenerationMode.MANUAL
+                                ? 'border-transparent bg-slate-700/80 text-slate-50 hover:bg-slate-700'
                                 : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100'
                         } `}
-                    >
-                        AUTOMATIC
-                    </button>
-
-                    <button
                         type="button"
                         onClick={() => {
                             setChallengeGenerationMode(
@@ -114,14 +121,8 @@ export function IssueChallengeForm({ onClose }: Props) {
                             );
                             setChallenge('');
                         }}
-                        className={`m-1 flex h-10 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl border-2 font-semibold transition-colors duration-300 ${
-                            challengeGenerationMode ===
-                            ChallengeGenerationMode.MANUAL
-                                ? 'border-slate-600 bg-slate-600 text-slate-50 hover:bg-slate-700'
-                                : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100'
-                        } `}
                     >
-                        MANUAL
+                        Manual
                     </button>
                 </div>
             </div>
@@ -135,15 +136,15 @@ export function IssueChallengeForm({ onClose }: Props) {
                         ChallengeGenerationMode.AUTOMATIC && (
                         <div className="flex items-center gap-2">
                             <button
-                                className="flex h-10 cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-slate-600 px-4 text-sm font-medium text-slate-200 transition-colors duration-300 hover:bg-slate-700 hover:shadow-md"
+                                className="flex h-10 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-slate-700/80 px-4 text-sm font-medium text-slate-200 transition-colors duration-300 hover:bg-slate-700 shadow-sm"
                                 type="button"
                                 onClick={handleGenerateChallenge}
                             >
                                 <Wand size={18} />
-                                RANDOM CHALLENGE
+                                Random challenge
                             </button>
                             <input
-                                className="flex-1 rounded-xl border-2 border-slate-600 bg-slate-50 px-4 py-2 text-slate-900"
+                                className="flex-1 rounded-lg border-2 border-slate-600 bg-slate-50 px-4 py-2 text-slate-900"
                                 disabled
                                 placeholder=""
                                 value={challenge}
@@ -177,23 +178,23 @@ export function IssueChallengeForm({ onClose }: Props) {
                 {/* FORM CONTROL BUTTONS */}
                 <div className="flex items-end justify-end gap-2">
                     <button
-                        className="flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-slate-600 px-4 text-sm font-medium text-slate-200 transition-colors duration-300 hover:bg-slate-700 hover:shadow-md"
+                        className="flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-slate-700/80 px-4 text-sm font-medium text-slate-200 transition-colors duration-300 hover:bg-slate-700 shadow-sm"
                         type="button"
                         onClick={() => setChallenge('')}
                     >
-                        CLEAR
+                        Clear
                     </button>
                     <button
-                        className="flex h-10 cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-teal-700 px-4 font-medium text-slate-200 shadow-md transition-colors duration-300 hover:bg-teal-800 hover:shadow-xl"
+                        className="flex h-10 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-teal-800/80 px-4 font-medium text-slate-200 transition-colors duration-300 hover:bg-teal-800 shadow-sm"
                         type="submit"
                     >
                         {isPending ? (
                             <p className="flex items-center gap-2">
-                                SENDING TO ATTESTER
+                                Sending...
                                 <Loader className="animate-spin" />
                             </p>
                         ) : (
-                            'SEND TO ATTESTER'
+                            'Send to attester'
                         )}
                     </button>
                 </div>

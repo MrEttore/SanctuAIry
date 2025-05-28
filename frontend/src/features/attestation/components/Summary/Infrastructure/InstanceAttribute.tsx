@@ -6,7 +6,6 @@ type Props = {
 };
 
 export function InstanceAttribute({ name, value }: Props) {
-    console.log(name);
     return (
         <div className="flex justify-between items-center">
             <p>{changeCase.sentenceCase(name)}:</p>

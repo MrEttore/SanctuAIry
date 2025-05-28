@@ -1,4 +1,4 @@
-import { CircleHelp, Handshake } from 'lucide-react';
+import { Handshake } from 'lucide-react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -11,7 +11,9 @@ import { AttestationStep } from './AttestationStep';
 import { IssueChallengeForm } from './IssueChallengeForm';
 
 /**
- * Implements the Transparency Requirements (T1-T3) of the framework.
+ * Visualizes the attestation flow for the Relying Party.
+ * Exposes the attestation steps and their statuses to the user, fulfilling transparency requirements T1 and T2.
+ * Ensures evidence integrity across intermediaries, fulfilling trust minimization requirement TM3.
  */
 export function AttestationTimeline() {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -36,32 +38,38 @@ export function AttestationTimeline() {
     return (
         <>
             <div className="mx-3">
-                <div className="flex flex-col space-y-6 rounded-2xl bg-slate-100 p-4 py-2 shadow-md">
-                    {/* START ATTESTATION */}
+                <div className="flex flex-col space-y-6 rounded-2xl bg-teal-50 p-4 py-2 shadow-md text-teal-950">
+                    {/* HEADER */}
                     <div className="flex items-end justify-between">
-                        <button
-                            className="flex h-10 cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-slate-600 px-4 font-medium text-slate-200 transition-colors duration-300 hover:bg-slate-700 hover:shadow-md"
-                            onClick={() =>
-                                handleSelectModal(ModalType.START_ATTESTATION)
-                            }
-                        >
-                            <Handshake size={20} />
-                            START ATTESTATION
-                        </button>
-
-                        <button
-                            className="flex cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-slate-600 px-3 py-1 font-medium text-slate-200 transition-colors duration-300 hover:bg-slate-700 hover:shadow-md"
-                            onClick={() =>
-                                handleSelectModal(
-                                    ModalType.HOW_IT_WORKS_ATTESTATION,
-                                )
-                            }
-                        >
-                            <CircleHelp size={18} />
-                            How it works
-                        </button>
-
-                        {/* TODO: Attestation not available when no communication with backend. */}
+                        <div className="flex items-center gap-2">
+                            <h2 className="text-2xl font-semibold">
+                                How we ensure confidentiality
+                            </h2>
+                            <button
+                                className="flex items-center justify-center gap-1.5 rounded-full h-5 w-5 px-1.5 text-base py-1 font-medium cursor-pointer bg-teal-800/80 text-teal-50 transition-all duration-400 shadow-sm hover:bg-teal-800"
+                                onClick={() =>
+                                    handleSelectModal(
+                                        ModalType.HOW_IT_WORKS_ATTESTATION,
+                                    )
+                                }
+                            >
+                                ?
+                            </button>
+                        </div>
+                        <div>
+                            {/* TODO: Attestation not available when no communication with backend. */}
+                            <button
+                                className="flex items-center gap-1.5 rounded-lg px-1.5 text-base py-1 font-medium cursor-pointer bg-teal-800/80 text-teal-50 transition-all duration-400 shadow-sm hover:bg-teal-800"
+                                onClick={() =>
+                                    handleSelectModal(
+                                        ModalType.START_ATTESTATION,
+                                    )
+                                }
+                            >
+                                <Handshake size={20} />
+                                START ATTESTATION
+                            </button>
+                        </div>
                     </div>
 
                     {/* STEPS */}
@@ -71,7 +79,8 @@ export function AttestationTimeline() {
                             <AttestationStep
                                 name="Issue Challenge"
                                 status={issueChallenge.status}
-                                artifact={issuedChallenge ? 'challenge' : ''}
+                                artifactName="challenge"
+                                artifactValue={issuedChallenge}
                                 action={() =>
                                     handleSelectModal(ModalType.VIEW_CHALLENGE)
                                 }
@@ -81,7 +90,8 @@ export function AttestationTimeline() {
                             <AttestationStep
                                 name="Generate Evidence"
                                 status={generateEvidence.status}
-                                artifact={attestationQuote ? 'evidence' : ''}
+                                artifactName="evidence"
+                                artifactValue={attestationQuote}
                                 action={() =>
                                     handleSelectModal(ModalType.VIEW_EVIDENCE)
                                 }
@@ -91,7 +101,7 @@ export function AttestationTimeline() {
                             <AttestationStep
                                 name="Verify TEE"
                                 status={verifyTee.status}
-                                // artifact={... ? 'evidence' : ''}
+                                // artifactName={... ? 'evidence' : ''}
                                 action={() =>
                                     handleSelectModal(
                                         ModalType.VIEW_VERIFICATION_RESULT,
@@ -103,7 +113,7 @@ export function AttestationTimeline() {
                             <AttestationStep
                                 name="Validate Image"
                                 status={validateImage.status}
-                                // artifact={... ? 'evidence' : ''}
+                                // artifactName={... ? 'evidence' : ''}
                                 action={() =>
                                     handleSelectModal(
                                         ModalType.VIEW_IMAGE_SOURCE,
@@ -115,7 +125,7 @@ export function AttestationTimeline() {
                             <AttestationStep
                                 name="Sign Result"
                                 status={signResult.status}
-                                // artifact={... ? 'evidence' : ''}
+                                // artifactName={... ? 'evidence' : ''}
                                 action={() =>
                                     handleSelectModal(
                                         ModalType.VIEW_SIGNED_RESULT,
