@@ -76,7 +76,7 @@ export function InfrastructureSummary() {
                 <div className="space-y-3 p-2 rounded-2xl flex h-full flex-col">
                     <div className="flex items-center gap-2">
                         <h3 className="xl:text-xl lg:text-lg font-medium">
-                            VM Instance
+                            VM instance
                         </h3>
                         <button
                             className="flex items-center gap-1.5 rounded-lg p-1 text-base font-medium cursor-pointer bg-teal-800/80 text-teal-50 transition-all duration-400 shadow-sm hover:bg-teal-800"
