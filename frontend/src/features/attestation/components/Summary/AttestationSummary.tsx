@@ -21,7 +21,6 @@ export function AttestationSummary() {
     }
 
     return (
-        // h-[35vh]
         <>
             <div className="mx-3 mt-3">
                 <div className="rounded-2xl p-2 shadow-md bg-teal-50 min-h-0 overflow-hidden">
