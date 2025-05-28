@@ -1,5 +1,5 @@
 export type AttestationState = {
-    issuedChallenge: string | null;
+    issuedChallenge: Challenge;
     attestationQuote: AttestationQuote | null;
     attestationSteps: AttestationSteps;
     confidentialInfrastructure: ConfidentialInfrastructure;
@@ -69,6 +69,8 @@ export type Image = {
     size: number;
     labels?: { [key: string]: string };
 };
+
+export type Challenge = string | null;
 
 export type AttestationQuote = {
     [key: string]: unknown;
