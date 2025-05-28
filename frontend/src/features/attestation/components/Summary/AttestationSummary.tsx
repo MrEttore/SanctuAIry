@@ -43,19 +43,6 @@ export function AttestationSummary() {
                         <InfrastructureSummary />
                         <WorkloadSummary />
                     </div>
-
-                    {/* SUMMARY ACTIONS */}
-                    {/* <div className="flex justify-end">
-                    <button
-                        className="flex h-10 cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-slate-600 px-4 font-medium text-slate-200 shadow-md transition-colors duration-300 hover:bg-slate-700 hover:shadow"
-                        onClick={() => {
-                            // TODO: Add attestation refresh logic.
-                        }}
-                    >
-                        <RefreshCw />
-                        REFRESH
-                    </button>
-                </div> */}
                 </div>
             </div>
 
