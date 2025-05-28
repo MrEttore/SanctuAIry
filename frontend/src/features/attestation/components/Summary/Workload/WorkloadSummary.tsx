@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { CircleX, LoaderCircle } from 'lucide-react';
+import { CircleX, LoaderCircle, RefreshCw } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { queryClient } from '../../../../../lib/queryClient';
 import { AppDispatch } from '../../../../../redux/store';
 import { ModalType } from '../../../../../types/ui';
 import { Modal } from '../../../../../ui';
@@ -24,6 +25,7 @@ export function WorkloadSummary() {
 
     const {
         isPending,
+        isFetching,
         isError,
         isSuccess,
         data: payload,
@@ -56,14 +58,29 @@ export function WorkloadSummary() {
             <div className="flex flex-col text-teal-950 pl-1 h-full overflow-hidden min-h-0">
                 <div className="space-y-3 p-2 rounded-2xl flex flex-col flex-1 overflow-hidden min-h-0">
                     <div className="flex items-center justify-between">
-                        <h3 className="xl:text-xl lg:text-lg font-medium">
-                            Running workloads:
-                            <span className="ml-2 rounded-lg px-1.5 bg-teal-800/20 shadow-xs font-medium">
-                                {workload.containers.length > 0
-                                    ? workload.containers.length
-                                    : '---'}
-                            </span>
-                        </h3>
+                        <div className="flex items-center gap-2">
+                            <h3 className="xl:text-xl lg:text-lg font-medium">
+                                Running workloads:
+                                <span className="ml-2 rounded-lg px-1.5 bg-teal-800/20 shadow-xs font-medium">
+                                    {workload.containers.length > 0
+                                        ? workload.containers.length
+                                        : '---'}
+                                </span>
+                            </h3>
+                            <button
+                                className="flex items-center gap-1.5 rounded-lg p-1 text-base font-medium cursor-pointer bg-teal-800/80 text-teal-50 transition-all duration-400 shadow-sm hover:bg-teal-800"
+                                onClick={() =>
+                                    queryClient.invalidateQueries({
+                                        queryKey: ['workloads'],
+                                    })
+                                }
+                            >
+                                <RefreshCw
+                                    size={15}
+                                    className={`${isFetching ? 'animate-spin' : ''}`}
+                                />
+                            </button>
+                        </div>
                         {workload && isSuccess && (
                             <button
                                 className="flex items-center gap-1 rounded-lg px-1.5 text-sm py-1 font-medium cursor-pointer bg-teal-800/80 text-teal-50 transition-all duration-400 shadow-sm hover:bg-teal-800"
