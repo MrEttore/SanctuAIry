@@ -36,7 +36,7 @@ export function InfrastructureSummary() {
         isFetching,
         isError,
         isSuccess,
-        data: payload,
+        data: infrastructureData,
         error,
     } = useQuery({
         queryKey: ['confidential-Infrastructure'],
@@ -45,9 +45,9 @@ export function InfrastructureSummary() {
     });
 
     useEffect(() => {
-        if (isSuccess && payload)
-            dispatch(setConfidentialInfrastructure(payload.data));
-    }, [isSuccess, payload, dispatch]);
+        if (isSuccess && infrastructureData)
+            dispatch(setConfidentialInfrastructure(infrastructureData));
+    }, [isSuccess, infrastructureData, dispatch]);
 
     const confidentialTechnology =
         instance?.confidentialInstanceConfig?.confidentialInstanceType ??
@@ -156,13 +156,13 @@ export function InfrastructureSummary() {
             </div>
 
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                {modalType === ModalType.VIEW_VM_IDENTITY && payload && (
+                {modalType === ModalType.VIEW_VM_IDENTITY && instance && (
                     <InstanceOverview
                         instanceData={instance}
                         instanceName={instance?.name}
                     />
                 )}
-                {modalType === ModalType.VIEW_VM_DISK && payload && (
+                {modalType === ModalType.VIEW_VM_DISK && disk && (
                     <DiskOverview diskData={disk} diskName={disk?.name} />
                 )}
             </Modal>
