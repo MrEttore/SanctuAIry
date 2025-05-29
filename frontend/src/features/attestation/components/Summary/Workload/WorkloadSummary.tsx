@@ -28,7 +28,7 @@ export function WorkloadSummary() {
         isFetching,
         isError,
         isSuccess,
-        data: payload,
+        data: workloadData,
         error,
     } = useQuery({
         queryKey: ['workloads'],
@@ -38,8 +38,8 @@ export function WorkloadSummary() {
     });
 
     useEffect(() => {
-        if (isSuccess && payload) dispatch(setWorkload(payload.data));
-    }, [isSuccess, payload, dispatch]);
+        if (isSuccess && workloadData) dispatch(setWorkload(workloadData));
+    }, [isSuccess, workloadData, dispatch]);
 
     function handleSelectModal(modalType: ModalType, containerId?: string) {
         setModalType(modalType);
@@ -82,7 +82,7 @@ export function WorkloadSummary() {
                                 />
                             </button>
                         </div>
-                        {workload && isSuccess && (
+                        {isSuccess && (
                             <button
                                 className="flex items-center gap-1 rounded-lg px-1.5 text-sm py-1 font-medium cursor-pointer bg-teal-800/80 text-teal-50 transition-all duration-400 shadow-sm hover:bg-teal-800"
                                 onClick={() =>
@@ -137,10 +137,10 @@ export function WorkloadSummary() {
 
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                 {modalType === ModalType.VIEW_ALL_WORKLOAD_METADATA &&
-                    payload && (
+                    workload && (
                         <AllWorkloadMetadataOverview workload={workload} />
                     )}
-                {modalType === ModalType.VIEW_CONTAINER && payload && (
+                {modalType === ModalType.VIEW_CONTAINER && workload && (
                     <ContainerOverview
                         container={workload.containers.find(
                             (container) => container.id === selectedContainer,
