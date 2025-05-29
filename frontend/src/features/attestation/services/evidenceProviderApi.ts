@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { ConfidentialInfrastructure, Workload } from '../types/attestation';
+
 const ATTESTER_URL = import.meta.env.VITE_ATTESTER_URL;
 
 // TODO: Refactor using Axios. Also, in order to add timeouts.
@@ -50,14 +52,15 @@ export async function getVtpmQuote(challenge: string) {
     }
 }
 
-export async function getInfrastructureSummary() {
+export async function getInfrastructureSummary(): Promise<ConfidentialInfrastructure> {
     try {
-        const { data: payload } = await axios.get(
+        const { data } = await axios.get(
             `${ATTESTER_URL}/infrastructure/summary`,
             { timeout: 3000 },
         );
 
-        return payload;
+        const infrastructure: ConfidentialInfrastructure = data.data;
+        return infrastructure;
     } catch (error: unknown) {
         if (axios.isAxiosError(error) && error.code === 'ECONNABORTED') {
             throw new Error('Request timed out – Instance not available');
@@ -66,13 +69,14 @@ export async function getInfrastructureSummary() {
     }
 }
 
-export async function getWorkloadSummary() {
+export async function getWorkloadSummary(): Promise<Workload> {
     try {
-        const { data: payload } = await axios.get(
-            `${ATTESTER_URL}/evidence/workload`,
-            { timeout: 3000 },
-        );
-        return payload;
+        const { data } = await axios.get(`${ATTESTER_URL}/evidence/workload`, {
+            timeout: 3000,
+        });
+
+        const workload: Workload = data.data;
+        return workload;
     } catch (error: unknown) {
         if (axios.isAxiosError(error) && error.code === 'ECONNABORTED') {
             throw new Error('Request timed out – Workloads not available');
