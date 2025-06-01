@@ -19,6 +19,7 @@ export function ChatInput() {
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         mutate({ prompt, model });
+        setPrompt('');
     }
 
     return (
