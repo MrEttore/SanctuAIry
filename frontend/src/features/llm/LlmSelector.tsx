@@ -23,14 +23,12 @@ export function LlmSelector() {
     const {
         isPending,
         isError,
-        data: payload,
+        data: models,
         error,
     } = useQuery({
         queryKey: ['llm-models'],
         queryFn: getModels,
     });
-
-    const models: Model[] = payload?.data.models;
 
     function handleSelectModel(model: Model) {
         dispatch(selectModel(model));
