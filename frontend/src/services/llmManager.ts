@@ -1,3 +1,7 @@
+import axios from 'axios';
+
+import { Model } from '../types/llm';
+
 const LLM_MANAGER_URL = import.meta.env.VITE_LLM_MANAGER_URL;
 
 // TODO: Refactor using Axios (Also catches network errors, e.g., connection refused when llm-manager is down).
@@ -5,16 +9,21 @@ const LLM_MANAGER_URL = import.meta.env.VITE_LLM_MANAGER_URL;
 /**
  * Gets the available models from the llm-core service.
  */
-export async function getModels() {
-    const response = await fetch(`${LLM_MANAGER_URL}/api/v1/models`);
-    const payload = await response.json();
+export async function getModels(): Promise<Model[]> {
+    try {
+        const { data } = await axios.get(`${LLM_MANAGER_URL}/api/v1/models`, {
+            timeout: 5000,
+        });
 
-    if (!response.ok) {
-        const message = `Error loading available models. Llm core service not available.`;
-        throw new Error(message);
+        const localModels: Model[] = data.data.models;
+        return localModels;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error) && error.status === 500)
+            throw new Error('SanctuAIry core not available.');
+        if (axios.isAxiosError(error) && error.code === 'ERR_NETWORK')
+            throw new Error("SanctuAIry's model service not available.");
+        throw new Error('An unexpcected error occurred.');
     }
-
-    return payload;
 }
 
 type sendPromptNoStreamPayload = {
@@ -26,27 +35,23 @@ export async function sendPromptNoStream({
     prompt,
     model,
 }: sendPromptNoStreamPayload) {
-    const response = await fetch(`${LLM_MANAGER_URL}/api/v1/chat/no-stream`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            model,
-            messages: [
-                {
-                    role: 'user',
-                    content: prompt,
-                },
-            ],
-        }),
-    });
-    const payload = await response.json();
+    try {
+        const { data } = await axios.post(
+            `${LLM_MANAGER_URL}/api/v1/chat/no-stream`,
+            {
+                model,
+                messages: [
+                    {
+                        role: 'user',
+                        content: prompt,
+                    },
+                ],
+            },
+        );
 
-    if (!response.ok) {
-        const message = `Error sending the prompt to the llm core service.`;
-        throw new Error(message);
+        const response = data.data.message.content;
+        return response;
+    } catch (error: unknown) {
+        console.error(error); // TODO: Handle errors properly.
     }
-
-    return payload;
 }
