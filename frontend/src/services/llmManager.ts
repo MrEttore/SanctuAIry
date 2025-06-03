@@ -22,7 +22,7 @@ export async function getModels(): Promise<Model[]> {
             throw new Error('SanctuAIry core not available.');
         if (axios.isAxiosError(error) && error.code === 'ERR_NETWORK')
             throw new Error("SanctuAIry's model service not available.");
-        throw new Error('An unexpcected error occurred.');
+        throw new Error('An unexpected error occurred.');
     }
 }
 
