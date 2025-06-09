@@ -1,2 +1,18 @@
 # Env file
 .env
+
+# Local Terraform state
+infrastructure/terraform.tfstate
+infrastructure/terraform.tfstate.backup
+
+# Secrets / user-specific values
+infrastructure/terraform.tfvars
+
+# Terraform working directory
+infrastructure/.terraform/
+
+# Sensitive crash logs
+infrastructure/crash.log
+
+# Optional: ignore the lockfile unless version pinning is required
+infrastructure/.terraform.lock.hcl
