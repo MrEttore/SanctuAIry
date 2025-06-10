@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euxo pipefail
 
-# ─── Install Docker (once) ─────────────────────────────────────────────────
+# Install Docker (once)
 if ! command -v docker >/dev/null 2>&1; then
     echo ">>> Installing Docker..."
     apt-get update
@@ -11,7 +11,7 @@ else
     echo ">>> Docker already installed"
 fi
 
-# ─── Install Go (once) ─────────────────────────────────────────────────────
+# Install Go (once)
 if [ ! -d /usr/local/go ]; then
     echo ">>> Installing Go..."
     curl -sSL https://go.dev/dl/go1.21.5.linux-amd64.tar.gz -o /tmp/go.tar.gz
@@ -22,7 +22,7 @@ else
     echo ">>> Go already present"
 fi
 
-# ─── Write the llm-core systemd unit ──────────────────────────────────────
+# Write the llm-core systemd unit
 cat <<'EOF' >/etc/systemd/system/llm-core.service
 [Unit]
 Description=LLM-Core Container
@@ -60,7 +60,7 @@ RestartSec=5s
 WantedBy=multi-user.target
 EOF
 
-# ─── Enable & start the service ───────────────────────────────────────────
+# Enable & start the service
 systemctl daemon-reload
 systemctl enable llm-core.service
 systemctl restart llm-core.service
