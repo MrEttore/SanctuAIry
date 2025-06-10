@@ -1,3 +1,3 @@
-output "app_instance_ip" {
-  value = module.compute.instance_ip
-}
+# output "reference_tee_ip" {
+#   value = module.reference_tee.instance_ip
+# }
