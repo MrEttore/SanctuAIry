@@ -6,6 +6,10 @@ terraform {
       source  = "hashicorp/google"
       version = ">= 4.0"
     }
+    time = {
+      source  = "hashicorp/time"
+      version = ">= 0.9"
+    }
   }
 
   # backend "gcs" {
@@ -43,6 +47,7 @@ module "reference_tee" {
 resource "google_compute_snapshot" "reference_tee_boot_disk_snapshot" {
   name             = "reference-tee-boot-disk-snapshot"
   source_disk      = "zones/${var.zone}/disks/${module.reference_tee.confidential_instance_name}"
+  depends_on = [ module.reference_tee ]
 }
 
 # Create “golden” boot disk image from the reference TEE instance
@@ -50,6 +55,7 @@ resource "google_compute_image" "golden_reference_tee" {
   name            = "golden-reference-tee-boot-disk"
   project         = var.project_id
   source_snapshot = google_compute_snapshot.reference_tee_boot_disk_snapshot.id
+  depends_on = [ google_compute_snapshot.reference_tee_boot_disk_snapshot ]
 }
 
 # Prod‐TEE VM based on the golden image
