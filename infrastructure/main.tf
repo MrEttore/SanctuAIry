@@ -36,13 +36,16 @@ module "reference_tee" {
   tags           = var.instance_tags
 }
 
-# Take a live snapshot of its boot disk
+# Execute startup script on the reference TEE instance
+# ...
+
+# Take a snapshot of the reference TEE instance boot disk (only when startup script was executed)
 resource "google_compute_snapshot" "reference_tee_boot_disk_snapshot" {
   name             = "reference-tee-boot-disk-snapshot"
   source_disk      = "zones/${var.zone}/disks/${module.reference_tee.confidential_instance_name}"
 }
 
-# Snapshot “golden” boot disk image from the reference TEE instance
+# Create “golden” boot disk image from the reference TEE instance
 resource "google_compute_image" "golden_reference_tee" {
   name            = "golden-reference-tee-boot-disk"
   project         = var.project_id
