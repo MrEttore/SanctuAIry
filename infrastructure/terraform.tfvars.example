@@ -1,14 +1,12 @@
-# GLOBAL VARIABLES
+## GLOBAL VARIABLES ##
 project_id = "your-gcp-project-id"
 region     = "europe-west4"
 zone       = "europe-west4-a"
 network    = "default"
 
-# COMPUTE VARIABLES
-instance_name = "reference-tee"
-machine_type  = "c3-standard-4"
+## COMPUTE VARIABLES ##
 instance_tags = ["allow-attestation"] 
 
-# FIREWALL VARIABLES
+## FIREWALL VARIABLES ##
 firewall_name = "allow-attestation"
 target_tags   = ["allow-attestation"]
