@@ -1,4 +1,4 @@
-# GLOBAL VARIABLES
+## GLOBAL VARIABLES ##
 
 variable "project_id" {
   description = "The GCP project to deploy into"
@@ -23,26 +23,14 @@ variable "network" {
   default     = "default"
 }
 
-# COMPUTE VARIABLES
-
-variable "instance_name" {
-  description = "Name of the VM instance"
-  type        = string
-  default     = "reference-tee"
-}
-
-variable "machine_type" {
-  description = "Type of VM"
-  type        = string
-  default     = "c3-standard-4"
-}
+## COMPUTE VARIABLES ##
 
 variable "instance_tags"   {
   type = list(string)
   default = ["allow-attestation"]
 }
 
-# FIREWALL VARIABLES
+## FIREWALL VARIABLES ##
 
 variable "firewall_name" {
   description = "Name of the firewall rule"

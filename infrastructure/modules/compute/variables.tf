@@ -1,18 +1,24 @@
-variable "name" {
+variable "instance_name" {
   description = "Name of the VM"
   type        = string
   default     = "reference-tee"
 }
 
+variable "boot_disk_name" {
+  description = "Name of the boot disk"
+  type        = string
+  default     = "reference-tee"
+}
+
+variable "image" {
+  description = "Image to use for the VM"
+  type        = string
+  default     = "projects/ubuntu-os-cloud/global/images/family/ubuntu-2204-lts"
+}
+
 variable "zone" {
   description = "Zone to deploy the VM"
   type        = string
-}
-
-variable "machine_type" {
-  description = "GCP VM machine type"
-  type        = string
-  default     = "c3-standard-4"
 }
 
 variable "network" {
@@ -26,8 +32,8 @@ variable "tags" {
   default     = []
 }
 
-variable "metadata_startup_script" {
-  description = "Startup script to run on VM creation"
+variable "startup_script" {
+  description = "Path to a startup script to inject via metadata"
   type        = string
-  default     = ""
+  default     = null
 }

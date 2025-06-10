@@ -1,26 +1,52 @@
-resource "google_compute_instance" "vm" {
-  name         = var.name
-  machine_type = var.machine_type
+resource "google_compute_instance" "confidential_instance" {
+  name         = var.instance_name
   zone         = var.zone
+  machine_type = "c3-standard-4"
+  min_cpu_platform = "Intel Sapphire Rapids"
 
   boot_disk {
+    auto_delete = true
+    device_name = var.boot_disk_name
     initialize_params {
-      image = "ubuntu-2204-jammy-v20250508"
-      type  = "pd-balanced"
-      size  = 30
+      image = var.image
+      size    = 30
+      type    = "pd-balanced"
     }
+
+    mode = "READ_WRITE"
   }
 
   network_interface {
     network       = var.network
-    access_config {}
+    access_config {
+      // Ephemeral public IP
+    }
   }
 
-  tags = var.tags
+   confidential_instance_config {
+    confidential_instance_type = "TDX"
+  }
 
-  # Optional: Add a startup script (e.g., install Docker or pull your container)
-  metadata_startup_script = <<-EOT
-    #!/bin/bash
-    apt update && apt install -y docker.io
-  EOT
+  scheduling {
+    on_host_maintenance = "TERMINATE"
+    preemptible         = false
+    provisioning_model  = "STANDARD"
+    automatic_restart = true
+  }
+
+   shielded_instance_config {
+    enable_integrity_monitoring = true
+    enable_secure_boot          = true
+    enable_vtpm                 = true
+  }
+
+  service_account {
+    scopes = ["https://www.googleapis.com/auth/cloud-platform"]
+  }
+
+  metadata = var.startup_script != null ? {
+    startup-script = file(var.startup_script)
+  } : {}
+
+  tags = var.tags
 }
