@@ -8,7 +8,7 @@ resource "google_compute_instance" "confidential_instance" {
     auto_delete = true
     device_name = var.boot_disk_name
     initialize_params {
-      image = var.image
+      image = "${var.image_project}/${var.image}"
       size    = 30
       type    = "pd-balanced"
     }

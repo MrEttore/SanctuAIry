@@ -13,7 +13,11 @@ variable "boot_disk_name" {
 variable "image" {
   description = "Image to use for the VM"
   type        = string
-  default     = "projects/ubuntu-os-cloud/global/images/family/ubuntu-2204-lts"
+}
+
+variable "image_project" {
+  description = "Project containing the image"
+  type        = string
 }
 
 variable "zone" {
