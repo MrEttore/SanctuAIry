@@ -1,12 +1,6 @@
 ## GLOBAL VARIABLES ##
-project_id = "your-gcp-project-id"
+project_id = "your-project-id"
 region     = "europe-west4"
 zone       = "europe-west4-a"
 network    = "default"
-
-## COMPUTE VARIABLES ##
-instance_tags = ["allow-attestation"] 
-
-## FIREWALL VARIABLES ##
-firewall_name = "allow-attestation"
-target_tags   = ["allow-attestation"]
+golden_image_project_id = "confidential-infrastructure"
