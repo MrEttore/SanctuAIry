@@ -23,24 +23,9 @@ variable "network" {
   default     = "default"
 }
 
-## COMPUTE VARIABLES ##
-
-variable "instance_tags"   {
-  type = list(string)
-  default = ["allow-attestation"]
-}
-
-## FIREWALL VARIABLES ##
-
-variable "firewall_name" {
-  description = "Name of the firewall rule"
+variable "golden_image_project_id" {
+  description = "Project ID where the golden boot disk image is stored"
   type        = string
-}
-
-variable "target_tags" {
-  description = "Target tags for the firewall rule"
-  type        = list(string)
-  default     = ["allow-attestation"]
 }
 
 
