@@ -16,3 +16,6 @@ infrastructure/crash.log
 
 # Optional: ignore the lockfile unless version pinning is required
 infrastructure/.terraform.lock.hcl
+
+# ignore first version of the infrastructure folder
+infrastructure-v1
