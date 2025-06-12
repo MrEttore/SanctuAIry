@@ -12,11 +12,7 @@ SanctuAIry is designed to run securely in the cloud within **confidential virtua
 
 The app aims to provide an empathetic, intelligent, and responsive AI therapist experience by using open-source LLMs, currently powered by **Meta’s LLama 3.2** models.
 
-> ⚠️ While the architecture is planned for deployment in confidential VMs, this feature is not yet implemented. Current development is focused on core functionality.
-
----
-
-## ⚙️ Architecture
+## Architecture
 
 SanctuAIry is built with a modular architecture, composed of the following key components:
 
@@ -40,9 +36,7 @@ The brain of the application, where the actual LLM runs:
 -   Runs in a secured environment to ensure data isolation and confidentiality
 -   Designed for performance, context awareness, and therapeutic alignment
 
----
-
-## 🔒 Privacy & Security
+## Privacy & Security
 
 SanctuAIry is committed to privacy by design:
 
@@ -52,29 +46,17 @@ SanctuAIry is committed to privacy by design:
     -   GDPR compliance
     -   User-defined data retention and deletion policies
 
----
+## Project Status
 
-## 🚧 Project Status
+🚧 SanctuAIry is a **work in progress**. The app is under constant iteration with new features and improvements being added weekly.
 
-SanctuAIry is a **work in progress**. The app is under constant iteration with new features and improvements being added weekly.
-
-### Current Focus
-
--   Improving UI/UX flow and emotional design
--   Fine-tuning models for therapy-specific language
--   Security hardening and compliance readiness
-
----
-
-## 📦 Tech Stack
+## Tech Stack
 
 -   **Frontend**: React and TailwindCSS
 -   **LLM Manager**: Node.js and Express
 -   **LLM Core**: Ollama, using Meta's LLama 3.2
 
----
-
-## 🚀 Running Locally with Docker Compose
+## Running Locally with Docker Compose
 
 To start all services locally using Docker Compose, follow these steps:
 
@@ -97,9 +79,7 @@ To start all services locally using Docker Compose, follow these steps:
     docker-compose up
     ```
 
----
-
-## ☁️ Infrastructure: Deploying Confidential VM with Terraform
+## Infrastructure: Deploying Confidential VM with Terraform
 
 SanctuAIry provides Terraform scripts to deploy the backend LLM Core into a **Google Cloud confidential VM**. This setup ensures your LLM runs in a secure, hardware-backed environment.
 
@@ -171,9 +151,7 @@ SanctuAIry provides Terraform scripts to deploy the backend LLM Core into a **Go
 
 The VM will automatically install Docker (if not present), pull the latest `sanctuairy/llm-core` image, and run it as a service.
 
----
-
-## 🙏 Acknowledgements
+## Acknowledgements
 
 -   Meta AI for the open-source LLama models
 -   The open-source community for tools and inspiration ❤️
