@@ -6,16 +6,7 @@ terraform {
       source  = "hashicorp/google"
       version = ">= 4.0"
     }
-    time = {
-      source  = "hashicorp/time"
-      version = ">= 0.9"
-    }
   }
-
-  # backend "gcs" {
-  #   bucket = "my-tf-state-bucket"
-  #   prefix = "sanctuairy/"
-  # }
 }
 
 provider "google" {
@@ -23,49 +14,22 @@ provider "google" {
   region  = var.region
 }
 
-# module "firewall" {
-#   source        = "./modules/firewall"
-#   name          = var.firewall_name
-#   network       = var.network
-#   target_tags   = var.target_tags
-# }
-
-# Reference TEE instance
-module "reference_tee" {
-  source         = "./modules/compute"
-  instance_name  = "reference-tee-2"
-  boot_disk_name = "reference-tee-boot-disk"
-  zone           = var.zone
-  network        = var.network
-  tags           = var.instance_tags
+# Firewall rule to allow attestation traffic to the confidential VM.
+module "firewall" {
+  source        = "./modules/firewall"
+  name          = "allow-attestation"
+  network       = var.network
+  target_tags   = ["allow-attestation"]
 }
 
-# Execute startup script on the reference TEE instance
-# ...
-
-# Take a snapshot of the reference TEE instance boot disk (only when startup script was executed)
-resource "google_compute_snapshot" "reference_tee_boot_disk_snapshot" {
-  name             = "reference-tee-boot-disk-snapshot"
-  source_disk      = "zones/${var.zone}/disks/${module.reference_tee.confidential_instance_name}"
-  depends_on = [ module.reference_tee ]
-}
-
-# Create “golden” boot disk image from the reference TEE instance
-resource "google_compute_image" "golden_reference_tee" {
-  name            = "golden-reference-tee-boot-disk"
-  project         = var.project_id
-  source_snapshot = google_compute_snapshot.reference_tee_boot_disk_snapshot.id
-  depends_on = [ google_compute_snapshot.reference_tee_boot_disk_snapshot ]
-}
-
-# Prod‐TEE VM based on the golden image
+# SanctuAIry's prod confidential VM based on the golden boot disk image "golden-reference-tee".
 module "prod_tee" {
   source               = "./modules/compute"
-  instance_name        = "llm-core-prod-tee"
-  boot_disk_name       = "prod-tee-boot-disk"
+  instance_name        = "llm-core-tee"
+  boot_disk_name       = "llm-core-tee-boot-disk"
   zone                 = var.zone
   network              = var.network
-  tags                 = var.instance_tags
-  image                = google_compute_image.golden_reference_tee.name
-  depends_on           = [ google_compute_image.golden_reference_tee ]
+  tags                 = ["allow-attestation"]
+  image                = "golden-reference-tee"
+  image_project        = var.golden_image_project_id
 }
