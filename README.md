@@ -12,6 +12,8 @@ SanctuAIry is designed to run securely in the cloud within **confidential virtua
 
 The app aims to provide an empathetic, intelligent, and responsive AI therapist experience by using open-source LLMs, currently powered by **Meta’s LLama 3.2** models.
 
+> 🚧 **Work in progress**. The app is under constant iteration with new features and improvements being added weekly.
+
 ## Architecture
 
 SanctuAIry is built with a modular architecture, composed of the following key components:
@@ -46,17 +48,17 @@ SanctuAIry is committed to privacy by design:
     -   GDPR compliance
     -   User-defined data retention and deletion policies
 
-## Project Status
-
-🚧 SanctuAIry is a **work in progress**. The app is under constant iteration with new features and improvements being added weekly.
-
 ## Tech Stack
 
 -   **Frontend**: React and TailwindCSS
 -   **LLM Manager**: Node.js and Express
 -   **LLM Core**: Ollama, using Meta's LLama 3.2
 
-## Running Locally with Docker Compose
+## How to Run SanctuAIry
+
+SanctuAIry can be run either locally for development or deployed securely in the cloud. Choose the method that best fits your needs:
+
+### Local Deployment with Docker Compose
 
 To start all services locally using Docker Compose, follow these steps:
 
@@ -79,77 +81,9 @@ To start all services locally using Docker Compose, follow these steps:
     docker-compose up
     ```
 
-## Infrastructure: Deploying Confidential VM with Terraform
+### Cloud Deployment with Terraform
 
-SanctuAIry provides Terraform scripts to deploy the backend LLM Core into a **Google Cloud confidential VM**. This setup ensures your LLM runs in a secure, hardware-backed environment.
-
-### Prerequisites
-
--   [Terraform](https://developer.hashicorp.com/terraform/downloads) (v1.2 or newer)
--   [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) (`gcloud`)
--   A Google Cloud project with billing enabled and sufficient quota for confidential VMs
--   Permissions to create Compute Engine resources
-
-### Setup & Deployment
-
-1. **Navigate to the infrastructure folder:**
-
-    ```bash
-    cd infrastructure
-    ```
-
-2. **Copy and edit the Terraform variables file:**
-
-    ```bash
-    cp terraform.tfvars.example terraform.tfvars
-    ```
-
-    Edit `terraform.tfvars` and set your `project_id`, `region`, and (optionally) `golden_image_project_id`.
-
-3. **Authenticate with Google Cloud:**
-
-    ```bash
-    gcloud auth application-default login
-    gcloud config set project <your-project-id>
-    ```
-
-4. **Initialize Terraform:**
-
-    ```bash
-    terraform init
-    ```
-
-5. **Review the planned changes:**
-
-    ```bash
-    terraform plan
-    ```
-
-6. **Apply the deployment:**
-
-    ```bash
-    terraform apply
-    ```
-
-    Confirm when prompted.
-
-7. **(Optional) Destroy resources when done:**
-
-    ```bash
-    terraform destroy
-    ```
-
-### What Gets Deployed?
-
--   A confidential VM running the LLM Core Docker container
--   A firewall rule to allow attestation traffic
--   All necessary network and disk resources
-
-**The deployed VM uses a golden image boot disk with Docker pre-installed and a service that, at each boot, pulls the newest image of the `llm-core`.**
-
-**The VM leverages confidential computing to keep AI inference secure. The LLM Core code runs inside a hardware-backed Trusted Execution Environment (TEE), ensuring that all inference and data processing remain confidential and protected from the underlying cloud provider.**
-
-The VM will automatically install Docker (if not present), pull the latest `sanctuairy/llm-core` image, and run it as a service.
+To deploy SanctuAIry securely in the cloud using Google Cloud confidential VMs and Terraform, follow the instructions in the [infrastructure/README.md](infrastructure/README.md) file.
 
 ## Acknowledgements
 
