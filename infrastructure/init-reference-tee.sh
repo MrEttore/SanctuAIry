@@ -65,4 +65,4 @@ systemctl daemon-reload
 systemctl enable llm-core.service
 systemctl restart llm-core.service
 
-echo ">>> init-llm-core-reference-tee.sh completed successfully"
+echo ">>> init-reference-tee.sh completed successfully"
