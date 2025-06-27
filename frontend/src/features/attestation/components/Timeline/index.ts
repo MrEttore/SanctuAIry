@@ -1,3 +1,3 @@
 export * from './AttestationStep';
 export * from './AttestationTimeline';
-export * from './IssueChallengeForm';
+export * from '../Modals/Challenge/GenerateChallenge';

@@ -1,19 +1,19 @@
 export enum ModalType {
-    // Backend Summary
-    INFO_CLOUD_INFRASTRUCTURE_OVERVIEW = 'infoCloudInfrastructureOverview',
-    VIEW_CLOUD_PLATFORM = 'cloudPlatform',
-    VIEW_CONFIDENTIAL_TECHNOLOGY = 'confidentialTechnology',
-    VIEW_VM_IDENTITY = 'vmIdentity',
-    VIEW_VM_DISK = 'vmDisk',
-    VIEW_ALL_WORKLOAD_METADATA = 'viewAllWorkloadMetadata',
-    VIEW_CONTAINER = 'viewContainer',
+    // Attestation Header
+    INFO_ATTESTATION_PAGE = 'infoAttestationPage',
 
     // Attestation Timeline
+    INFO_RUN_VERIFICATION = 'infoRunVerification',
     START_ATTESTATION = 'startAttestation',
     VIEW_CHALLENGE = 'viewChallenge',
+    FETCH_EVIDENCE = 'fetchEvidence',
     VIEW_EVIDENCE = 'viewEvidence',
+    VERIFY_EVIDENCE = 'verifyEvidence',
     VIEW_VERIFICATION_RESULT = 'viewVerificationResult',
-    VIEW_IMAGE_SOURCE = 'viewImageSource',
-    VIEW_SIGNED_RESULT = 'viewSignedResult',
-    HOW_IT_WORKS_ATTESTATION = 'howItWorksAttestation',
+
+    // Backend Summary
+    INFO_CLOUD_INFRASTRUCTURE_OVERVIEW = 'infoCloudInfrastructureOverview',
+    VIEW_INSTANCE_IDENTITY = 'viewInstanceIdentity',
+    VIEW_INSTANCE_DISK = 'viewInstanceDisk',
+    VIEW_CONTAINER = 'viewContainer',
 }

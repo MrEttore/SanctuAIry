@@ -2,41 +2,26 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '../../redux/store';
 import {
-    AttestationQuote,
     AttestationState,
-    ConfidentialInfrastructure,
+    Challenge,
+    Infrastructure,
+    Quote,
     UpdateStepPayload,
-    Workload,
+    VerificationResult,
+    Workloads,
 } from './types/attestation';
 
 const initialState: AttestationState = {
-    issuedChallenge: null,
-    attestationQuote: null,
     attestationSteps: {
-        issueChallenge: {
-            status: 'idle',
+        generateChallenge: {
+            status: 'pending',
         },
-        generateEvidence: {
-            status: 'idle',
+        gatherEvidence: {
+            status: 'pending',
         },
-        verifyTee: {
-            status: 'idle',
+        verifyEvidence: {
+            status: 'pending',
         },
-        validateImage: {
-            status: 'idle',
-        },
-        signResult: {
-            status: 'idle',
-        },
-    },
-    confidentialInfrastructure: {
-        summary: null,
-        instance: null,
-        disk: null,
-    },
-    workload: {
-        containers: [],
-        images: [],
     },
 };
 
@@ -44,44 +29,77 @@ const attestationSlice = createSlice({
     name: 'attestation',
     initialState,
     reducers: {
-        setIssuedChallenge(state, action: PayloadAction<string>) {
-            state.issuedChallenge = action.payload;
+        setChallenge(state, action: PayloadAction<Challenge>) {
+            state.challenge = action.payload;
         },
-        setAttestationQuote(state, action: PayloadAction<AttestationQuote>) {
-            state.attestationQuote = action.payload;
+        setEvidenceQuote(state, action: PayloadAction<Quote>) {
+            if (!state.evidence) state.evidence = {};
+            state.evidence.quote = action.payload;
+        },
+        setEvidenceInfrastructure(
+            state,
+            action: PayloadAction<Infrastructure>,
+        ) {
+            if (!state.evidence) state.evidence = {};
+            state.evidence.infrastructure = action.payload;
+        },
+        setEvidenceWorkloads(state, action: PayloadAction<Workloads>) {
+            if (!state.evidence) state.evidence = {};
+            state.evidence.workloads = action.payload;
+        },
+
+        setVerificationQuote(state, action: PayloadAction<VerificationResult>) {
+            if (!state.verification) state.verification = {};
+            state.verification.quote = action.payload;
+        },
+        setVerificationInfrastructure(
+            state,
+            action: PayloadAction<VerificationResult>,
+        ) {
+            if (!state.verification) state.verification = {};
+            state.verification.infrastructure = action.payload;
+        },
+        setVerificationWorkloads(
+            state,
+            action: PayloadAction<VerificationResult>,
+        ) {
+            if (!state.verification) state.verification = {};
+            state.verification.workloads = action.payload;
         },
 
         updateStep(state, action: PayloadAction<UpdateStepPayload>) {
             const { step, status } = action.payload;
             state.attestationSteps[step].status = status;
         },
-        setConfidentialInfrastructure(
-            state,
-            action: PayloadAction<ConfidentialInfrastructure>,
-        ) {
-            state.confidentialInfrastructure = action.payload;
-        },
-        setWorkload(state, action: PayloadAction<Workload>) {
-            state.workload = action.payload;
+        resetAttestation(state) {
+            state.attestationSteps = {
+                generateChallenge: { status: 'pending' },
+                gatherEvidence: { status: 'pending' },
+                verifyEvidence: { status: 'pending' },
+            };
+            state.evidence = undefined;
+            state.evidence = undefined;
+            state.verification = undefined;
         },
     },
 });
 
 export const getAttestationSteps = (state: RootState) =>
     state.attestation.attestationSteps;
-export const getIssuedChallenge = (state: RootState) =>
-    state.attestation.issuedChallenge;
-export const getAttestationQuote = (state: RootState) =>
-    state.attestation.attestationQuote;
-export const getConfidentialInfrastructure = (state: RootState) =>
-    state.attestation.confidentialInfrastructure;
-export const getWorkload = (state: RootState) => state.attestation.workload;
+export const getChallenge = (state: RootState) => state.attestation.challenge;
+export const getEvidence = (state: RootState) => state.attestation.evidence;
+export const getVerification = (state: RootState) =>
+    state.attestation.verification;
 
 export const {
-    setIssuedChallenge,
-    setAttestationQuote,
+    setChallenge,
+    setEvidenceQuote,
+    setEvidenceInfrastructure,
+    setEvidenceWorkloads,
+    setVerificationQuote,
+    setVerificationInfrastructure,
+    setVerificationWorkloads,
     updateStep,
-    setConfidentialInfrastructure,
-    setWorkload,
+    resetAttestation,
 } = attestationSlice.actions;
 export default attestationSlice.reducer;

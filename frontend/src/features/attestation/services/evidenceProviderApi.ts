@@ -1,11 +1,13 @@
 import axios from 'axios';
 
-import { ConfidentialInfrastructure, Workload } from '../types/attestation';
+import {
+    Challenge,
+    Infrastructure,
+    Quote,
+    Workloads,
+} from '../types/attestation';
 
-const ATTESTER_URL = import.meta.env.VITE_ATTESTER_URL;
-
-// TODO: Refactor using Axios. Also, in order to add timeouts.
-// TODO: Add error handling.
+const ATTESTER_URL: string = import.meta.env.VITE_ATTESTER_URL;
 
 /**
  * Function that communicates with a third-party evidence provider service. It retrieves an attestation quote from a TDX TEE.
@@ -13,34 +15,35 @@ const ATTESTER_URL = import.meta.env.VITE_ATTESTER_URL;
  * @param challenge
  * @returns a valid TDX attestation quote.
  */
-export async function getTdxQuote(challenge: string) {
-    const response = await fetch(`${ATTESTER_URL}/evidence/tdx-quote`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            challenge,
-        }),
-    });
-    const payload = await response.json();
-
-    if (!response.ok) {
-        const message = 'Error retrieving the quote.';
-        throw new Error(message);
-    }
-
-    return payload;
-}
-
-export async function getInfrastructureSummary(): Promise<ConfidentialInfrastructure> {
+export async function fetchTdxQuote(challenge: Challenge): Promise<Quote> {
     try {
-        const { data } = await axios.get(
-            `${ATTESTER_URL}/infrastructure/summary`,
+        const { data } = await axios.post(
+            `${ATTESTER_URL}/evidence/tdx-quote`,
+            { challenge: challenge },
             { timeout: 3000 },
         );
 
-        const infrastructure: ConfidentialInfrastructure = data.data;
+        const quote: Quote = data.data.quote;
+        return quote;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error) && error.code === 'ECONNABORTED') {
+            throw new Error('Request timed out - Quote not available');
+        }
+        throw new Error('Error retrieving the quote');
+    }
+}
+
+export async function fetchInfrastructure(
+    challenge: Challenge,
+): Promise<Infrastructure> {
+    try {
+        const { data } = await axios.post(
+            `${ATTESTER_URL}/evidence/infrastructure`,
+            { challenge: challenge },
+            { timeout: 3000 },
+        );
+
+        const infrastructure: Infrastructure = data.data;
         return infrastructure;
     } catch (error: unknown) {
         if (axios.isAxiosError(error) && error.code === 'ECONNABORTED') {
@@ -50,14 +53,16 @@ export async function getInfrastructureSummary(): Promise<ConfidentialInfrastruc
     }
 }
 
-export async function getWorkloadSummary(): Promise<Workload> {
+export async function fetchWorkloads(challenge: Challenge): Promise<Workloads> {
     try {
-        const { data } = await axios.get(`${ATTESTER_URL}/evidence/workload`, {
-            timeout: 3000,
-        });
+        const { data } = await axios.post(
+            `${ATTESTER_URL}/evidence/workload`,
+            { challenge: challenge },
+            { timeout: 3000 },
+        );
 
-        const workload: Workload = data.data;
-        return workload;
+        const workloads: Workloads = data.data;
+        return workloads;
     } catch (error: unknown) {
         if (axios.isAxiosError(error) && error.code === 'ECONNABORTED') {
             throw new Error('Request timed out – Workloads not available');

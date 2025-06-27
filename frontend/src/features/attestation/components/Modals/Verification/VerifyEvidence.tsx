@@ -1,0 +1,386 @@
+import { useMutation } from '@tanstack/react-query';
+import { Check, CircleX } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { AppDispatch } from '../../../../../redux/store';
+import { InputField } from '../../../../../ui';
+import '../../../attestationSlice';
+import {
+    getChallenge,
+    getEvidence,
+    getVerification,
+    setVerificationInfrastructure,
+    setVerificationQuote,
+    setVerificationWorkloads,
+    updateStep,
+} from '../../../attestationSlice';
+import {
+    verifyInfrastructure,
+    verifyTdxQuote,
+    verifyWorkloads,
+} from '../../../services/evidenceVerifierApi';
+import {
+    Challenge,
+    Evidence,
+    Infrastructure,
+    Quote,
+    VerificationType,
+    Workloads,
+} from '../../../types/attestation';
+import { ModalHeader } from '../ModalHeader';
+
+export function VerifyEvidence() {
+    const [baselineManifestUrlQuote, setBaselineManifestUrlQuote] =
+        useState<string>('');
+    const [
+        baselineManifestUrlInfrastructure,
+        setBaselineManifestUrlInfrastructure,
+    ] = useState<string>('');
+    const [namespace, setNamespace] = useState<string>('');
+    const [repository, setRepository] = useState<string>('');
+    const [tag, setTag] = useState<string>('');
+
+    const dispatch: AppDispatch = useDispatch();
+    const challenge = useSelector(getChallenge) as Challenge;
+    const evidence = useSelector(getEvidence) as Evidence;
+    const verification = useSelector(getVerification);
+
+    const verifyQuoteMutation = useMutation({
+        mutationKey: ['verify-quote-evidence'],
+        mutationFn: verifyTdxQuote,
+        onSuccess: (verificationResult) => {
+            console.log('TDX Quote verified successfully:', verificationResult);
+            dispatch(setVerificationQuote(verificationResult));
+        },
+        // TODO: Handle error properly
+        onError: (error: Error) => {
+            console.error('Error verifying TDX Quote:', error.message);
+        },
+    });
+
+    const verifyWorkloadMutation = useMutation({
+        mutationKey: ['verify-workload-evidence'],
+        mutationFn: verifyWorkloads,
+        onSuccess: (verificationResult) => {
+            console.log('Workloads verified successfully:', verificationResult);
+            dispatch(setVerificationWorkloads(verificationResult));
+        },
+        // TODO: Handle error properly
+        onError: (error: Error) => {
+            console.error('Error verifying Workloads:', error.message);
+        },
+    });
+
+    const verifyInfrastructureMutation = useMutation({
+        mutationKey: ['verify-infrastructure-evidence'],
+        mutationFn: verifyInfrastructure,
+        onSuccess: (verificationResult) => {
+            console.log(
+                'Infrastructure verified successfully:',
+                verificationResult,
+            );
+            dispatch(setVerificationInfrastructure(verificationResult));
+        },
+        // TODO: Handle error properly
+        onError: (error: Error) => {
+            console.error('Error verifying Infrastructure:', error.message);
+        },
+    });
+
+    useEffect(() => {
+        if (
+            verification?.quote &&
+            verification?.workloads &&
+            verification?.infrastructure
+        )
+            dispatch(updateStep({ step: 'verifyEvidence', status: 'done' }));
+    }, [verification, dispatch]);
+
+    function handleVerification(
+        e: React.FormEvent<HTMLFormElement>,
+        type: VerificationType,
+    ) {
+        e.preventDefault();
+
+        if (type === VerificationType.QUOTE) {
+            const payload = {
+                issuedChallenge: challenge,
+                baselineManifestUrl: baselineManifestUrlQuote,
+                quote: evidence.quote as Quote,
+            };
+            console.log('Verifying quote with payload:', payload);
+            verifyQuoteMutation.mutate(payload);
+        }
+        if (type === VerificationType.WORKLOAD) {
+            const payload = {
+                issuedChallenge: challenge,
+                referenceImage: {
+                    namespace,
+                    repository,
+                    tag,
+                },
+                evidence: evidence.workloads as Workloads,
+            };
+            console.log('Verifying workload with payload:', payload);
+            verifyWorkloadMutation.mutate(payload);
+        }
+        if (type === VerificationType.INFRASTRUCTURE) {
+            const payload = {
+                issuedChallenge: challenge,
+                baselineManifestUrl: baselineManifestUrlInfrastructure,
+                evidence: evidence.infrastructure as Infrastructure,
+            };
+            console.log('Verifying infrastructure with payload:', payload);
+            verifyInfrastructureMutation.mutate(payload);
+        }
+    }
+
+    return (
+        <div className="text-teal-950">
+            <div className="flex flex-col max-h-[70vh] space-y-4 overflow-y-auto pr-2">
+                <ModalHeader title="Select the Evidence to Verify" />
+
+                <div className="divide-y-1 divide-teal-900/20">
+                    {/* VERIFY QUOTE */}
+                    <form
+                        id="verify-quote-form"
+                        className="grid grid-cols-[70%_auto] gap-x-2 py-2"
+                        onSubmit={(e) =>
+                            handleVerification(e, VerificationType.QUOTE)
+                        }
+                    >
+                        <div className="space-y-2">
+                            <div>
+                                <h3 className="text-xl font-medium">
+                                    TDX Attestation Quote
+                                </h3>
+                                <p className="opacity-80">
+                                    This verifies that the retrieved TEE
+                                    attestation quote matches a trusted
+                                    baseline. To do this, provide the URL to a
+                                    known-good baseline manifest, which contains
+                                    the expected configuration of the secure
+                                    environment.
+                                </p>
+                            </div>
+                            <div className="space-y-1">
+                                <InputField
+                                    label="Baseline Manifest URL"
+                                    width="w-full"
+                                    value={baselineManifestUrlQuote}
+                                    onChange={(e) =>
+                                        setBaselineManifestUrlQuote(
+                                            e.target.value,
+                                        )
+                                    }
+                                    placeholder="https://example.com/baseline-manifest-quote.jsonc"
+                                />
+                            </div>
+                            {verifyQuoteMutation.isError && (
+                                <p className="flex items-center gap-1 font-medium rounded-md w-fit p-0.5 bg-red-600 text-white">
+                                    <CircleX size={15} />
+                                    Error: {verifyQuoteMutation.error.message}
+                                </p>
+                            )}
+                        </div>
+                        <button
+                            className={`rounded-lg px-1 py-0.5 text-base font-semibold transition-all duration-400 shadow-sm h-10 w-1/2 mx-auto my-auto ${
+                                verifyQuoteMutation.isPending
+                                    ? 'cursor-not-allowed opacity-75 text-white bg-amber-500/80'
+                                    : verifyQuoteMutation.isSuccess ||
+                                        verification?.quote
+                                      ? 'cursor-default opacity-75 bg-green-800/60 text-green-800'
+                                      : 'cursor-pointer bg-amber-500/80 hover:bg-amber-500 text-white'
+                            }`}
+                            type="submit"
+                            form="verify-quote-form"
+                            disabled={
+                                verifyQuoteMutation.isPending ||
+                                verifyQuoteMutation.isSuccess
+                            }
+                        >
+                            {verifyQuoteMutation.isPending ? (
+                                'Verifying...'
+                            ) : verifyQuoteMutation.isError ? (
+                                'Retry'
+                            ) : verifyQuoteMutation.isSuccess ||
+                              verification?.quote ? (
+                                <Check className="inline-block" />
+                            ) : (
+                                'Verify'
+                            )}
+                        </button>
+                    </form>
+
+                    {/* VERIFY WORKLOADS */}
+                    <form
+                        id="verify-workload-form"
+                        className="grid grid-cols-[70%_auto] gap-x-2 py-2"
+                        onSubmit={(e) =>
+                            handleVerification(e, VerificationType.WORKLOAD)
+                        }
+                    >
+                        <div className="space-y-2">
+                            <div>
+                                <h3 className="text-xl font-medium">
+                                    Workload Evidence
+                                </h3>
+                                <p className="opacity-80">
+                                    This verifies that the container images
+                                    running in the backend match trusted
+                                    versions. To perform the check, provide the
+                                    details of the reference image (namespace,
+                                    repository, and tag) you expect the service
+                                    to be running.
+                                </p>
+                            </div>
+                            <div className="flex justify-between">
+                                <div>
+                                    <InputField
+                                        label="Namespace"
+                                        width="w-full"
+                                        value={namespace}
+                                        onChange={(e) =>
+                                            setNamespace(e.target.value)
+                                        }
+                                        placeholder="e.g., sanctuairy"
+                                    />
+                                </div>
+                                <div>
+                                    <InputField
+                                        label="Repository"
+                                        width="w-full"
+                                        value={repository}
+                                        onChange={(e) =>
+                                            setRepository(e.target.value)
+                                        }
+                                        placeholder="e.g., llm-core"
+                                    />
+                                </div>
+                                <div>
+                                    <InputField
+                                        label="Tag"
+                                        width="w-full"
+                                        value={tag}
+                                        onChange={(e) => setTag(e.target.value)}
+                                        placeholder="e.g., latest"
+                                    />
+                                </div>
+                            </div>
+                            {verifyWorkloadMutation.isError && (
+                                <p className="flex items-center gap-1 font-medium rounded-md w-fit p-0.5 bg-red-600 text-white">
+                                    <CircleX size={15} />
+                                    Error:{' '}
+                                    {verifyWorkloadMutation.error.message}
+                                </p>
+                            )}
+                        </div>
+                        <button
+                            className={`rounded-lg px-1 py-0.5 text-base font-semibold transition-all duration-400 shadow-sm h-10 w-1/2 mx-auto my-auto ${
+                                verifyWorkloadMutation.isPending
+                                    ? 'cursor-not-allowed opacity-75 text-white bg-amber-500/80'
+                                    : verifyWorkloadMutation.isSuccess ||
+                                        verification?.workloads
+                                      ? 'cursor-default opacity-75 bg-green-800/60 text-green-800'
+                                      : 'cursor-pointer bg-amber-500/80 hover:bg-amber-500 text-white'
+                            }`}
+                            type="submit"
+                            form="verify-workload-form"
+                            disabled={
+                                verifyWorkloadMutation.isPending ||
+                                verifyWorkloadMutation.isSuccess
+                            }
+                        >
+                            {verifyWorkloadMutation.isPending ? (
+                                'Verifying...'
+                            ) : verifyWorkloadMutation.isError ? (
+                                'Retry'
+                            ) : verifyWorkloadMutation.isSuccess ||
+                              verification?.workloads ? (
+                                <Check className="inline-block" />
+                            ) : (
+                                'Verify'
+                            )}
+                        </button>
+                    </form>
+
+                    {/* VERIFY INFRASTRUCTURE */}
+                    <form
+                        id="verify-infrastructure-form"
+                        className="grid grid-cols-[70%_auto] gap-x-2 py-2"
+                        onSubmit={(e) =>
+                            handleVerification(
+                                e,
+                                VerificationType.INFRASTRUCTURE,
+                            )
+                        }
+                    >
+                        <div className="space-y-2">
+                            <div>
+                                <h3 className="text-xl font-medium">
+                                    Infrastructure Evidence
+                                </h3>
+                                <p className="opacity-80">
+                                    This verifies that the underlying cloud
+                                    infrastructure, including the VM and boot
+                                    disk, matches a trusted baseline. To do
+                                    this, provide the URL to a known-good
+                                    baseline manifest, which contains the
+                                    expected infrastructure details.
+                                </p>
+                            </div>
+                            <div className="space-y-1">
+                                <InputField
+                                    label="Baseline Manifest URL"
+                                    width="w-full"
+                                    value={baselineManifestUrlInfrastructure}
+                                    onChange={(e) =>
+                                        setBaselineManifestUrlInfrastructure(
+                                            e.target.value,
+                                        )
+                                    }
+                                    placeholder="https://example.com/baseline-manifest-infrastructure.jsonc"
+                                />
+                            </div>
+                            {verifyInfrastructureMutation.isError && (
+                                <p className="flex items-center gap-1 font-medium rounded-md w-fit p-0.5 bg-red-600 text-white">
+                                    <CircleX size={15} />
+                                    Error:{' '}
+                                    {verifyInfrastructureMutation.error.message}
+                                </p>
+                            )}
+                        </div>
+                        <button
+                            className={`rounded-lg px-1 py-0.5 text-base font-semibold transition-all duration-400 shadow-sm h-10 w-1/2 mx-auto my-auto ${
+                                verifyInfrastructureMutation.isPending
+                                    ? 'cursor-not-allowed opacity-75 text-white bg-amber-500/80'
+                                    : verifyInfrastructureMutation.isSuccess ||
+                                        verification?.infrastructure
+                                      ? 'cursor-default opacity-75 bg-green-800/60 text-green-800'
+                                      : 'cursor-pointer bg-amber-500/80 hover:bg-amber-500 text-white'
+                            }`}
+                            type="submit"
+                            form="verify-infrastructure-form"
+                            disabled={
+                                verifyInfrastructureMutation.isPending ||
+                                verifyInfrastructureMutation.isSuccess
+                            }
+                        >
+                            {verifyInfrastructureMutation.isPending ? (
+                                'Verifying...'
+                            ) : verifyInfrastructureMutation.isError ? (
+                                'Retry'
+                            ) : verifyInfrastructureMutation.isSuccess ||
+                              verification?.infrastructure ? (
+                                <Check className="inline-block" />
+                            ) : (
+                                'Verify'
+                            )}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    );
+}
