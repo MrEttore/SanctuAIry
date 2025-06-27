@@ -1,18 +1,35 @@
 export type AttestationState = {
-    issuedChallenge: Challenge;
-    attestationQuote: AttestationQuote | null;
     attestationSteps: AttestationSteps;
-    confidentialInfrastructure: ConfidentialInfrastructure;
-    workload: Workload;
+    challenge?: Challenge;
+    evidence?: Evidence;
+    verification?: Verification;
 };
 
-export type ConfidentialInfrastructure = {
-    summary: ConfidentialInfrastructureSummary | null;
-    instance: ConfidentialInstance | null;
-    disk: Disk | null;
+export type Challenge = string;
+
+export type Evidence = {
+    quote?: Quote;
+    infrastructure?: Infrastructure;
+    workloads?: Workloads;
 };
 
-export type ConfidentialInfrastructureSummary = {
+export type Verification = {
+    quote?: VerificationResult;
+    infrastructure?: VerificationResult;
+    workloads?: VerificationResult;
+};
+
+export type Quote = {
+    [key: string]: unknown;
+};
+
+export type Infrastructure = {
+    summary: InfrastructureSummary;
+    instance: Instance;
+    disk: Disk;
+};
+
+export type InfrastructureSummary = {
     provider: string;
     instanceId: string;
     name: string;
@@ -23,11 +40,11 @@ export type ConfidentialInfrastructureSummary = {
     Subscription?: string;
 };
 
-/*
+/**
  * Complete Instance interface at:
  * https://cloud.google.com/compute/docs/reference/rest/v1/instances
  */
-export type ConfidentialInstance = {
+export type Instance = {
     [key: string]: unknown;
     name: string;
     confidentialInstanceConfig: {
@@ -37,7 +54,7 @@ export type ConfidentialInstance = {
     cpuPlatform: string;
 };
 
-/*
+/**
  * Complete Disk interface at:
  * https://cloud.google.com/compute/docs/reference/rest/v1/disks
  */
@@ -46,7 +63,7 @@ export type Disk = {
     name: string;
 };
 
-export type Workload = {
+export type Workloads = {
     containers: Container[];
     images: Image[];
 };
@@ -70,35 +87,26 @@ export type Image = {
     labels?: { [key: string]: string };
 };
 
-export type Challenge = string | null;
-
-export type AttestationQuote = {
-    [key: string]: unknown;
-};
-
 export type AttestationSteps = {
-    issueChallenge: {
+    generateChallenge: {
         status: AttestationStepStatus;
+        error?: string;
     };
-    generateEvidence: {
+    gatherEvidence: {
         status: AttestationStepStatus;
+        error?: string;
     };
-    verifyTee: {
+    verifyEvidence: {
         status: AttestationStepStatus;
-    };
-    validateImage: {
-        status: AttestationStepStatus;
-    };
-    signResult: {
-        status: AttestationStepStatus;
+        error?: string;
     };
 };
 
-export type AttestationStepStatus = 'idle' | 'pending' | 'done' | 'error';
+export type AttestationStepStatus = 'pending' | 'active' | 'done' | 'error';
 
 export type UpdateStepPayload = {
     step: keyof AttestationSteps;
-    status: 'idle' | 'pending' | 'done' | 'error';
+    status: 'pending' | 'active' | 'done' | 'error';
 };
 
 export enum TrustStatus {
@@ -107,7 +115,56 @@ export enum TrustStatus {
     UNKNOWN = 'unknown',
 }
 
+export enum VerificationStatus {
+    PASSED = 'passed',
+    FAILED = 'failed',
+    PENDING = 'pending',
+}
+
 export enum ChallengeGenerationMode {
     AUTOMATIC = 'automatic',
     MANUAL = 'manual',
 }
+
+export enum ArtifactType {
+    CHALLENGE = 'challenge',
+    QUOTE_EVIDENCE = 'quote',
+    WORKLOAD_EVIDENCE = 'workload',
+    INFRASTRUCTURE_EVIDENCE = 'infrastructure',
+    INSTANCE_DISK = 'instanceDisk',
+    INSTANCE_IDENTITY = 'instanceIdentity',
+    CONTAINER = 'container',
+    QUOTE_VERIFICATION = 'quoteVerification',
+    WORKLOAD_VERIFICATION = 'workloadVerification',
+    INFRASTRUCTURE_VERIFICATION = 'infrastructureVerification',
+}
+
+export enum VerificationType {
+    QUOTE = 'quote',
+    WORKLOAD = 'workload',
+    INFRASTRUCTURE = 'infrastructure',
+}
+
+export type AttestationStepArtifact = {
+    name: ArtifactType;
+    value: Challenge | Quote | Infrastructure | Workloads | undefined;
+    action: () => void;
+    trustStatus?: TrustStatus;
+    verificationStatus?: VerificationStatus;
+};
+
+export type AttestationStepAction = {
+    name: string;
+    fn: () => void;
+};
+
+export type VerificationResult = {
+    isVerified: boolean;
+    message: string;
+    timestamp: string;
+    verifiedBootDiskSourceImage?: string;
+    verifiedBootDiskSourceImageID?: string;
+    goldenImageDigest?: string;
+    providedImageDigest?: string;
+    referenceImage?: string;
+};
