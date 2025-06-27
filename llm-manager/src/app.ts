@@ -10,14 +10,15 @@ export const app = express();
 
 // Middlewares
 
-// Comment out when done with testing in docker compose:
-// if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
+if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
+if (process.env.NODE_ENV === 'production') app.use(morgan('combined'));
+const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+console.info(`Frontend URL: ${frontendUrl}`);
 
-app.use(morgan('dev'));
 app.use(express.json());
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'http://localhost', 'https://sanctuairy.netlify.app'],
+    origin: [frontendUrl, 'https://sanctuairy.netlify.app'],
   }),
 );
 
