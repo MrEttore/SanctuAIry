@@ -18,7 +18,7 @@ console.info(`Frontend URL: ${frontendUrl}`);
 app.use(express.json());
 app.use(
   cors({
-    origin: [frontendUrl, 'https://sanctuairy.netlify.app'],
+    origin: [frontendUrl, 'http://localhost', 'https://sanctuairy.netlify.app'],
   }),
 );
 
