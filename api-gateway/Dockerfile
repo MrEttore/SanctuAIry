@@ -1,15 +1,9 @@
-FROM nginx:stable-alpine
+FROM nginx:alpine
 
-RUN apk add --no-cache gettext
+COPY nginx.conf /etc/nginx/nginx.conf
 
-COPY conf.d/default.conf.tmpl /etc/nginx/conf.d/default.conf.tmpl
-
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-RUN ln -sf /dev/stdout /var/log/nginx/access.log \
- && ln -sf /dev/stderr /var/log/nginx/error.log
+COPY conf.d/ /etc/nginx/conf.d/
 
 EXPOSE 8080
 
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["nginx", "-g", "daemon off;"]
