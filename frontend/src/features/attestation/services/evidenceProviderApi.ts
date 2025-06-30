@@ -8,6 +8,7 @@ import {
 } from '../types/attestation';
 
 const ATTESTER_URL: string = import.meta.env.VITE_ATTESTER_URL;
+console.info(`ATTESTER_URL: ${ATTESTER_URL}`);
 
 /**
  * Function that communicates with a third-party evidence provider service. It retrieves an attestation quote from a TDX TEE.
