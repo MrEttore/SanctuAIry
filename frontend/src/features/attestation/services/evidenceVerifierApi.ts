@@ -8,6 +8,7 @@ import {
 import { VerificationResult } from '../types/attestation';
 
 const VERIFIER_URL: string = import.meta.env.VITE_VERIFIER_URL;
+console.info(`VERIFIER_URL: ${VERIFIER_URL}`);
 
 export async function verifyTdxQuote({
     issuedChallenge,

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Model } from '../types/llm';
 
 const LLM_MANAGER_URL = import.meta.env.VITE_LLM_MANAGER_URL;
+console.info(`LLM_MANAGER_URL: ${LLM_MANAGER_URL}`);
 
 // TODO: Refactor using Axios (Also catches network errors, e.g., connection refused when llm-manager is down).
 
