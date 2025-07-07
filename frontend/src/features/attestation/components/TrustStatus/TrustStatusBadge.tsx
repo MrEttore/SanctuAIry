@@ -25,20 +25,20 @@ export function TrustStatusBadge({
 
     return (
         <div
-            className={`flex items-center gap-1 ${size === 'sm' ? 'text-sm' : ''} ${size === 'md' ? 'text-base' : ''} ${emphasized ? 'font-semibold' : 'opacity-75 font-medium'} ${trustStatus === TrustStatus.TRUSTED || trustStatus === VerificationStatus.PASSED ? 'text-green-700' : trustStatus === TrustStatus.UNTRUSTED || trustStatus === VerificationStatus.FAILED ? 'text-red-700' : 'text-yellow-700'}`}
+            className={`flex items-center py-0.5 px-1 rounded-md  gap-1 ${size === 'sm' ? 'text-xs' : ''} ${size === 'md' ? 'text-sm' : ''} ${emphasized ? 'font-semibold' : 'opacity-75 font-medium'} ${trustStatus === TrustStatus.TRUSTED || trustStatus === VerificationStatus.PASSED ? 'text-green-700' : trustStatus === TrustStatus.UNTRUSTED || trustStatus === VerificationStatus.FAILED ? 'text-red-700' : 'bg-amber-500/60 text-white'}`}
         >
             <span>
                 {(trustStatus === TrustStatus.TRUSTED ||
                     trustStatus === VerificationStatus.PASSED) && (
-                    <BadgeCheck size={size === 'sm' ? 18 : 25} />
+                    <BadgeCheck size={size === 'sm' ? 15 : 20} />
                 )}
                 {(trustStatus === TrustStatus.UNTRUSTED ||
                     trustStatus === VerificationStatus.FAILED) && (
-                    <BadgeAlert size={size === 'sm' ? 18 : 25} />
+                    <BadgeAlert size={size === 'sm' ? 15 : 20} />
                 )}
                 {(trustStatus === TrustStatus.UNKNOWN ||
                     trustStatus === VerificationStatus.PENDING) && (
-                    <BadgeHelp size={size === 'sm' ? 18 : 25} />
+                    <BadgeHelp size={size === 'sm' ? 15 : 20} />
                 )}
             </span>
             <p className="capitalize">{trustStatus}</p>
