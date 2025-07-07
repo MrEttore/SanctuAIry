@@ -15,7 +15,7 @@ export function AttestationHeader() {
 
     return (
         <>
-            <header className="flex flex-col text-white bg-teal-900/40 p-3 shadow-xs space-y-1">
+            <header className="flex flex-col mb-3 text-white bg-teal-900/40 p-3 shadow-xs space-y-1">
                 <h3 className="xl:text-3xl lg:text-lg font-medium">
                     Verify Service State
                 </h3>

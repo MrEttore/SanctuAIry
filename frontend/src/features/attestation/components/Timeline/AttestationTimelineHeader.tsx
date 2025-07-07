@@ -1,3 +1,4 @@
+import { CirclePlay, RotateCcw } from 'lucide-react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -61,12 +62,20 @@ export function AttestationTimelineHeader() {
                 </div>
                 <div className="flex items-center gap-2">
                     <button
-                        className="flex items-center gap-1.5 rounded-md px-1 py-0.5 font-medium cursor-pointer bg-amber-500/80 text-white transition-all text-lg duration-400 shadow-sm hover:bg-amber-500"
+                        className="flex items-center gap-1.5 rounded-md px-1 py-0.5 font-semibold cursor-pointer transition-all text-xl duration-400 hover:bg-teal-950/10"
                         onClick={handleStartAttestation}
                     >
-                        {!challenge
-                            ? 'Start Attestation'
-                            : 'Start a new Attestation'}
+                        {!challenge ? (
+                            <p className="flex items-center gap-1">
+                                <CirclePlay />
+                                Start Attestation
+                            </p>
+                        ) : (
+                            <p className="flex items-center gap-1">
+                                <RotateCcw size={20} />
+                                Start a new Attestation
+                            </p>
+                        )}
                     </button>
                 </div>
             </div>

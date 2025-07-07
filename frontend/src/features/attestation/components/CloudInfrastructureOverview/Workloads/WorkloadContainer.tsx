@@ -1,4 +1,4 @@
-import { Container as ContainerIcon, ScanSearch } from 'lucide-react';
+import { Container as ContainerIcon } from 'lucide-react';
 import { useSelector } from 'react-redux';
 
 import { ModalType } from '../../../../../types/ui';
@@ -50,12 +50,11 @@ export function WorkloadContainer({ container, onInspect }: Props) {
                     emphasized
                 />
                 <button
-                    className="flex items-center gap-1 rounded-lg px-1.5 text-sm py-1 font-medium cursor-pointer bg-teal-800/80 text-teal-50 transition-all duration-400 shadow-sm hover:bg-teal-800"
+                    className="flex items-center gap-1 rounded-lg px-1.5 text-sm py-1 font-medium cursor-pointer text-teal-950 transition-all duration-400 hover:bg-teal-900/10"
                     onClick={() =>
                         onInspect(ModalType.VIEW_CONTAINER, container.id)
                     }
                 >
-                    <ScanSearch size={14} />
                     Inspect
                 </button>
             </div>

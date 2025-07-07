@@ -121,11 +121,8 @@ export function AttestationTimeline() {
             <div className="mx-2">
                 <div className="flex flex-col space-y-4 rounded-lg bg-white p-2 shadow-md text-teal-950">
                     <AttestationTimelineHeader />
-
-                    {/* STEPS */}
                     <div>
                         <div className="flex w-full space-x-2">
-                            {/* 1: Issue Challenge */}
                             <AttestationStep
                                 name="Generate Challenge"
                                 status={generateChallenge.status}
@@ -141,15 +138,13 @@ export function AttestationTimeline() {
                                     },
                                 ]}
                                 action={{
-                                    name: 'Generate Challenge',
+                                    name: 'Generate',
                                     fn: () =>
                                         handleSelectModal(
                                             ModalType.START_ATTESTATION,
                                         ),
                                 }}
                             />
-
-                            {/* 2: Generate Evidence */}
                             <AttestationStep
                                 name="Gather Evidence"
                                 status={gatherEvidence.status}
@@ -190,8 +185,6 @@ export function AttestationTimeline() {
                                         ),
                                 }}
                             />
-
-                            {/* 3: Verify TEE */}
                             <AttestationStep
                                 name="Verify Evidence"
                                 status={verifyEvidence.status}

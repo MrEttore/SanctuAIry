@@ -72,7 +72,7 @@ export function InfrastructureSummary() {
 
                             <div className="flex justify-end gap-2">
                                 <button
-                                    className="flex items-center gap-1.5 rounded-lg px-1.5 text-base py-1 font-medium cursor-pointer bg-teal-800/80 text-teal-50 transition-all duration-400 shadow-sm hover:bg-teal-800"
+                                    className="flex items-center gap-1.5 rounded-lg px-1.5 text-base py-1 font-medium cursor-pointer text-teal-950 transition-all duration-400 hover:bg-teal-900/10"
                                     onClick={() =>
                                         handleSelectModal(
                                             ModalType.VIEW_INSTANCE_DISK,
@@ -83,7 +83,7 @@ export function InfrastructureSummary() {
                                     Inspect disk
                                 </button>
                                 <button
-                                    className="flex items-center gap-1.5 rounded-lg px-1.5 text-base py-1 font-medium cursor-pointer bg-teal-800/80 text-teal-50 transition-all duration-400 shadow-sm hover:bg-teal-800"
+                                    className="flex items-center gap-1.5 rounded-lg px-1.5 text-base py-1 font-medium cursor-pointer text-teal-950 transition-all duration-400 hover:bg-teal-900/10"
                                     onClick={() =>
                                         handleSelectModal(
                                             ModalType.VIEW_INSTANCE_IDENTITY,

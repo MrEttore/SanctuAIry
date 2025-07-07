@@ -3,8 +3,8 @@ import {
     Circle,
     CircleDot,
     CircleDotDashed,
+    CirclePlus,
     CircleX,
-    ScanSearch,
 } from 'lucide-react';
 
 import '../../../../types/ui';
@@ -42,9 +42,10 @@ export function AttestationStep({ name, status, artifacts, action }: Props) {
                 </div>
                 {action && status === 'active' && (
                     <button
-                        className="flex items-center gap-1.5 rounded-md px-1 py-0.5 text-base font-medium cursor-pointer bg-amber-500/80 text-white transition-all duration-400 shadow-sm hover:bg-amber-500"
+                        className="flex items-center gap-1.5 rounded-md px-1 py-0.5 text-base font-medium cursor-pointer transition-all duration-400 hover:bg-teal-950/10"
                         onClick={action.fn}
                     >
+                        <CirclePlus size={20} />
                         {action.name}
                     </button>
                 )}
@@ -67,12 +68,11 @@ export function AttestationStep({ name, status, artifacts, action }: Props) {
                                     emphasized={artifact.value ? true : false}
                                 />
                                 <button
-                                    className={`flex items-center gap-1.5 rounded-md px-1 py-0.5 font-medium text-sm bg-teal-900/80 text-white transition-all duration-400 shadow-sm ${!artifact.value ? 'cursor-default' : 'cursor-pointer not-only:hover:bg-teal-900'}`}
+                                    className={`flex items-center gap-1.5 rounded-md px-1 py-0.5 font-medium text-sm transition-all duration-400 ${!artifact.value ? 'cursor-default' : 'cursor-pointer not-only:hover:bg-teal-900/10'}`}
                                     type="button"
                                     onClick={artifact.action}
                                     disabled={!artifact.value ? true : false}
                                 >
-                                    <ScanSearch size={15} />
                                     Inspect
                                 </button>
                             </div>
