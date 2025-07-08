@@ -38,3 +38,19 @@ jobs:
                   file: ./llm-core/Dockerfile
                   push: true
                   tags: ${{ secrets.DOCKER_USERNAME }}/llm-core:latest
+
+            - name: Build and push frontend
+              uses: docker/build-push-action@v2
+              with:
+                  context: ./frontend
+                  file: ./frontend/Dockerfile
+                  push: true
+                  tags: ${{ secrets.DOCKER_USERNAME }}/frontend:latest
+
+            - name: Build and push api gateway
+              uses: docker/build-push-action@v2
+              with:
+                  context: ./api-gateway
+                  file: ./api-gateway/Dockerfile
+                  push: true
+                  tags: ${{ secrets.DOCKER_USERNAME }}/api-gateway:latest
