@@ -11,7 +11,7 @@ import { ModalHeader } from '../ModalHeader';
 
 type Props = {
     artifactType: ArtifactType;
-    evidence: Quote | Infrastructure | Workloads | undefined;
+    evidence: Quote | Infrastructure | Workloads;
 };
 
 /**

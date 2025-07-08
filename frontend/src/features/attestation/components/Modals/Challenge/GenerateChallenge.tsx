@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { AppDispatch } from '../../../../../redux/store';
-import { setChallenge, updateStep } from '../../../attestationSlice';
-import { Challenge, ChallengeGenerationMode } from '../../../types/attestation';
+import { setChallengeValue, updateStep } from '../../../attestationSlice';
+import { ChallengeGenerationMode } from '../../../types/attestation';
 import { generateChallenge } from '../../../utils/generateChallenge';
 import { ModalHeader } from '../ModalHeader';
 
@@ -20,7 +20,7 @@ type Props = {
 export function GenerateChallenge({ onClose }: Props) {
     const [challengeGenerationMode, setChallengeGenerationMode] =
         useState<ChallengeGenerationMode>(ChallengeGenerationMode.AUTOMATIC);
-    const [generatedChallenge, setGeneratedChallenge] = useState<Challenge>('');
+    const [generatedChallenge, setGeneratedChallenge] = useState<string>('');
     const [formError, setFormError] = useState<string>('');
 
     const dispatch: AppDispatch = useDispatch();
@@ -37,7 +37,7 @@ export function GenerateChallenge({ onClose }: Props) {
             );
             return;
         }
-        dispatch(setChallenge(generatedChallenge));
+        dispatch(setChallengeValue(generatedChallenge));
         dispatch(updateStep({ step: 'generateChallenge', status: 'done' }));
         dispatch(updateStep({ step: 'gatherEvidence', status: 'active' }));
         onClose?.();
@@ -77,7 +77,7 @@ export function GenerateChallenge({ onClose }: Props) {
                             setChallengeGenerationMode(
                                 ChallengeGenerationMode.MANUAL,
                             );
-                            setChallenge('');
+                            setChallengeValue('');
                         }}
                     >
                         Manual

@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { AppDispatch } from '../../../../redux/store';
 import { ModalType } from '../../../../types/ui';
 import { Modal } from '../../../../ui';
 import {
@@ -8,13 +9,18 @@ import {
     getChallenge,
     getEvidence,
     getVerification,
+    setChallengeFreshness,
 } from '../../attestationSlice';
 import {
     ArtifactType,
     Challenge,
     Evidence,
+    Infrastructure,
+    Quote,
     VerificationResult,
+    Workloads,
 } from '../../types/attestation';
+import { computeChallengeFreshness } from '../../utils/computeChallengeFreshness';
 import {
     FetchEvidence,
     GenerateChallenge,
@@ -24,7 +30,7 @@ import {
     ViewVerificationResult,
 } from '../Modals';
 import { AttestationStep } from './AttestationStep';
-import { AttestationTimelineHeader } from './AttestationTimelineHeader';
+import { Header } from './Header';
 
 /**
  * Visualizes the attestation flow for the Relying Party.
@@ -40,11 +46,20 @@ export function AttestationTimeline() {
         ArtifactType | undefined
     >(undefined);
 
+    const dispatch: AppDispatch = useDispatch();
     const { generateChallenge, gatherEvidence, verifyEvidence } =
         useSelector(getAttestationSteps);
     const challenge = useSelector(getChallenge) as Challenge;
     const evidence = useSelector(getEvidence) as Evidence;
     const verification = useSelector(getVerification);
+
+    useEffect(() => {
+        const isFresh = computeChallengeFreshness(
+            challenge?.value as string,
+            evidence,
+        );
+        if (isFresh) dispatch(setChallengeFreshness(true));
+    }, [evidence, challenge, dispatch]);
 
     function handleSelectModal(
         modalType: ModalType,
@@ -120,7 +135,7 @@ export function AttestationTimeline() {
         <>
             <div className="mx-2">
                 <div className="flex flex-col space-y-4 rounded-lg bg-white p-2 shadow-md text-teal-950">
-                    <AttestationTimelineHeader />
+                    <Header />
                     <div>
                         <div className="flex w-full space-x-2">
                             <AttestationStep
@@ -178,7 +193,7 @@ export function AttestationTimeline() {
                                     },
                                 ]}
                                 action={{
-                                    name: 'Fetch Evidence',
+                                    name: 'Fetch',
                                     fn: () =>
                                         handleSelectModal(
                                             ModalType.FETCH_EVIDENCE,
@@ -218,7 +233,7 @@ export function AttestationTimeline() {
                                     },
                                 ]}
                                 action={{
-                                    name: 'Verify Evidence',
+                                    name: 'Verify',
                                     fn: () =>
                                         handleSelectModal(
                                             ModalType.VERIFY_EVIDENCE,
@@ -246,7 +261,12 @@ export function AttestationTimeline() {
                     selectedArtifactType && (
                         <ViewEvidence
                             artifactType={selectedArtifactType}
-                            evidence={handleLoadArtifact(selectedArtifactType)}
+                            evidence={
+                                handleLoadArtifact(selectedArtifactType) as
+                                    | Quote
+                                    | Infrastructure
+                                    | Workloads
+                            }
                         />
                     )}
                 {modalType === ModalType.VERIFY_EVIDENCE && <VerifyEvidence />}

@@ -7,7 +7,7 @@ export const navigationItems: NavigationItem[] = [
     { icon: Settings, name: 'Account Settings', to: '/app/user' },
     {
         icon: SearchCheck,
-        name: 'Verify Service State',
+        name: 'Verify Confidentiality Status',
         to: '/app/attestation',
     },
 ];

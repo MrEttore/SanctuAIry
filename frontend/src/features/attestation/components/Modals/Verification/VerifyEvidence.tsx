@@ -42,7 +42,7 @@ export function VerifyEvidence() {
     const [tag, setTag] = useState<string>('');
 
     const dispatch: AppDispatch = useDispatch();
-    const challenge = useSelector(getChallenge) as Challenge;
+    const { value: challenge } = useSelector(getChallenge) as Challenge;
     const evidence = useSelector(getEvidence) as Evidence;
     const verification = useSelector(getVerification);
 
@@ -105,7 +105,7 @@ export function VerifyEvidence() {
 
         if (type === VerificationType.QUOTE) {
             const payload = {
-                issuedChallenge: challenge,
+                issuedChallenge: challenge as string,
                 baselineManifestUrl: baselineManifestUrlQuote,
                 quote: evidence.quote as Quote,
             };
@@ -114,7 +114,7 @@ export function VerifyEvidence() {
         }
         if (type === VerificationType.WORKLOAD) {
             const payload = {
-                issuedChallenge: challenge,
+                issuedChallenge: challenge as string,
                 referenceImage: {
                     namespace,
                     repository,
@@ -127,7 +127,7 @@ export function VerifyEvidence() {
         }
         if (type === VerificationType.INFRASTRUCTURE) {
             const payload = {
-                issuedChallenge: challenge,
+                issuedChallenge: challenge as string,
                 baselineManifestUrl: baselineManifestUrlInfrastructure,
                 evidence: evidence.infrastructure as Infrastructure,
             };

@@ -13,7 +13,7 @@ import {
     AttestationStepArtifact,
     AttestationStepStatus,
 } from '../../types/attestation';
-import { TrustStatusBadge } from '../TrustStatus';
+import { TrustStatusBadge } from '../TrustStatusBadge';
 
 type Props = {
     name: string;
@@ -61,14 +61,15 @@ export function AttestationStep({ name, status, artifacts, action }: Props) {
                             <p className="text-teal-950">
                                 {changeCase.sentenceCase(artifact.name)}
                             </p>
-                            <div className="flex gap-2 items-center">
+                            <div className="flex items-center">
                                 <TrustStatusBadge
                                     forArtifact={artifact.name}
                                     size="sm"
                                     emphasized={artifact.value ? true : false}
                                 />
+                                <hr className="border-1 border-teal-800/10 h-full rounded-full" />
                                 <button
-                                    className={`flex items-center gap-1.5 rounded-md px-1 py-0.5 font-medium text-sm transition-all duration-400 ${!artifact.value ? 'cursor-default' : 'cursor-pointer not-only:hover:bg-teal-900/10'}`}
+                                    className={`flex items-center gap-1.5 ml-0.5 rounded-sm px-1 py-0.5 font-medium text-sm transition-all duration-400 ${!artifact.value ? 'cursor-default' : 'cursor-pointer not-only:hover:bg-teal-900/10'}`}
                                     type="button"
                                     onClick={artifact.action}
                                     disabled={!artifact.value ? true : false}

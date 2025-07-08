@@ -16,4 +16,7 @@ export enum ModalType {
     VIEW_INSTANCE_IDENTITY = 'viewInstanceIdentity',
     VIEW_INSTANCE_DISK = 'viewInstanceDisk',
     VIEW_CONTAINER = 'viewContainer',
+
+    // Independent Verification Resources
+    INFO_INDEPENDENT_VERIFICATION_RESOURCE = 'infoIndependentVerificationResource',
 }

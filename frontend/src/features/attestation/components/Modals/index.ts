@@ -2,6 +2,7 @@ export * from './ModalHeader';
 export * from './Info/InfoAttestationPage';
 export * from './Info/InfoRunVerification';
 export * from './Info/InfoCloudInfrastructureOverview';
+export * from './Info/InfoIndependentVerificationResource';
 export * from './Challenge/GenerateChallenge';
 export * from './Challenge/ViewChallenge';
 export * from './Evidence/FetchEvidence';

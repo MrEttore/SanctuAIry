@@ -1,5 +1,7 @@
 import {
     ArtifactType,
+    Challenge,
+    ChallengeFreshnessStatus,
     TrustStatus,
     Verification,
     VerificationStatus,
@@ -8,8 +10,15 @@ import {
 export function computeTrustStatus(
     artifact: ArtifactType,
     verification: Verification | undefined,
+    challenge?: Challenge | undefined,
 ) {
     switch (artifact) {
+        case ArtifactType.CHALLENGE: {
+            if (!challenge?.isFresh) return ChallengeFreshnessStatus.UNKNOWN;
+            return challenge.isFresh
+                ? ChallengeFreshnessStatus.FRESH
+                : ChallengeFreshnessStatus.STALE;
+        }
         case ArtifactType.QUOTE_EVIDENCE: {
             if (!verification?.quote) return TrustStatus.UNKNOWN;
             return verification.quote.isVerified

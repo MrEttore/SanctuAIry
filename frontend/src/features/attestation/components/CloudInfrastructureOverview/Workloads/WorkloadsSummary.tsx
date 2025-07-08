@@ -59,7 +59,7 @@ export function WorkloadsSummary() {
                         </div>
                     ) : (
                         <div className="px-3 py-2 rounded-lg flex flex-1 items-center justify-center">
-                            <p className="flex items-center gap-1 px-1 font-semibold rounded-md w-fit p-0.5 bg-slate-50 text-teal-950 opacity-75">
+                            <p className="flex items-center gap-1 px-1 font-semibold rounded-md w-fit p-0.5 bg-teal-950/10 text-teal-950 opacity-75">
                                 <Info size={15} />
                                 Gather workload evidence to view the running
                                 containers

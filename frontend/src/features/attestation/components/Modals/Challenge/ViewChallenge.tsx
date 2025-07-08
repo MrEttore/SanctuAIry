@@ -20,12 +20,13 @@ export function ViewChallenge({ challenge, artifactType }: Props) {
             <div className="flex flex-col max-h-[70vh] space-y-4">
                 <ModalHeader title={changeCase.sentenceCase(artifactType)} />
                 <p className="text-lg font-normal flex gap-1 p-2">
-                    A unique 64-byte challenge was generated to ensure that the
+                    A unique 64-byte challenge was generated to ensure that this
                     attestation session is fresh and specific to your request.
                     This challenge will be embedded into the attestation
-                    evidence, making it cryptographically bound to this session.
-                    The backend must prove it received and used this exact
-                    challenge - it’s your cryptographic fingerprint on the
+                    evidence gathered in the next step, making it
+                    cryptographically bound to this session. SanctuAIry's
+                    execution environment must prove it received and used this
+                    exact challenge - it’s your cryptographic fingerprint on the
                     verification process.
                 </p>
 
