@@ -1,4 +1,4 @@
-import { CloudInfrastructureOverviewHeader } from './CloudInfrastructureOverviewHeader';
+import { Header } from './Header';
 import { InfrastructureSummary } from './Infrastructure';
 import { WorkloadsSummary } from './Workloads';
 
@@ -11,7 +11,7 @@ export function CloudInfrastructureOverview() {
     return (
         <div className="mx-2">
             <div className="rounded-lg p-2 shadow-md bg-white min-h-0 overflow-hidden">
-                <CloudInfrastructureOverviewHeader />
+                <Header />
                 <div className="grid grid-cols-[1fr_1fr] divide-x-1 divide-teal-800/10 max-h-[30vh]">
                     <InfrastructureSummary />
                     <WorkloadsSummary />

@@ -8,7 +8,7 @@ import { getEvidence, getVerification } from '../../../attestationSlice';
 import { ArtifactType, TrustStatus } from '../../../types/attestation';
 import { computeTrustStatus } from '../../../utils/computeVerification';
 import { ViewInstanceDisk, ViewInstanceIdentity } from '../../Modals';
-import { TrustStatusBadge } from '../../TrustStatus';
+import { TrustStatusBadge } from '../../TrustStatusBadge';
 import { InstanceAttribute } from './InstanceAttribute';
 
 export function InfrastructureSummary() {
@@ -69,10 +69,10 @@ export function InfrastructureSummary() {
                                     />
                                 ))}
                             </div>
-
-                            <div className="flex justify-end gap-2">
+                            <hr className="border-1 border-teal-800/10 h-full rounded-full" />
+                            <div className="flex justify-end gap-2 mt-0.5">
                                 <button
-                                    className="flex items-center gap-1.5 rounded-lg px-1.5 text-base py-1 font-medium cursor-pointer text-teal-950 transition-all duration-400 hover:bg-teal-900/10"
+                                    className="flex items-center gap-1.5 rounded-sm px-1.5 text-base py-1 font-medium cursor-pointer text-teal-950 transition-all duration-400 hover:bg-teal-900/10"
                                     onClick={() =>
                                         handleSelectModal(
                                             ModalType.VIEW_INSTANCE_DISK,
@@ -83,7 +83,7 @@ export function InfrastructureSummary() {
                                     Inspect disk
                                 </button>
                                 <button
-                                    className="flex items-center gap-1.5 rounded-lg px-1.5 text-base py-1 font-medium cursor-pointer text-teal-950 transition-all duration-400 hover:bg-teal-900/10"
+                                    className="flex items-center gap-1.5 rounded-sm px-1.5 text-base py-1 font-medium cursor-pointer text-teal-950 transition-all duration-400 hover:bg-teal-900/10"
                                     onClick={() =>
                                         handleSelectModal(
                                             ModalType.VIEW_INSTANCE_IDENTITY,
@@ -97,7 +97,7 @@ export function InfrastructureSummary() {
                         </div>
                     ) : (
                         <div className="px-3 py-2 rounded-lg flex flex-1 items-center justify-center">
-                            <p className="flex items-center gap-1 px-1 font-semibold rounded-md w-fit p-0.5 bg-slate-50 text-teal-950 opacity-75">
+                            <p className="flex items-center gap-1 px-1 font-semibold rounded-md w-fit p-0.5 bg-teal-950/10 text-teal-950 opacity-75">
                                 <Info size={15} />
                                 Gather infrastructure evidence to view VM
                                 information

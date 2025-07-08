@@ -23,7 +23,7 @@ import { ModalHeader } from '../ModalHeader';
 
 export function FetchEvidence() {
     const dispatch: AppDispatch = useDispatch();
-    const challenge = useSelector(getChallenge) as Challenge;
+    const { value: challenge } = useSelector(getChallenge) as Challenge;
     const evidence = useSelector(getEvidence);
 
     const fetchQuoteMutation = useMutation({
@@ -80,10 +80,10 @@ export function FetchEvidence() {
                                 TDX Attestation Quote
                             </h3>
                             <p className="opacity-80">
-                                Verifies that the backend is running inside a
-                                genuine Trusted Execution Environmen,
-                                safeguarding the confidentiality of your
-                                personal data.
+                                Gathers evidence that the backend is running
+                                inside a genuine confidential execution
+                                environment, safeguarding the confidentiality of
+                                your personal data.
                             </p>
                             {fetchQuoteMutation.isError && (
                                 <p className="flex items-center gap-1 font-medium rounded-md w-fit p-0.5 bg-red-100 text-red-900 mt-1.5">
@@ -101,7 +101,9 @@ export function FetchEvidence() {
                                       ? 'cursor-default opacity-75 bg-green-800/60 text-green-800'
                                       : 'cursor-pointer bg-amber-500/80 hover:bg-amber-500 text-white'
                             }`}
-                            onClick={() => fetchQuoteMutation.mutate(challenge)}
+                            onClick={() =>
+                                fetchQuoteMutation.mutate(challenge as string)
+                            }
                             disabled={
                                 fetchQuoteMutation.isPending ||
                                 fetchQuoteMutation.isSuccess
@@ -127,9 +129,9 @@ export function FetchEvidence() {
                                 Workload Evidence
                             </h3>
                             <p className="opacity-80">
-                                Proves which containerized workloads are running
-                                and checks if their images are unmodified and
-                                from trusted sources.
+                                Gathers evidence that proves which containerized
+                                workloads are running inside the confidential
+                                execution environment.
                             </p>
                             {fetchWorkloadMutation.isError && (
                                 <p className="flex items-center gap-1 font-medium rounded-md w-fit p-0.5 bg-red-100 text-red-900 mt-1.5">
@@ -148,7 +150,9 @@ export function FetchEvidence() {
                                       : 'cursor-pointer bg-amber-500/80 hover:bg-amber-500 text-white'
                             }`}
                             onClick={() =>
-                                fetchWorkloadMutation.mutate(challenge)
+                                fetchWorkloadMutation.mutate(
+                                    challenge as string,
+                                )
                             }
                             disabled={
                                 fetchWorkloadMutation.isPending ||
@@ -175,9 +179,10 @@ export function FetchEvidence() {
                                 Infrastructure Evidence
                             </h3>
                             <p className="opacity-80">
-                                Describes the cloud environment and confirms
-                                whether the VM and its boot disk come from a
-                                known, trusted baseline.
+                                Gathers evidence that provides details about the
+                                underlying hardware and software cloud
+                                infrastructure of the confidential execution
+                                environment.
                             </p>
                             {fetchInfrastructureMutation.isError && (
                                 <p className="flex items-center gap-1 font-medium rounded-md w-fit p-0.5 bg-red-100 text-red-900 mt-1.5">
@@ -197,7 +202,9 @@ export function FetchEvidence() {
                                       : 'cursor-pointer bg-amber-500/80 hover:bg-amber-500 text-white'
                             }`}
                             onClick={() =>
-                                fetchInfrastructureMutation.mutate(challenge)
+                                fetchInfrastructureMutation.mutate(
+                                    challenge as string,
+                                )
                             }
                             disabled={
                                 fetchInfrastructureMutation.isPending ||

@@ -1,5 +1,4 @@
 import {
-    Challenge,
     Infrastructure,
     Quote,
     VerificationResult,
@@ -9,19 +8,19 @@ import {
 // Requests
 
 export type VerifyTdxQuoteRequest = {
-    issuedChallenge: Challenge;
+    issuedChallenge: string;
     baselineManifestUrl: string;
     quote: Quote;
 };
 
 export type VerifyInfrastructureRequest = {
-    issuedChallenge: Challenge;
+    issuedChallenge: string;
     baselineManifestUrl: string;
     evidence: Infrastructure;
 };
 
 export type VerifyWorkloadsRequest = {
-    issuedChallenge: Challenge;
+    issuedChallenge: string;
     referenceImage: {
         namespace: string;
         repository: string;

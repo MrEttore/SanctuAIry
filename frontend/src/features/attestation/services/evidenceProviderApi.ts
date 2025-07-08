@@ -1,11 +1,6 @@
 import axios from 'axios';
 
-import {
-    Challenge,
-    Infrastructure,
-    Quote,
-    Workloads,
-} from '../types/attestation';
+import { Infrastructure, Quote, Workloads } from '../types/attestation';
 
 const ATTESTER_URL: string = import.meta.env.VITE_ATTESTER_URL;
 console.info(`ATTESTER_URL: ${ATTESTER_URL}`);
@@ -16,7 +11,7 @@ console.info(`ATTESTER_URL: ${ATTESTER_URL}`);
  * @param challenge
  * @returns a valid TDX attestation quote.
  */
-export async function fetchTdxQuote(challenge: Challenge): Promise<Quote> {
+export async function fetchTdxQuote(challenge: string): Promise<Quote> {
     try {
         const { data } = await axios.post(
             `${ATTESTER_URL}/evidence/tdx-quote`,
@@ -35,7 +30,7 @@ export async function fetchTdxQuote(challenge: Challenge): Promise<Quote> {
 }
 
 export async function fetchInfrastructure(
-    challenge: Challenge,
+    challenge: string,
 ): Promise<Infrastructure> {
     try {
         const { data } = await axios.post(
@@ -54,7 +49,7 @@ export async function fetchInfrastructure(
     }
 }
 
-export async function fetchWorkloads(challenge: Challenge): Promise<Workloads> {
+export async function fetchWorkloads(challenge: string): Promise<Workloads> {
     try {
         const { data } = await axios.post(
             `${ATTESTER_URL}/evidence/workload`,

@@ -17,7 +17,7 @@ export function AttestationHeader() {
         <>
             <header className="flex flex-col mb-3 text-white bg-teal-900/40 p-3 shadow-xs space-y-1">
                 <h3 className="xl:text-3xl lg:text-lg font-medium">
-                    Verify Service State
+                    Verify SanctuAIry's Confidentiality Claims
                 </h3>
                 <div className="flex items-center gap-2">
                     <p className="opacity-80 font-normal">

@@ -15,27 +15,30 @@ export function InfoAttestationPage() {
                     <p>
                         This page allows you to{' '}
                         <span className="font-semibold">
-                            verify the Authenticity and Integrity
+                            verify the Confidentiality, Authenticity, and
+                            Integrity
                         </span>{' '}
-                        of SanctuAIry's AI model that processes your data.
+                        of SanctuAIry's AI model execution environment, the
+                        model itself, and the data it processes.
                     </p>
 
                     <p>
                         When you use{' '}
                         <span className="font-semibold">SanctuAIry</span>, your
-                        personal information is handled by services running
-                        inside a{' '}
+                        personal medical information is handled by an AI model
+                        running inside a{' '}
                         <span className="font-semibold">
                             Confidential Computing environment
                         </span>
                         , a special kind of cloud system that encrypts and
-                        isolates all data and code during processing.
+                        isolates the AI inference processing your sensitive
+                        data.
                     </p>
 
                     <p>
-                        To make this trust{' '}
+                        To make our confidentiality claims{' '}
                         <span className="font-semibold">verifiable</span>, we
-                        use a technology called{' '}
+                        empower you to use a technology called{' '}
                         <span className="font-semibold">
                             Remote Attestation
                         </span>
@@ -44,29 +47,32 @@ export function InfoAttestationPage() {
 
                     <ul className="list-disc list-inside space-y-1">
                         <li>
-                            🧠 That the AI model you’re interacting with is
-                            authentic and untampered
+                            🧠 That the SanctuAIry's AI model you’re interacting
+                            with is authentic and untampered
                         </li>
                         <li>
-                            🖥️ That it’s running in a secure hardware-isolated
-                            environment
+                            🖥️ That it’s running in a secure and isolated
+                            environment protecting your sensitive data
                         </li>
-                        <li>🗂️ That the backend code has not been altered</li>
+                        <li>
+                            ☁️ That the system has been deployed on a cloud
+                            platform using authenticated confidential
+                            technologies
+                        </li>
                     </ul>
 
                     <p>
-                        This page shows you the results of those checks in real
+                        This page shows you the results of these checks in real
                         time and gives you tools to inspect and validate them
                         yourself.
                     </p>
 
                     <p>
-                        <span className="font-semibold">Why this matters:</span>
+                        <span className="font-semibold">The Bottom Line:</span>
                         <br />
-                        It means you don’t have to blindly trust that your data
-                        is handled securely - you can actually{' '}
-                        <span className="font-semibold">see and verify it</span>
-                        .
+                        Instead of taking our word for it, you can actually{' '}
+                        <span className="font-semibold">see proof</span> that
+                        your sensitive information is in safe hands.
                     </p>
                 </div>
             </div>

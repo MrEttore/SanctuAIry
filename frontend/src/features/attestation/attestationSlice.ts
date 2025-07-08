@@ -3,7 +3,6 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../redux/store';
 import {
     AttestationState,
-    Challenge,
     Infrastructure,
     Quote,
     UpdateStepPayload,
@@ -29,8 +28,13 @@ const attestationSlice = createSlice({
     name: 'attestation',
     initialState,
     reducers: {
-        setChallenge(state, action: PayloadAction<Challenge>) {
-            state.challenge = action.payload;
+        setChallengeValue(state, action: PayloadAction<string>) {
+            if (!state.challenge) state.challenge = {};
+            state.challenge.value = action.payload;
+        },
+        setChallengeFreshness(state, action: PayloadAction<boolean>) {
+            if (!state.challenge) state.challenge = {};
+            state.challenge.isFresh = action.payload;
         },
         setEvidenceQuote(state, action: PayloadAction<Quote>) {
             if (!state.evidence) state.evidence = {};
@@ -47,7 +51,6 @@ const attestationSlice = createSlice({
             if (!state.evidence) state.evidence = {};
             state.evidence.workloads = action.payload;
         },
-
         setVerificationQuote(state, action: PayloadAction<VerificationResult>) {
             if (!state.verification) state.verification = {};
             state.verification.quote = action.payload;
@@ -66,7 +69,6 @@ const attestationSlice = createSlice({
             if (!state.verification) state.verification = {};
             state.verification.workloads = action.payload;
         },
-
         updateStep(state, action: PayloadAction<UpdateStepPayload>) {
             const { step, status } = action.payload;
             state.attestationSteps[step].status = status;
@@ -92,7 +94,8 @@ export const getVerification = (state: RootState) =>
     state.attestation.verification;
 
 export const {
-    setChallenge,
+    setChallengeValue,
+    setChallengeFreshness,
     setEvidenceQuote,
     setEvidenceInfrastructure,
     setEvidenceWorkloads,

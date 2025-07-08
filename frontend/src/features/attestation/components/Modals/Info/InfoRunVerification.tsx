@@ -19,8 +19,9 @@ export function InfoRunVerification() {
                         <span className="font-semibold">
                             Remote Attestation
                         </span>
-                        . This ensures the AI backend is running in a secure and
-                        untampered environment.
+                        . This will ensures whether or not the AI model is
+                        running in a secure and untampered confidential
+                        environment.
                     </p>
 
                     <p>This is how the process works:</p>
@@ -31,23 +32,23 @@ export function InfoRunVerification() {
                                 📤 Challenge Creation:
                             </span>{' '}
                             A random 64-byte challenge is generated to uniquely
-                            identify this session and prevent replay attacks.
+                            identify your verification session and prevent
+                            replay attacks.
                         </li>
                         <li>
                             <span className="font-semibold">
                                 📡 Evidence Collection:
                             </span>{' '}
-                            The backend (running in a Confidential VM) responds
-                            with signed evidence about its system state.
+                            SanctuAIry's confidential execution environment
+                            responds with signed evidence about its state.
                         </li>
                         <li>
                             <span className="font-semibold">
                                 🔐 Evidence Verification:
                             </span>{' '}
-                            An external verifier checks the authenticity,
-                            integrity, and configuration of the backend by
-                            comparing the evidence against known-good reference
-                            values.
+                            An external Verifier service checks the Authenticity
+                            and Integrity the backend by comparing the evidence
+                            against known-good reference values.
                         </li>
                         <li>
                             <span className="font-semibold">
@@ -55,16 +56,17 @@ export function InfoRunVerification() {
                             </span>{' '}
                             A signed attestation result is returned and
                             displayed here, so you can decide whether to trust
-                            the service.
+                            our service.
                         </li>
                     </ol>
 
                     <p>
                         <span className="font-semibold">Why this matters:</span>
                         <br />
-                        It empowers you to independently verify that the backend
-                        handling your data is authentic, secure, and behaving as
-                        claimed.
+                        It empowers you to independently verify that the
+                        confidential execution environment and the AI model
+                        handling your data are authentic, secure, and behaving
+                        as claimed.
                     </p>
                 </div>
             </div>

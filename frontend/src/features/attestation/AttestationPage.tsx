@@ -1,5 +1,5 @@
+import { AttestationHeader } from './components/AttestationHeader';
 import { CloudInfrastructureOverview } from './components/CloudInfrastructureOverview';
-import { AttestationHeader } from './components/Header';
 import IndependentVerificationResources from './components/IndependentVerificationResources/IndependentVerificationResources';
 import { AttestationTimeline } from './components/Timeline';
 

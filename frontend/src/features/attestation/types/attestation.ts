@@ -5,7 +5,7 @@ export type AttestationState = {
     verification?: Verification;
 };
 
-export type Challenge = string;
+export type Challenge = { value?: string; isFresh?: boolean };
 
 export type Evidence = {
     quote?: Quote;
@@ -21,12 +21,17 @@ export type Verification = {
 
 export type Quote = {
     [key: string]: unknown;
+    tdQuoteBody: {
+        [key: string]: unknown;
+        reportData: string;
+    };
 };
 
 export type Infrastructure = {
     summary: InfrastructureSummary;
     instance: Instance;
     disk: Disk;
+    reportData: string;
 };
 
 export type InfrastructureSummary = {
@@ -66,6 +71,7 @@ export type Disk = {
 export type Workloads = {
     containers: Container[];
     images: Image[];
+    reportData: string;
 };
 
 export type Container = {
@@ -121,6 +127,12 @@ export enum VerificationStatus {
     PENDING = 'pending',
 }
 
+export enum ChallengeFreshnessStatus {
+    FRESH = 'fresh',
+    STALE = 'stale',
+    UNKNOWN = 'unknown',
+}
+
 export enum ChallengeGenerationMode {
     AUTOMATIC = 'automatic',
     MANUAL = 'manual',
@@ -147,7 +159,13 @@ export enum VerificationType {
 
 export type AttestationStepArtifact = {
     name: ArtifactType;
-    value: Challenge | Quote | Infrastructure | Workloads | undefined;
+    value:
+        | Challenge
+        | Quote
+        | Infrastructure
+        | Workloads
+        | VerificationResult
+        | undefined;
     action: () => void;
     trustStatus?: TrustStatus;
     verificationStatus?: VerificationStatus;

@@ -9,7 +9,7 @@ import {
     TrustStatus,
 } from '../../../types/attestation';
 import { computeTrustStatus } from '../../../utils/computeVerification';
-import { TrustStatusBadge } from '../../TrustStatus';
+import { TrustStatusBadge } from '../../TrustStatusBadge';
 
 type Props = {
     container: Container;
@@ -44,13 +44,14 @@ export function WorkloadContainer({ container, onInspect }: Props) {
                     </p>
                 </div>
             </div>
-            <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center justify-between">
                 <TrustStatusBadge
                     forArtifact={ArtifactType.WORKLOAD_EVIDENCE}
                     emphasized
                 />
+                <hr className="border-1 border-teal-800/10 h-full rounded-full" />
                 <button
-                    className="flex items-center gap-1 rounded-lg px-1.5 text-sm py-1 font-medium cursor-pointer text-teal-950 transition-all duration-400 hover:bg-teal-900/10"
+                    className="flex items-center gap-1 h-full rounded-sm px-1.5 ml-0.5 text-sm py-1 font-medium cursor-pointer text-teal-950 transition-all duration-400 hover:bg-teal-900/10"
                     onClick={() =>
                         onInspect(ModalType.VIEW_CONTAINER, container.id)
                     }
