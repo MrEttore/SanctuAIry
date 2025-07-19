@@ -11,7 +11,6 @@ export function computeChallengeFreshness(
     const evidenceKeys = ['quote', 'infrastructure', 'workloads'] as const;
 
     for (const key of evidenceKeys) {
-        console.log(`Checking evidence key: ${key}`);
         if (!evidence[key]) continue;
 
         switch (key) {
