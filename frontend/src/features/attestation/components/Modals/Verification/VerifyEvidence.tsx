@@ -50,7 +50,6 @@ export function VerifyEvidence() {
         mutationKey: ['verify-quote-evidence'],
         mutationFn: verifyTdxQuote,
         onSuccess: (verificationResult) => {
-            console.log('TDX Quote verified successfully:', verificationResult);
             dispatch(setVerificationQuote(verificationResult));
         },
         // TODO: Handle error properly
@@ -63,7 +62,6 @@ export function VerifyEvidence() {
         mutationKey: ['verify-workload-evidence'],
         mutationFn: verifyWorkloads,
         onSuccess: (verificationResult) => {
-            console.log('Workloads verified successfully:', verificationResult);
             dispatch(setVerificationWorkloads(verificationResult));
         },
         // TODO: Handle error properly
@@ -76,10 +74,6 @@ export function VerifyEvidence() {
         mutationKey: ['verify-infrastructure-evidence'],
         mutationFn: verifyInfrastructure,
         onSuccess: (verificationResult) => {
-            console.log(
-                'Infrastructure verified successfully:',
-                verificationResult,
-            );
             dispatch(setVerificationInfrastructure(verificationResult));
         },
         // TODO: Handle error properly
@@ -109,7 +103,6 @@ export function VerifyEvidence() {
                 baselineManifestUrl: baselineManifestUrlQuote,
                 quote: evidence.quote as Quote,
             };
-            console.log('Verifying quote with payload:', payload);
             verifyQuoteMutation.mutate(payload);
         }
         if (type === VerificationType.WORKLOAD) {
@@ -122,7 +115,6 @@ export function VerifyEvidence() {
                 },
                 evidence: evidence.workloads as Workloads,
             };
-            console.log('Verifying workload with payload:', payload);
             verifyWorkloadMutation.mutate(payload);
         }
         if (type === VerificationType.INFRASTRUCTURE) {
@@ -131,7 +123,6 @@ export function VerifyEvidence() {
                 baselineManifestUrl: baselineManifestUrlInfrastructure,
                 evidence: evidence.infrastructure as Infrastructure,
             };
-            console.log('Verifying infrastructure with payload:', payload);
             verifyInfrastructureMutation.mutate(payload);
         }
     }

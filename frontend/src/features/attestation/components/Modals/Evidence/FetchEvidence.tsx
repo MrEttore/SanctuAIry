@@ -30,7 +30,6 @@ export function FetchEvidence() {
         mutationKey: ['fetch-quote-evidence'],
         mutationFn: fetchTdxQuote,
         onSuccess: (quote) => {
-            console.log('TDX Quote retrieved successfully:', quote);
             dispatch(setEvidenceQuote(quote));
         },
     });
@@ -39,7 +38,6 @@ export function FetchEvidence() {
         mutationKey: ['fetch-workload-evidence'],
         mutationFn: fetchWorkloads,
         onSuccess: (workload) => {
-            console.log('Workload retrieved successfully:', workload);
             dispatch(setEvidenceWorkloads(workload));
         },
     });
@@ -48,10 +46,6 @@ export function FetchEvidence() {
         mutationKey: ['fetch-infrastructure-evidence'],
         mutationFn: fetchInfrastructure,
         onSuccess: (infrastructure) => {
-            console.log(
-                'Infrastructure retrieved successfully:',
-                infrastructure,
-            );
             dispatch(setEvidenceInfrastructure(infrastructure));
         },
     });
