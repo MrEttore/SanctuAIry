@@ -4,8 +4,8 @@ import { User } from '../../types/user';
 
 const initialState: User = {
     username: 'John Doe',
-    email: 'john.doe@gmail.com',
-    profilePicture: 'https://avatar.iran.liara.run/public/4',
+    email: 'john.doe@sanctuairy.com',
+    profilePicture: 'https://api.dicebear.com/9.x/initials/svg?seed=John%20Doe',
 };
 
 const userSlice = createSlice({
