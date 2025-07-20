@@ -10,26 +10,26 @@ export default function IndependentVerificationResources() {
                     <VerificationResource
                         name={`SanctuAIry's AI model`}
                         description="The LLM model we use to process your medical data, available as a Docker image."
-                        resourceLink="https://hub.docker.com/repository/docker/sanctuairy/llm-core"
+                        resourceLink="https://hub.docker.com/r/sanctuairy/llm-core/tags"
                         linkPlaceholder="View on Docker Hub"
                     />
                     <VerificationResource
                         name={`SanctuAIry's AI model manager service`}
                         description="The API service that manages SanctuAIry's AI model, available as a Docker image."
-                        resourceLink="https://hub.docker.com/repository/docker/sanctuairy/llm-manager"
+                        resourceLink="https://hub.docker.com/r/sanctuairy/llm-manager/tags"
                         linkPlaceholder="View on Docker Hub"
                     />
                     <VerificationResource
                         name={`SanctuAIry's frontend`}
                         description="The web interface for interacting with SanctuAIry, available as a Docker image."
-                        resourceLink="https://hub.docker.com/repository/docker/sanctuairy/frontend"
+                        resourceLink="https://hub.docker.com/r/sanctuairy/frontend/tags"
                         linkPlaceholder="View on Docker Hub"
                     />
                     <VerificationResource
                         name={`Attestify's verifier service`}
                         description="The open-source and independent verifier service used to verify the integrity of SanctuAIry's AI model and its confidential execution environment."
-                        resourceLink="https://github.com/MrEttore/Attestify"
-                        linkPlaceholder="View on GitHub"
+                        resourceLink="https://hub.docker.com/r/attestify/evidenceverifier/tags"
+                        linkPlaceholder="View on Docker Hub"
                     />
                     <VerificationResource
                         name={`SanctuAIry's baseline manifest`}
