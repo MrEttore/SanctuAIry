@@ -26,6 +26,12 @@ export default function IndependentVerificationResources() {
                         linkPlaceholder="View on Docker Hub"
                     />
                     <VerificationResource
+                        name={`SanctuAIry's API gateway service`}
+                        description="The API gateway that routes requests to SanctuAIry's services, available as a Docker image."
+                        resourceLink="https://hub.docker.com/r/sanctuairy/api-gateway/tags"
+                        linkPlaceholder="View on Docker Hub"
+                    />
+                    <VerificationResource
                         name={`Attestify's verifier service`}
                         description="The open-source and independent verifier service used to verify the integrity of SanctuAIry's AI model and its confidential execution environment."
                         resourceLink="https://hub.docker.com/r/attestify/evidenceverifier/tags"
