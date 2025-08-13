@@ -8,11 +8,9 @@
 
 ## Overview
 
-SanctuAIry is designed to run securely in the cloud within **confidential virtual machines (VMs)**, ensuring that **sensitive user data**—such as therapy sessions and mental health assessments—remains protected and private.
+SanctuAIry is designed to run securely in the cloud within **confidential virtual machines (VMs)**, ensuring that **sensitive user data**, such as therapy sessions and mental health assessments, remains protected and private.
 
 The app aims to provide an empathetic, intelligent, and responsive AI therapist experience by using open-source LLMs, currently powered by **Meta’s LLama 3.2** models.
-
-> 🚧 **Work in progress**. The app is under constant iteration with new features and improvements being added weekly.
 
 ## Architecture
 
