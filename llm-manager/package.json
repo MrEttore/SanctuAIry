@@ -6,12 +6,17 @@
   "author": "Ettore Marangon",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx --watch --env-file .env.development src/server.ts",
-    "build": "tsc",
-    "start": "node dist/server.js",
-    "type-check": "tsc --noEmit",
-    "lint": "eslint ."
+    "dev": "cross-env NODE_ENV=development tsx watch --env-file .env src/server.ts",
+    "dev:debug": "cross-env NODE_ENV=development tsx watch --inspect --env-file .env.development src/server.ts",
+    "build": "rimraf dist && tsc",
+    "start": "cross-env NODE_ENV=production node --enable-source-maps dist/server.js",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run typecheck && npm run lint",
+    "test": "node --test"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -29,6 +34,7 @@
     "@types/express": "^5.0.0",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.13.5",
+    "cross-env": "^10.0.0",
     "eslint": "^9.21.0",
     "eslint-plugin-perfectionist": "^4.9.0",
     "prettier": "^3.5.2",
