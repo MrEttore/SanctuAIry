@@ -18,13 +18,11 @@ if (process.env.NODE_ENV === 'production') app.use(morgan('combined'));
 
 app.use(express.json());
 
-if (process.env.NODE_ENV === 'development') {
-  app.use(
-    cors({
-      origin: [frontendUrl, 'http://localhost', 'https://sanctuairy.netlify.app'],
-    }),
-  );
-}
+app.use(
+  cors({
+    origin: [frontendUrl, 'http://localhost', 'https://sanctuairy.netlify.app'],
+  }),
+);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Llm manager is running');
