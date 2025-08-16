@@ -29,12 +29,6 @@ if (process.env.NODE_ENV === 'production') app.use(morgan('combined'));
 
 app.use(express.json());
 
-app.use(
-  cors({
-    origin: ['http://localhost:5173', 'https://sanctuairy.netlify.app'],
-  }),
-);
-
 app.get('/', (req: Request, res: Response) => {
   res.send('⚡️ Llm manager is running');
 });
