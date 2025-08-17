@@ -5,24 +5,14 @@ import { modelRouter } from './routes/modelRoute.js';
 import { chatRouter } from './routes/chatRoute.js';
 import { AppError } from './utils/AppError.js';
 import { globalErrorHandler } from './middlewares/globalErrorHandler.js';
+import { corsBasic, corsPreflight } from './config/cors.js';
 
 export const app = express();
-const allowlist = new Set(['https://sanctuairy.netlify.app', 'http://localhost:5173']);
-
-// CORS configuration
-const corsOptions: CorsOptions = {
-  origin(origin, cb) {
-    if (!origin) return cb(null, true);
-    if (allowlist.has(origin)) return cb(null, true);
-    console.warn('CORS blocked origin:', origin);
-    return cb(new Error('Not allowed by CORS'));
-  },
-  credentials: false,
-};
 
 // Middlewares
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
+
+app.use(corsBasic);
+app.options('*', corsPreflight);
 
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 if (process.env.NODE_ENV === 'production') app.use(morgan('combined'));
