@@ -8,6 +8,8 @@ import { corsBasic, corsPreflight } from './config/cors.js';
 
 export const app = express();
 
+// TODO: fake todo
+
 // Middlewares
 
 app.use(corsBasic);
