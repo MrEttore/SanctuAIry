@@ -1,10 +1,9 @@
 import express, { Request, Response } from 'express';
 import morgan from 'morgan';
-import { modelRouter } from './routes/modelRoute.js';
-import { chatRouter } from './routes/chatRoute.js';
 import { AppError } from './utils/AppError.js';
 import { globalErrorHandler } from './middlewares/globalErrorHandler.js';
 import { corsBasic, corsPreflight } from './config/cors.js';
+import { providersRouter } from './providers/index.js';
 
 export const app = express();
 
@@ -22,10 +21,9 @@ app.get('/', (req: Request, res: Response) => {
   res.send('⚡️ Llm manager is running');
 });
 
-// Mount routers
+// Mount router
 
-app.use('/api/v1/models', modelRouter);
-app.use('/api/v1/chat', chatRouter);
+app.use('/api/v1', providersRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server.`, 404));

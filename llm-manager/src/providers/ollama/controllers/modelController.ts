@@ -1,10 +1,10 @@
 import { NextFunction, Request } from 'express';
 import { DeleteRequest, GenerateRequest, GenerateResponse, ListResponse, ProgressResponse, PullRequest, StatusResponse } from 'ollama';
-import { ollama } from '../ollama.js';
-import { TypedRequest } from '../types/requestTypes.js';
-import { TypedResponse } from '../types/responseTypes.js';
-import { catchAsync } from '../utils/catchAsync.js';
-import { AppError } from '../utils/AppError.js';
+import { ollama } from '../client.js';
+import { TypedRequest } from '../../../types/requestTypes.js';
+import { TypedResponse } from '../../../types/responseTypes.js';
+import { catchAsync } from '../../../utils/catchAsync.js';
+import { AppError } from '../../../utils/AppError.js';
 
 /**
  * GET /api/v1/models
