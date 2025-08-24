@@ -25,7 +25,7 @@ export const ChatResponseSchema = z.object({
   provider: ProviderSchema,
   model: z.string(),
   // created: z.number(),
-  message: MessageSchema,
+  message: z.string().nullable(),
   finishReason: z.string().optional(),
   usage: UsageSchema.optional(),
 });

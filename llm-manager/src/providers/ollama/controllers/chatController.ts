@@ -36,12 +36,13 @@ export const chatCompletion = async (req: Request<any, any, ApiChatRequest>, res
     const result: ApiChatResponse = {
       provider: 'ollama',
       model: completion.model,
-      message: completion.message as ApiChatResponse['message'],
+      message: completion.message.content,
       finishReason: completion.done_reason,
     };
 
     res.status(200).json(result);
   } catch (error: unknown) {
+    // TODO: refine error handling
     const message = error instanceof Error ? error.message : 'Unknown Error';
 
     res

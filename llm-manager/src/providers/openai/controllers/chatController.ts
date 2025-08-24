@@ -15,13 +15,14 @@ export const chatCompletion = async (req: Request<any, any, ApiChatRequest>, res
     const response: ApiChatResponse = {
       provider: 'openai',
       model: completion.model,
-      message: completion.choices[0].message as ApiChatResponse['message'],
+      message: completion.choices[0].message.content,
       finishReason: completion.choices[0].finish_reason,
       usage: completion.usage as ApiChatResponse['usage'],
     };
 
     res.status(200).json(response);
   } catch (error: unknown) {
+    // TODO: refine error handling
     const message = error instanceof Error ? error.message : 'Unknown Error';
 
     res
